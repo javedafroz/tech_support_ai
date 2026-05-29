@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tech-support-ai.local/schemas/stream-event.json",
+  "title": "StreamEvent",
+  "description": "SSE events from API to React web chat.",
+  "oneOf": [
+    {
+      "type": "object",
+      "required": ["type", "content"],
+      "properties": {
+        "type": { "const": "token" },
+        "content": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "required": ["type", "label"],
+      "properties": {
+        "type": { "const": "system_status" },
+        "label": {
+          "type": "string",
+          "enum": [
+            "validating",
+            "applying_rules",
+            "creating_ticket",
+            "updating_ticket",
+            "searching_tickets",
+            "uploading_attachment",
+            "queued"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "required": ["type", "card"],
+      "properties": {
+        "type": { "const": "card" },
+        "card": { "$ref": "cards.json" }
+      },
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "required": ["type", "reason_code", "message"],
+      "properties": {
+        "type": { "const": "policy_rejected" },
+        "reason_code": { "type": "string" },
+        "message": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "required": ["type", "message_id"],
+      "properties": {
+        "type": { "const": "done" },
+        "message_id": { "type": "string", "format": "uuid" }
+      },
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "required": ["type", "code", "message"],
+      "properties": {
+        "type": { "const": "error" },
+        "code": { "type": "string" },
+        "message": { "type": "string" }
+      },
+      "additionalProperties": false
+    }
+  ]
+}

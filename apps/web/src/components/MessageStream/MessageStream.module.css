@@ -1,0 +1,80 @@
+.stream {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.user,
+.assistant,
+.system {
+  max-width: 92%;
+  padding: 0.625rem 0.875rem;
+  border-radius: var(--radius);
+  font-size: 0.9375rem;
+  line-height: 1.45;
+}
+
+.user {
+  align-self: flex-end;
+  background: var(--color-user-bubble);
+}
+
+.assistant {
+  align-self: flex-start;
+  background: var(--color-assistant-bubble);
+  border: 1px solid var(--color-border);
+}
+
+.system {
+  align-self: center;
+  color: var(--color-muted);
+  font-size: 0.875rem;
+  text-align: center;
+  background: transparent;
+}
+
+.label {
+  display: block;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-muted);
+  margin-bottom: 0.25rem;
+}
+
+.user p,
+.assistant p,
+.system p {
+  margin: 0;
+}
+
+.typing {
+  align-self: flex-start;
+  color: var(--color-muted);
+  font-size: 0.875rem;
+  font-style: italic;
+  margin: 0;
+}
+
+.cardWrap {
+  align-self: stretch;
+  max-width: 100%;
+}
+
+.error {
+  align-self: stretch;
+  background: #fce8e6;
+  border: 1px solid #f5c2c0;
+  color: #c5221f;
+  padding: 0.625rem 0.875rem;
+  border-radius: var(--radius);
+  font-size: 0.9375rem;
+}
+
+.error p {
+  margin: 0;
+}

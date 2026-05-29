@@ -1,0 +1,18 @@
+.card {
+  background: #f8fafc;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+}
+
+.card p {
+  margin: 0.35rem 0 0;
+  color: var(--color-muted);
+}
+
+.raw {
+  margin: 0;
+  font-size: 0.75rem;
+  overflow-x: auto;
+}

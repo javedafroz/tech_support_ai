@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tech-support-ai.local/schemas/cards.json",
+  "title": "UIEventCard",
+  "description": "Structured cards emitted only after orchestration/Zammad success where applicable.",
+  "oneOf": [
+    {
+      "type": "object",
+      "required": ["card_type", "title", "description", "suggested_category", "suggested_priority"],
+      "properties": {
+        "card_type": { "const": "ticket_summary" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "suggested_category": { "type": "string" },
+        "suggested_priority": { "type": "string" },
+        "impact": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "required": ["card_type", "ticket_number", "group", "priority", "state"],
+      "properties": {
+        "card_type": { "const": "ticket_created" },
+        "ticket_number": { "type": "string" },
+        "ticket_id": { "type": "integer" },
+        "group": { "type": "string" },
+        "priority": { "type": "string" },
+        "state": { "type": "string" },
+        "portal_url": { "type": "string", "format": "uri" }
+      },
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "required": ["card_type", "ticket_number", "state", "group"],
+      "properties": {
+        "card_type": { "const": "ticket_status" },
+        "ticket_number": { "type": "string" },
+        "state": { "type": "string" },
+        "group": { "type": "string" },
+        "owner": { "type": "string" },
+        "updated_at": { "type": "string", "format": "date-time" }
+      },
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "required": ["card_type", "candidates"],
+      "properties": {
+        "card_type": { "const": "disambiguation" },
+        "candidates": {
+          "type": "array",
+          "maxItems": 5,
+          "items": {
+            "type": "object",
+            "required": ["ticket_number", "title"],
+            "properties": {
+              "ticket_number": { "type": "string" },
+              "title": { "type": "string" },
+              "state": { "type": "string" }
+            }
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "required": ["card_type", "ticket_number", "message"],
+      "properties": {
+        "card_type": { "const": "ticket_updated" },
+        "ticket_number": { "type": "string" },
+        "message": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "required": ["card_type", "contacts"],
+      "properties": {
+        "card_type": { "const": "fallback" },
+        "contacts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["label", "value"],
+            "properties": {
+              "label": { "type": "string" },
+              "value": { "type": "string" },
+              "type": { "type": "string", "enum": ["phone", "email", "url"] }
+            }
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  ]
+}

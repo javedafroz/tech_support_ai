@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tech-support-ai.local/schemas/command.json",
+  "title": "ZammadCommand",
+  "description": "Orchestration-approved command for Ticket Management / zammad_tool node only.",
+  "type": "object",
+  "required": ["type", "session_id", "user_id", "idempotency_key"],
+  "additionalProperties": false,
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": [
+        "CreateTicket",
+        "GetTicket",
+        "SearchTickets",
+        "UpdateTicket",
+        "AddArticle",
+        "AddAttachment",
+        "EscalateTicket",
+        "CloseTicket"
+      ]
+    },
+    "session_id": { "type": "string", "format": "uuid" },
+    "user_id": { "type": "string" },
+    "idempotency_key": { "type": "string", "format": "uuid" },
+    "payload": { "type": "object" }
+  }
+}

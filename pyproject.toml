@@ -1,0 +1,55 @@
+[project]
+name = "tech-support-ai"
+version = "0.1.0"
+description = "Tech Support AI — Zammad-integrated web chat"
+readme = "README.md"
+requires-python = ">=3.12"
+
+[tool.uv]
+dev-dependencies = [
+  "pytest>=8.3.0",
+  "pytest-asyncio>=0.24.0",
+  "httpx>=0.28.0",
+  "respx>=0.21.0",
+  "ruff>=0.8.0",
+  "mypy>=1.13.0",
+  "playwright>=1.49.0",
+]
+
+[tool.uv.workspace]
+members = [
+  "apps/api",
+  "packages/shared",
+  "packages/orchestration",
+  "packages/zammad-client",
+  "packages/agents",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.ruff.lint.per-file-ignores]
+"apps/api/src/tech_support_api/routers/*.py" = ["B008"]
+"apps/api/src/tech_support_api/dependencies/*.py" = ["B008"]
+"scripts/*.py" = ["E402"]
+"apps/api/alembic/versions/*.py" = ["E501"]
+"apps/api/alembic/*" = ["I001"]
+"tests/integration/**" = ["E501"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+markers = [
+  "live: integration tests requiring OpenAI API key and Zammad sandbox credentials",
+  "live_ui: browser-based live integration tests (visible Chromium)",
+]
+testpaths = [
+  "apps/api/tests",
+  "packages/shared/tests",
+  "packages/zammad-client/tests",
+  "packages/orchestration/tests",
+  "packages/agents/tests",
+]
