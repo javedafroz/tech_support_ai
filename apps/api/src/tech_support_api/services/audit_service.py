@@ -5,7 +5,7 @@ import uuid
 from typing import Any
 
 from sqlalchemy.ext.asyncio import AsyncSession
-from tech_support_orchestration.models import OrchestrationResult, StructuredIntent, ZammadCommand
+from tech_support_orchestration.models import OrchestrationResult, StructuredIntent, TicketCommand
 
 from tech_support_api.db.models import PolicyAuditLog, ZammadOperation
 
@@ -30,7 +30,7 @@ class AuditService:
         self,
         *,
         session_id: uuid.UUID,
-        command: ZammadCommand,
+        command: TicketCommand,
         response: dict[str, Any] | None,
         status: str,
         duration_ms: int,

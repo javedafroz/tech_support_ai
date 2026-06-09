@@ -7,12 +7,14 @@ import pytest
 import respx
 from tech_support_api.services.ticket_pipeline import TicketPipeline
 from tech_support_orchestration.models import IntentName, StructuredIntent, UserContext
+from tech_support_ticketing.providers.zammad_adapter import ZammadAdapter
+from tech_support_ticketing.settings import TicketingSettings, configure_ticketing
 from tech_support_zammad import ZammadClient
 
 
 @pytest.fixture
 def mapping_path() -> Path:
-    return Path(__file__).resolve().parents[3] / "config" / "zammad-field-mapping.yaml"
+    return Path(__file__).resolve().parents[3] / "config" / "providers" / "zammad" / "mapping.yaml"
 
 
 @pytest.mark.asyncio
@@ -25,10 +27,15 @@ async def test_pipeline_create_ticket_e2e(mapping_path: Path):
             json={"id": 19, "number": "22019", "title": "VPN issue"},
         )
     )
-    pipeline = TicketPipeline(
-        mapping_path=mapping_path,
-        zammad=ZammadClient(base, "token"),
+    configure_ticketing(
+        TicketingSettings(
+            provider="zammad",
+            zammad_base_url=base,
+            zammad_api_token="token",
+        )
     )
+    gateway = ZammadAdapter(ZammadClient(base, "token"))
+    pipeline = TicketPipeline(mapping_path=mapping_path, gateway=gateway)
     intent = StructuredIntent(
         intent=IntentName.CREATE_TICKET,
         confidence=0.9,
@@ -53,10 +60,8 @@ async def test_pipeline_create_ticket_e2e(mapping_path: Path):
 
 @pytest.mark.asyncio
 async def test_pipeline_rejects_missing_description(mapping_path: Path):
-    pipeline = TicketPipeline(
-        mapping_path=mapping_path,
-        zammad=ZammadClient("https://zammad.test", "token"),
-    )
+    gateway = ZammadAdapter(ZammadClient("https://zammad.test", "token"))
+    pipeline = TicketPipeline(mapping_path=mapping_path, gateway=gateway)
     intent = StructuredIntent(
         intent=IntentName.CREATE_TICKET,
         confidence=0.9,

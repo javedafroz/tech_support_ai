@@ -2,9 +2,9 @@ from __future__ import annotations
 
 from typing import Annotated, Any, TypedDict
 
-from langgraph.graph.message import add_messages
 from langchain_core.messages import BaseMessage
-from tech_support_orchestration.models import OrchestrationResult, StructuredIntent, ZammadCommand
+from langgraph.graph.message import add_messages
+from tech_support_orchestration.models import OrchestrationResult, StructuredIntent, TicketCommand
 
 
 class SupportGraphState(TypedDict, total=False):
@@ -16,8 +16,8 @@ class SupportGraphState(TypedDict, total=False):
     message_count: int
     structured_intent: StructuredIntent | None
     orchestration_result: OrchestrationResult | None
-    approved_command: ZammadCommand | None
-    zammad_response: dict[str, Any] | None
+    approved_command: TicketCommand | None
+    provider_response: dict[str, Any] | None
     assistant_reply: str | None
     system_statuses: list[str]
     ui_card: dict[str, Any] | None

@@ -124,7 +124,7 @@ async def main() -> int:
         timestamp=datetime.now(UTC),
     )
     user = UserContext(user_id=intent.user_id, email=args.email)
-    mapping_path = ROOT / "config" / "zammad-field-mapping.yaml"
+    mapping_path = ROOT / "config" / "providers" / "zammad" / "mapping.yaml"
     engine = OrchestrationEngine.from_mapping_path(mapping_path)
 
     if args.dry_run:

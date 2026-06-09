@@ -9,6 +9,7 @@ from typing import Any
 from uuid import UUID
 
 import redis.asyncio as redis
+from langchain_core.messages import AIMessage, BaseMessage, HumanMessage
 
 from tech_support_api.config import get_settings
 
@@ -43,6 +44,21 @@ class SessionMemory:
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -> SessionMemory:
         return cls(recent_turns=list(data.get("recent_turns", [])))
+
+
+def recent_turns_to_langchain(turns: list[dict[str, str]]) -> list[BaseMessage]:
+    """Map stored session turns to LangChain messages for graph hydration."""
+    messages: list[BaseMessage] = []
+    for turn in turns:
+        role = turn.get("role", "")
+        content = turn.get("content", "")
+        if not content:
+            continue
+        if role == "user":
+            messages.append(HumanMessage(content=content))
+        elif role == "assistant":
+            messages.append(AIMessage(content=content))
+    return messages
 
 
 class RedisSessionStore:

@@ -45,6 +45,7 @@ async def conversation_node(state: SupportGraphState) -> dict:
                 user_id=user_id,
                 user_email=user_email,
                 message_count=message_count,
+                history=messages,
             )
         else:
             structured, clarify = None, "LLM provider not configured for structured output."

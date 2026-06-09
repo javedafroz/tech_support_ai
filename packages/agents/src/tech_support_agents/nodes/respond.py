@@ -10,7 +10,6 @@ async def respond_node(state: SupportGraphState) -> dict:
         return {"messages": [AIMessage(content=state["assistant_reply"])]}
 
     ticket_number = state.get("active_ticket_number")
-    zammad = state.get("zammad_response") or {}
 
     if ticket_number:
         group_name = ""

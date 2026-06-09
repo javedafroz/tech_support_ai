@@ -3,6 +3,8 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from uuid import UUID
 
+from langchain_core.messages import BaseMessage
+
 from tech_support_agents.graph import compile_support_graph
 
 
@@ -13,7 +15,7 @@ class GraphTurnResult:
     detected_intent: str | None = None
     card: dict | None = None
     active_ticket_number: str | None = None
-    zammad_response: dict | None = None
+    provider_response: dict | None = None
     error: str | None = None
 
 
@@ -33,19 +35,20 @@ class SupportGraphRunner:
         user_input: str,
         user_email: str | None = None,
         message_count: int = 0,
+        history: list[BaseMessage] | None = None,
     ) -> GraphTurnResult:
         config = {"configurable": {"thread_id": str(session_id)}}
-        final_state = await self._graph.ainvoke(
-            {
-                "session_id": str(session_id),
-                "user_id": user_id,
-                "user_email": user_email,
-                "user_input": user_input,
-                "message_count": message_count,
-                "system_statuses": [],
-            },
-            config=config,
-        )
+        initial_state: dict = {
+            "session_id": str(session_id),
+            "user_id": user_id,
+            "user_email": user_email,
+            "user_input": user_input,
+            "message_count": message_count,
+            "system_statuses": [],
+        }
+        if history:
+            initial_state["messages"] = list(history)
+        final_state = await self._graph.ainvoke(initial_state, config=config)
 
         intent = final_state.get("structured_intent")
         return GraphTurnResult(
@@ -55,7 +58,7 @@ class SupportGraphRunner:
             detected_intent=intent.intent.value if intent else None,
             card=final_state.get("ui_card"),
             active_ticket_number=final_state.get("active_ticket_number"),
-            zammad_response=final_state.get("zammad_response"),
+            provider_response=final_state.get("provider_response"),
             error=final_state.get("error"),
         )
 

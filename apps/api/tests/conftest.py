@@ -27,6 +27,7 @@ def _reset_auth_settings(monkeypatch):
     from tech_support_agents.llm import LLMSettings, configure_llm
 
     monkeypatch.setenv("AUTH_MODE", "dev")
+    monkeypatch.setenv("GRAPH_ENABLED", "false")
     monkeypatch.setenv("GRAPH_LLM_MODE", "mock")
     monkeypatch.delenv("AUTH_JWT_SECRET", raising=False)
     monkeypatch.delenv("OPENAI_API_KEY", raising=False)

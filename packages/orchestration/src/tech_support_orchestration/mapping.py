@@ -81,11 +81,26 @@ def normalize_customer_id(customer_id: str) -> str:
     return customer_id
 
 
-def load_field_mapping(path: Path | None = None) -> FieldMappingConfig:
-    if path is None:
-        path = Path(__file__).resolve().parents[4] / "config" / "zammad-field-mapping.yaml"
-    if not path.exists():
+def _config_root() -> Path:
+    return Path(__file__).resolve().parents[4] / "config"
+
+
+def resolve_mapping_path(provider: str = "zammad") -> Path:
+    """Resolve provider-scoped mapping file with legacy fallback."""
+    root = _config_root()
+    provider_path = root / "providers" / provider / "mapping.yaml"
+    if provider_path.exists():
+        return provider_path
+    legacy_path = root / "zammad-field-mapping.yaml"
+    if legacy_path.exists():
+        return legacy_path
+    return provider_path
+
+
+def load_field_mapping(path: Path | None = None, *, provider: str = "zammad") -> FieldMappingConfig:
+    resolved = path or resolve_mapping_path(provider)
+    if not resolved.exists():
         return FieldMappingConfig()
-    with path.open(encoding="utf-8") as handle:
+    with resolved.open(encoding="utf-8") as handle:
         raw: dict[str, Any] = yaml.safe_load(handle) or {}
     return FieldMappingConfig.model_validate(raw)

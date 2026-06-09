@@ -1,15 +1,11 @@
 from __future__ import annotations
 
-from pathlib import Path
+from tech_support_orchestration import OrchestrationEngine
+from tech_support_orchestration.mapping import resolve_mapping_path
+from tech_support_orchestration.models import PolicyOutcome, UserContext
+from tech_support_ticketing import get_ticketing_settings
 
 from tech_support_agents.state import SupportGraphState
-from tech_support_orchestration import OrchestrationEngine
-from tech_support_orchestration.mapping import load_field_mapping
-from tech_support_orchestration.models import PolicyOutcome, UserContext
-
-
-def _mapping_path() -> Path:
-    return Path(__file__).resolve().parents[5] / "config" / "zammad-field-mapping.yaml"
 
 
 async def orchestrate_node(state: SupportGraphState) -> dict:
@@ -17,7 +13,8 @@ async def orchestrate_node(state: SupportGraphState) -> dict:
     if intent is None:
         return {"error": "No structured intent to orchestrate"}
 
-    engine = OrchestrationEngine.from_mapping_path(_mapping_path())
+    provider = get_ticketing_settings().provider
+    engine = OrchestrationEngine.from_mapping_path(resolve_mapping_path(provider))
     user = UserContext(user_id=state["user_id"], email=state.get("user_email"))
     result = engine.process(intent, user)
 

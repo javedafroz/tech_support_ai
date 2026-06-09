@@ -1,8 +1,7 @@
 from datetime import UTC, datetime
-from pathlib import Path
 from uuid import uuid4
 
-from tech_support_orchestration.mapping import FieldMappingConfig
+from tech_support_orchestration.mapping import FieldMappingConfig, resolve_mapping_path
 from tech_support_orchestration.models import IntentName, StructuredIntent, UserContext
 from tech_support_orchestration.workflow import WorkflowEngine
 
@@ -69,7 +68,12 @@ def test_normalize_customer_email():
 
 
 def test_load_mapping_from_repo_config():
-    root = Path(__file__).resolve().parents[4]
-    mapping_path = root / "config" / "zammad-field-mapping.yaml"
+    mapping_path = resolve_mapping_path("zammad")
     engine = WorkflowEngine.from_config_path(mapping_path)
     assert engine._mapping.default_group == "Software Support"
+
+
+def test_resolve_mapping_path_for_servicenow_stub():
+    mapping_path = resolve_mapping_path("servicenow")
+    assert mapping_path.name == "mapping.yaml"
+    assert "servicenow" in str(mapping_path)

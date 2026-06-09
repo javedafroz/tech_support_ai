@@ -2,6 +2,7 @@
 -e packages/shared
 -e packages/orchestration
 -e packages/zammad-client
+-e packages/ticketing
 -e packages/agents
 -e apps/api
 pytest>=8.3.0

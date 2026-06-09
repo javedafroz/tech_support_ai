@@ -1,7 +1,13 @@
 from uuid import uuid4
 
 import pytest
-from tech_support_api.services.redis_store import RedisSessionStore, SessionContext
+from langchain_core.messages import AIMessage, HumanMessage
+
+from tech_support_api.services.redis_store import (
+    RedisSessionStore,
+    SessionContext,
+    recent_turns_to_langchain,
+)
 
 
 @pytest.mark.asyncio
@@ -29,3 +35,16 @@ async def test_record_turn_appends_memory(redis_store: RedisSessionStore):
     assert memory is not None
     assert len(memory.recent_turns) == 1
     assert memory.recent_turns[0]["role"] == "user"
+
+
+def test_recent_turns_to_langchain_maps_roles():
+    messages = recent_turns_to_langchain(
+        [
+            {"role": "user", "content": "Blue screen on laptop"},
+            {"role": "assistant", "content": "When did it start?"},
+            {"role": "system", "content": "Thinking…"},
+        ]
+    )
+    assert len(messages) == 2
+    assert isinstance(messages[0], HumanMessage)
+    assert isinstance(messages[1], AIMessage)

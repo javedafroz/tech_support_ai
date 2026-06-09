@@ -97,7 +97,7 @@ packages/
   zammad-client/  Zammad HTTP client (Sprint 3)
   agents/       LangGraph graphs (Sprint 5)
 config/
-  zammad-field-mapping.yaml
+  providers/zammad/mapping.yaml
   policy/v1/
 docs/
 ```
@@ -161,7 +161,7 @@ Use `GRAPH_LLM_MODE=mock` for offline tests or when no API key is available.
 
 ## Zammad sandbox
 
-Configure `config/zammad-field-mapping.yaml` against your Zammad sandbox and set `ZAMMAD_BASE_URL` / `ZAMMAD_API_TOKEN` in `.env`.
+Configure `config/providers/zammad/mapping.yaml` against your Zammad sandbox and set `ZAMMAD_BASE_URL` / `ZAMMAD_API_TOKEN` in `.env`.
 
 ### Create ticket (Sprint 3 CLI)
 

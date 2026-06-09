@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-import os
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
@@ -10,9 +10,33 @@ from tech_support_orchestration import (
     StructuredIntent,
     UserContext,
 )
-from tech_support_orchestration.models import PolicyOutcome, ZammadCommandType
-from tech_support_zammad import CreateTicketRequest, ZammadClient, ZammadError
-from tech_support_zammad.models import Ticket
+from tech_support_orchestration.mapping import resolve_mapping_path
+from tech_support_orchestration.models import PolicyOutcome, TicketCommandType
+from tech_support_ticketing import TicketCommand, build_ticket_gateway, get_ticketing_settings
+from tech_support_ticketing.gateway import TicketGateway
+from tech_support_ticketing.models import ProviderTicket
+
+
+@dataclass
+class PipelineTicket:
+    """Backward-compatible ticket view for CLI and audit callers."""
+
+    id: str
+    number: str
+    title: str
+    raw: dict[str, Any]
+
+    @classmethod
+    def from_provider(cls, ticket: ProviderTicket) -> PipelineTicket:
+        return cls(
+            id=ticket.external_id,
+            number=ticket.display_number,
+            title=str(ticket.raw.get("title", "")),
+            raw=ticket.raw,
+        )
+
+    def model_dump(self) -> dict[str, Any]:
+        return dict(self.raw)
 
 
 class TicketPipelineResult:
@@ -20,11 +44,13 @@ class TicketPipelineResult:
         self,
         *,
         orchestration: OrchestrationResult,
-        ticket: Ticket | None = None,
+        ticket: PipelineTicket | None = None,
+        provider_response: dict[str, Any] | None = None,
         error: str | None = None,
     ) -> None:
         self.orchestration = orchestration
         self.ticket = ticket
+        self.provider_response = provider_response
         self.error = error
 
     @property
@@ -41,27 +67,19 @@ class TicketPipeline:
         self,
         *,
         orchestration: OrchestrationEngine | None = None,
-        zammad: ZammadClient | None = None,
+        gateway: TicketGateway | None = None,
         mapping_path: Path | None = None,
+        # Backward-compatible alias for tests that still pass a Zammad adapter.
+        zammad: TicketGateway | None = None,
     ) -> None:
-        root = Path(__file__).resolve().parents[5]
-        mapping = mapping_path or root / "config" / "zammad-field-mapping.yaml"
+        mapping = mapping_path or resolve_mapping_path(get_ticketing_settings().provider)
         self._orchestration = orchestration or OrchestrationEngine.from_mapping_path(mapping)
-        self._zammad = zammad
+        self._gateway = gateway or zammad
 
-    def _get_zammad(self) -> ZammadClient:
-        if self._zammad is None:
-            self._zammad = self._build_zammad_client()
-        return self._zammad
-
-    @staticmethod
-    def _build_zammad_client() -> ZammadClient:
-        base_url = os.environ.get("ZAMMAD_BASE_URL", "")
-        token = os.environ.get("ZAMMAD_API_TOKEN", "")
-        if not base_url or not token:
-            raise ValueError("ZAMMAD_BASE_URL and ZAMMAD_API_TOKEN must be set")
-        auth_scheme = os.environ.get("ZAMMAD_AUTH_SCHEME", "Bearer")
-        return ZammadClient(base_url, token, auth_scheme=auth_scheme)
+    def _get_gateway(self) -> TicketGateway:
+        if self._gateway is None:
+            self._gateway = build_ticket_gateway()
+        return self._gateway
 
     async def create_ticket_from_intent(
         self,
@@ -73,37 +91,60 @@ class TicketPipeline:
             return TicketPipelineResult(orchestration=result)
 
         command = result.approved_command
-        if command.type != ZammadCommandType.CREATE_TICKET:
+        if command.type != TicketCommandType.CREATE_TICKET:
             return TicketPipelineResult(
                 orchestration=result,
                 error=f"Unsupported command type: {command.type}",
             )
 
-        try:
-            request = CreateTicketRequest.model_validate(command.payload)
-            ticket = await self._get_zammad().create_ticket(
-                request,
-                idempotency_key=command.idempotency_key,
-            )
-            return TicketPipelineResult(orchestration=result, ticket=ticket)
-        except ZammadError as exc:
-            return TicketPipelineResult(orchestration=result, error=f"{exc.code}: {exc.message}")
+        config_error = get_ticketing_settings().configuration_error()
+        if config_error:
+            return TicketPipelineResult(orchestration=result, error=config_error)
 
-    async def execute_command(self, command: Any) -> Ticket | dict[str, Any]:
-        if command.type == ZammadCommandType.CREATE_TICKET:
-            request = CreateTicketRequest.model_validate(command.payload)
-            return await self._get_zammad().create_ticket(
-                request,
-                idempotency_key=command.idempotency_key,
-            )
-        if command.type == ZammadCommandType.SEARCH_TICKETS:
-            return (
-                await self._get_zammad().search_tickets(
-                    command.payload["query"],
-                    limit=int(command.payload.get("limit", 10)),
+        try:
+            operation = await self._get_gateway().execute(
+                TicketCommand(
+                    type=str(command.type),
+                    payload=command.payload,
+                    idempotency_key=str(command.idempotency_key),
                 )
-            ).model_dump()
-        if command.type == ZammadCommandType.GET_TICKET:
-            ticket_id = int(command.payload["ticket_id"])
-            return await self._get_zammad().get_ticket(ticket_id)
+            )
+            if not operation.success or operation.ticket is None:
+                return TicketPipelineResult(
+                    orchestration=result,
+                    error=operation.error_message or "Ticket provider request failed",
+                    provider_response=operation.raw_response,
+                )
+            return TicketPipelineResult(
+                orchestration=result,
+                ticket=PipelineTicket.from_provider(operation.ticket),
+                provider_response=operation.raw_response,
+            )
+        except Exception as exc:
+            return TicketPipelineResult(orchestration=result, error=str(exc))
+
+    async def execute_command(self, command: Any) -> PipelineTicket | dict[str, Any]:
+        operation = await self._get_gateway().execute(
+            TicketCommand(
+                type=str(command.type),
+                payload=command.payload,
+                idempotency_key=str(command.idempotency_key),
+            )
+        )
+        if not operation.success:
+            raise ValueError(operation.error_message or "Ticket provider request failed")
+
+        if command.type == TicketCommandType.CREATE_TICKET:
+            if operation.ticket is None:
+                raise ValueError("Ticket provider response missing created ticket")
+            return PipelineTicket.from_provider(operation.ticket)
+        if command.type == TicketCommandType.SEARCH_TICKETS:
+            return {
+                "count": len(operation.items),
+                "items": [item.model_dump() for item in operation.items],
+            }
+        if command.type == TicketCommandType.GET_TICKET:
+            if operation.ticket is None:
+                raise ValueError("Ticket provider response missing ticket")
+            return PipelineTicket.from_provider(operation.ticket)
         raise ValueError(f"Unsupported command: {command.type}")

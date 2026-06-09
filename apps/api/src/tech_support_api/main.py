@@ -1,11 +1,11 @@
+import logging
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-
-import logging
-
 from tech_support_agents.llm import LLMSettings, configure_llm
+from tech_support_ticketing import configure_ticketing, merge_ticketing_settings
+
 from tech_support_api import __version__
 from tech_support_api.config import get_settings
 from tech_support_api.routers import chat, graph, health
@@ -38,9 +38,16 @@ def _configure_llm_from_settings() -> None:
         logger.info("LangGraph conversation LLM: OpenAI (%s)", settings.openai_model)
 
 
+def _configure_ticketing_from_settings() -> None:
+    settings = get_settings()
+    configure_ticketing(merge_ticketing_settings(provider=settings.ticketing_provider))
+    logger.info("Ticketing provider: %s", settings.ticketing_provider)
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     _configure_llm_from_settings()
+    _configure_ticketing_from_settings()
     await init_graph_runner()
     yield
     await close_redis()

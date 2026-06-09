@@ -10,7 +10,11 @@ from tech_support_api.db.models import ChatMessage, ChatSession
 from tech_support_api.schemas.chat import MessageCreate, SessionCreate
 from tech_support_api.services.graph_service import get_graph_runner, is_graph_enabled
 from tech_support_api.services.mock_graph import get_mock_graph
-from tech_support_api.services.redis_store import RedisSessionStore, SessionContext
+from tech_support_api.services.redis_store import (
+    RedisSessionStore,
+    SessionContext,
+    recent_turns_to_langchain,
+)
 
 
 class ChatService:
@@ -89,6 +93,8 @@ class ChatService:
         context = await self._redis.get_context(session_id)
         message_count = context.message_count if context else 0
 
+        history = await self._load_graph_history(session_id)
+
         user_message = ChatMessage(session_id=session_id, role="user", content=body.content)
         self._db.add(user_message)
         await self._db.flush()
@@ -100,6 +106,7 @@ class ChatService:
                 user_input=body.content,
                 user_email=user_id if "@" in user_id else None,
                 message_count=message_count,
+                history=history,
             )
             graph_result = type(
                 "R",
@@ -170,6 +177,29 @@ class ChatService:
     async def get_redis_context(self, session_id: UUID, user_id: str) -> SessionContext | None:
         await self._get_owned_session(session_id, user_id)
         return await self._redis.get_context(session_id)
+
+    async def load_graph_history(self, session_id: UUID, user_id: str) -> list:
+        await self._get_owned_session(session_id, user_id)
+        return await self._load_graph_history(session_id)
+
+    async def _load_graph_history(self, session_id: UUID) -> list:
+        memory = await self._redis.get_memory(session_id)
+        if memory and memory.recent_turns:
+            return recent_turns_to_langchain(memory.recent_turns)
+
+        result = await self._db.execute(
+            select(ChatMessage)
+            .where(
+                ChatMessage.session_id == session_id,
+                ChatMessage.role.in_(["user", "assistant"]),
+            )
+            .order_by(ChatMessage.created_at.asc())
+        )
+        turns = [
+            {"role": message.role, "content": message.content or ""}
+            for message in result.scalars().all()
+        ]
+        return recent_turns_to_langchain(turns)
 
     async def _get_owned_session(self, session_id: UUID, user_id: str) -> ChatSession:
         from fastapi import HTTPException, status

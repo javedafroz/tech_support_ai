@@ -38,7 +38,7 @@ async def main() -> int:
         return 0
 
     email = os.environ.get("ZAMMAD_TEST_EMAIL", "e2e-test@company.com")
-    mapping_path = ROOT / "config" / "zammad-field-mapping.yaml"
+    mapping_path = ROOT / "config" / "providers" / "zammad" / "mapping.yaml"
     pipeline = TicketPipeline(mapping_path=mapping_path)
 
     intent = StructuredIntent(

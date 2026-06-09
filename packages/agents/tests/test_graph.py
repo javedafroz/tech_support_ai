@@ -1,9 +1,21 @@
 import httpx
 import pytest
 import respx
+from langchain_core.messages import AIMessage, HumanMessage
 from tech_support_agents.graph import compile_support_graph
 from tech_support_agents.runner import SupportGraphRunner
 from tech_support_orchestration.models import IntentName
+from tech_support_ticketing.settings import TicketingSettings, configure_ticketing
+
+
+def _configure_zammad_test():
+    configure_ticketing(
+        TicketingSettings(
+            provider="zammad",
+            zammad_base_url="https://zammad.test",
+            zammad_api_token="test-token",
+        )
+    )
 
 
 def test_support_graph_compiles():
@@ -30,8 +42,7 @@ async def test_mock_turn_create_ticket_with_zammad_mock(monkeypatch):
     session_id = __import__("uuid").uuid4()
     user_email = "graph-test@company.com"
 
-    monkeypatch.setenv("ZAMMAD_BASE_URL", "https://zammad.test")
-    monkeypatch.setenv("ZAMMAD_API_TOKEN", "test-token")
+    _configure_zammad_test()
 
     with respx.mock:
         respx.post("https://zammad.test/api/v1/tickets").mock(
@@ -57,6 +68,8 @@ async def test_mock_turn_create_ticket_with_zammad_mock(monkeypatch):
     assert "22042" in result.assistant_content
     assert result.card is not None
     assert result.card["card_type"] == "ticket_created"
+    assert result.provider_response is not None
+    assert result.provider_response["number"] == "22042"
 
 
 @pytest.mark.asyncio
@@ -90,3 +103,100 @@ async def test_checkpoint_resume_memory_saver():
         config=config,
     )
     assert state2 is not None
+
+
+@pytest.mark.asyncio
+async def test_multi_turn_blue_screen_create_ticket():
+    runner = SupportGraphRunner.compile()
+    session_id = __import__("uuid").uuid4()
+    user_email = "bluescreen@company.com"
+
+    _configure_zammad_test()
+
+    history: list = []
+
+    turn1 = await runner.invoke_turn(
+        session_id=session_id,
+        user_id=user_email,
+        user_input="I am see blue screen on my laptop",
+        user_email=user_email,
+        message_count=1,
+        history=history,
+    )
+    assert turn1.detected_intent is None
+    history.extend(
+        [
+            HumanMessage(content="I am see blue screen on my laptop"),
+            AIMessage(content=turn1.assistant_content),
+        ]
+    )
+
+    turn2 = await runner.invoke_turn(
+        session_id=session_id,
+        user_id=user_email,
+        user_input="It keeps happening",
+        user_email=user_email,
+        message_count=3,
+        history=history,
+    )
+    assert turn2.detected_intent is None
+    history.extend(
+        [
+            HumanMessage(content="It keeps happening"),
+            AIMessage(content=turn2.assistant_content),
+        ]
+    )
+
+    with respx.mock:
+        respx.post("https://zammad.test/api/v1/tickets").mock(
+            return_value=httpx.Response(
+                201,
+                json={"id": 99, "number": "33001", "title": "Blue screen on laptop"},
+            )
+        )
+        turn3 = await runner.invoke_turn(
+            session_id=session_id,
+            user_id=user_email,
+            user_input=(
+                'It starting helping in the morning today. I see error "Your PC ran into a problem"'
+            ),
+            user_email=user_email,
+            message_count=5,
+            history=history,
+        )
+
+    assert turn3.detected_intent == IntentName.CREATE_TICKET.value
+    assert turn3.active_ticket_number == "33001"
+    assert turn3.card is not None
+    assert turn3.card["card_type"] == "ticket_created"
+
+
+@pytest.mark.asyncio
+async def test_invoke_turn_seeds_history_into_conversation_node():
+    runner = SupportGraphRunner.compile()
+    session_id = __import__("uuid").uuid4()
+    history = [
+        HumanMessage(content="Blue screen on laptop"),
+        AIMessage(content="When did it start?"),
+    ]
+
+    _configure_zammad_test()
+
+    with respx.mock:
+        respx.post("https://zammad.test/api/v1/tickets").mock(
+            return_value=httpx.Response(
+                201,
+                json={"id": 55, "number": "44001", "title": "Blue screen"},
+            )
+        )
+        result = await runner.invoke_turn(
+            session_id=session_id,
+            user_id="user@test.com",
+            user_input="Started this morning with error code",
+            user_email="user@test.com",
+            message_count=2,
+            history=history,
+        )
+
+    assert result.detected_intent == IntentName.CREATE_TICKET.value
+    assert result.active_ticket_number == "44001"

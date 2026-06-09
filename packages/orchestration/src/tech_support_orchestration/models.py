@@ -44,7 +44,7 @@ class ValidationResult(BaseModel):
     rule_id: str | None = None
 
 
-class ZammadCommandType(StrEnum):
+class TicketCommandType(StrEnum):
     CREATE_TICKET = "CreateTicket"
     GET_TICKET = "GetTicket"
     SEARCH_TICKETS = "SearchTickets"
@@ -55,8 +55,8 @@ class ZammadCommandType(StrEnum):
     CLOSE_TICKET = "CloseTicket"
 
 
-class ZammadCommand(BaseModel):
-    type: ZammadCommandType | str
+class TicketCommand(BaseModel):
+    type: TicketCommandType | str
     session_id: UUID
     user_id: str
     idempotency_key: UUID = Field(default_factory=uuid4)
@@ -67,5 +67,5 @@ class OrchestrationResult(BaseModel):
     outcome: PolicyOutcome
     reason_code: str | None = None
     rule_id: str | None = None
-    approved_command: ZammadCommand | None = None
+    approved_command: TicketCommand | None = None
     validation: ValidationResult | None = None

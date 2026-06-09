@@ -17,6 +17,7 @@ dependencies = [
   "tech-support-shared",
   "tech-support-orchestration",
   "tech-support-zammad-client",
+  "tech-support-ticketing",
   "tech-support-agents",
 ]
 

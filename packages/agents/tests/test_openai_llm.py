@@ -3,7 +3,12 @@ from uuid import uuid4
 
 import pytest
 from tech_support_agents.llm import LLMSettings, configure_llm, get_conversation_llm
-from tech_support_agents.openai_llm import ConversationAnalysis, OpenAIConversationLLM
+from langchain_core.messages import AIMessage, HumanMessage
+from tech_support_agents.openai_llm import (
+    ConversationAnalysis,
+    OpenAIConversationLLM,
+    _build_prompt_messages,
+)
 from tech_support_orchestration.models import IntentName
 
 
@@ -67,3 +72,23 @@ async def test_openai_propose_intent_clarification():
 
     assert structured is None
     assert "error" in clarify.lower()
+
+
+def test_build_prompt_messages_includes_conversation_history():
+    session_id = uuid4()
+    messages = _build_prompt_messages(
+        "Started this morning",
+        session_id=session_id,
+        user_id="user@company.com",
+        user_email="user@company.com",
+        message_count=2,
+        history=[
+            HumanMessage(content="Blue screen on my laptop"),
+            AIMessage(content="When did it start?"),
+        ],
+    )
+
+    contents = [str(message.content) for message in messages]
+    assert any("Blue screen on my laptop" in content for content in contents)
+    assert any("When did it start?" in content for content in contents)
+    assert contents[-1] == "Started this morning"

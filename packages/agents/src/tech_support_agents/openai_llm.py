@@ -28,6 +28,18 @@ Your job in each turn:
 1. Reply naturally and helpfully to the user (`reply_to_user`).
 2. Decide whether you have enough information to propose a structured intent (`ready_for_orchestration`).
 
+Multi-turn rules (critical):
+- Review the ENTIRE conversation history before deciding readiness — facts may be spread across turns.
+- Synthesize `title` and `description` from ALL user messages in the session, not only the latest turn.
+- Do NOT re-ask for information the user already provided in prior turns; ask at most one targeted
+  question for a genuinely missing field.
+- Minimum bar for CreateTicket across the full thread: problem/symptom plus when it started or
+  current impact (error messages count as impact).
+- When the user says they already provided details or expresses frustration, re-read the full
+  history; if the minimum bar is met, set ready_for_orchestration=true.
+- Prefer the primary incident (e.g. blue screen, hardware failure) over incidental context
+  (e.g. which app they had open).
+
 Rules:
 - Never invent or guess ticket numbers. Ticket IDs only come from Zammad after creation.
 - Use CreateTicket when the user describes a concrete support issue with enough detail
@@ -58,7 +70,10 @@ class ConversationAnalysis(BaseModel):
     intent: IntentLiteral | None = None
     confidence: float | None = Field(default=None, ge=0, le=1)
     title: str | None = None
-    description: str | None = None
+    description: str | None = Field(
+        default=None,
+        description="Full issue narrative synthesized from all user messages in this session",
+    )
     customer_email: str | None = None
     suggested_category: str | None = None
     suggested_priority: str | None = None

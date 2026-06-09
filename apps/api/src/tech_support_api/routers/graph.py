@@ -35,6 +35,7 @@ async def invoke_graph(
     await chat.get_session(session_id, user_id)
     context = await chat.get_redis_context(session_id, user_id)
     message_count = context.message_count if context else 0
+    history = await chat.load_graph_history(session_id, user_id)
 
     if is_graph_enabled():
         turn = await get_graph_runner().invoke_turn(
@@ -43,6 +44,7 @@ async def invoke_graph(
             user_input=body.content,
             user_email=user_id if "@" in user_id else None,
             message_count=message_count,
+            history=history,
         )
         return GraphInvokeResponse(
             assistant_content=turn.assistant_content,
