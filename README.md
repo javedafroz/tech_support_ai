@@ -1,30 +1,61 @@
 # Tech Support AI
 
-AI-powered web chat for Zammad ticket management. See `docs/` for functional, technical, UI/UX, and implementation strategy documents.
+Enterprise web chat assistant for IT support ticket management. Employees describe issues in natural language; a **LangGraph** agent extracts structured intent, a **deterministic orchestration layer** validates business rules, and approved actions execute against **Zammad** (or other ticketing providers via a pluggable adapter).
+
+See [`docs/`](docs/) for functional, technical, UI/UX, and implementation strategy documents.
+
+## Features
+
+| Capability | Status |
+| ---------- | ------ |
+| Web chat UI with session resume | Implemented |
+| Multi-turn conversational intake (OpenAI or mock LLM) | Implemented |
+| CreateTicket end-to-end (LLM → orchestration → Zammad) | Implemented |
+| CheckStatus (search tickets by number / customer) | Implemented |
+| Thought streaming (live processing steps over SSE) | Implemented — toggle via `.env` |
+| Collapsible processing panel in UI | Implemented |
+| Provider abstraction (`zammad` live, `servicenow` stub) | Partial |
+| UpdateTicket, attachments, confirm-before-submit | Planned |
+
+### How it works
+
+```text
+User (web chat)
+    → FastAPI
+    → LangGraph support_graph
+         conversation (LLM — intent + slot filling)
+         orchestrate (Python — policy + workflow, no LLM)
+         ticket_tool (Zammad REST API)
+         respond
+    → Assistant reply + ticket card
+```
+
+**Design principle:** the LLM handles language only. Business rules, category→group mapping, and ticket execution are deterministic and auditable.
 
 ## Prerequisites
 
 - Docker Desktop (or Docker Engine) with Compose
-- [uv](https://docs.astral.sh/uv/) (Python 3.12+)
+- [uv](https://docs.astral.sh/uv/) or Python 3.12+
 - Node.js 20+
 
-## Quick start (&lt; 15 minutes)
+## Quick start (< 15 minutes)
 
 ### 1. Clone and configure
 
 ```bash
 cp .env.example .env
+# Edit .env — at minimum set OPENAI_API_KEY and Zammad credentials for live ticket creation
 ```
 
-### 2. Start the stack (Docker Compose)
+### 2. Start infrastructure
 
-**Infrastructure only** (run API/web locally with `make api` / `make web`):
+**Local dev** (run API/web on the host):
 
 ```bash
 docker compose up -d postgres redis minio minio-init
 ```
 
-**Full stack** (API + web + Postgres + Redis + MinIO in containers):
+**Full stack in Docker** (API + web + Postgres + Redis + MinIO):
 
 ```bash
 docker compose up -d --build
@@ -32,8 +63,6 @@ docker compose up -d --build
 ```
 
 Wait until services are healthy (`docker compose ps`).
-
-**Local port mapping** (avoids conflicts with existing services):
 
 | Service | Host port |
 | ------- | --------- |
@@ -44,21 +73,17 @@ Wait until services are healthy (`docker compose ps`).
 
 ### 3. Install dependencies
 
-Creates a Python virtualenv at **`.venv/`** in the project root (required for `make migrate` and `make api`):
+Creates a Python virtualenv at **`.venv/`** in the project root:
 
 ```bash
 make install
 ```
-
-If you prefer [uv](https://docs.astral.sh/uv/), install it first — `make install` will use `uv sync` automatically.
 
 ### 4. Run database migrations
 
 ```bash
 make migrate
 ```
-
-If you see `No such file or directory` for `.venv/bin`, run `make install` first.
 
 ### 5. Start API and web UI
 
@@ -76,30 +101,66 @@ make web
 # UI: http://localhost:5173
 ```
 
-The web app sends `X-User-Id: dev-user@company.com` for local auth (Sprint 12 adds OIDC).
+The web app sends `X-User-Id: dev-user@company.com` for local auth (OIDC planned).
 
 ### 6. Verify health
 
 ```bash
 curl http://localhost:8000/health/live
 curl http://localhost:8000/health/ready
+curl http://localhost:8000/api/v1/config/public
 ```
+
+## Configuration
+
+Key variables in `.env` (see [`.env.example`](.env.example) for the full list):
+
+```env
+# LangGraph agent
+GRAPH_ENABLED=true
+GRAPH_LLM_MODE=openai          # openai | mock
+OPENAI_API_KEY=sk-...
+OPENAI_MODEL=gpt-4o-mini
+
+# Thought streaming — live "Processing" steps in the chat UI (SSE)
+THOUGHT_STREAMING_ENABLED=true
+
+# Ticketing provider
+TICKETING_PROVIDER=zammad      # zammad | servicenow (stub)
+ZAMMAD_BASE_URL=https://your-zammad.example.com
+ZAMMAD_API_TOKEN=...
+```
+
+| Variable | Purpose |
+| -------- | ------- |
+| `GRAPH_LLM_MODE=mock` | Offline dev/tests — no OpenAI key required |
+| `THOUGHT_STREAMING_ENABLED` | Enables `POST .../messages/stream` (SSE); UI reads this from `/api/v1/config/public` |
+| `VITE_THOUGHT_STREAMING_ENABLED=false` | Optional UI-only override to force-disable streaming |
+| `GRAPH_CHECKPOINT=true` | Optional Postgres checkpointer for LangGraph state |
+
+**Local Zammad on host:** use `http://localhost:8080` when running `make api` on the host. Docker Compose rewrites `localhost` → `host.docker.internal` automatically.
+
+Category and group mapping: [`config/providers/zammad/mapping.yaml`](config/providers/zammad/mapping.yaml)
 
 ## Repository layout
 
 ```text
 apps/
-  api/          FastAPI + Alembic
-  web/          React + Vite chat UI
+  api/              FastAPI BFF, Alembic migrations, chat + graph endpoints
+  web/              React + Vite chat UI
 packages/
-  shared/       JSON schemas, reason codes
-  orchestration/  Policy + workflow (Sprint 3)
-  zammad-client/  Zammad HTTP client (Sprint 3)
-  agents/       LangGraph graphs (Sprint 5)
+  agents/           LangGraph support_graph (conversation, orchestrate, ticket_tool, respond)
+  orchestration/    PolicyValidator, WorkflowEngine, OrchestrationEngine
+  ticketing/        Provider gateway (Zammad adapter, ServiceNow stub)
+  zammad-client/    Zammad HTTP client
+  shared/           JSON schemas, reason codes
 config/
   providers/zammad/mapping.yaml
-  policy/v1/
-docs/
+  providers/servicenow/mapping.yaml
+docs/               Architecture, FSD, test strategy
+tests/integration/  Live OpenAI + Zammad + AI User Simulator
+e2e/                Playwright browser tests (mock LLM + Wiremock)
+scripts/            create_ticket CLI, Zammad sandbox E2E
 ```
 
 ## Development commands
@@ -107,63 +168,64 @@ docs/
 | Command | Description |
 | ------- | ----------- |
 | `make up` | Start Postgres, Redis, MinIO |
+| `make up-all` | Full Docker stack (API + web) |
 | `make migrate` | Apply Alembic migrations |
 | `make api` | Run FastAPI (reload in dev) |
 | `make web` | Run Vite dev server |
 | `make test` | pytest + vitest |
 | `make test-live` | Live OpenAI + Zammad integration (API, with logging) |
-| `make test-live-ui` | Same tests in **visible browser** — watch the User Sim chat |
-| `make e2e` | Playwright E2E (Docker + Wiremock + mock LLM) |
+| `make test-live-ui` | Same tests in **visible browser** |
+| `make e2e` | Playwright E2E (mock LLM + Wiremock Zammad) |
 | `make e2e-ui` | Playwright interactive UI mode |
 | `make lint` | ruff + eslint |
+| `make create-ticket` | CLI create-ticket via orchestration + Zammad |
 
-## API (Sprint 2)
+## API
 
 | Method | Path | Description |
 | ------ | ---- | ----------- |
 | GET | `/health/live` | Liveness |
 | GET | `/health/ready` | Readiness (Postgres + Redis) |
+| GET | `/api/v1/config/public` | Public feature flags (e.g. thought streaming) |
 | GET | `/api/v1/chat/sessions` | List recent sessions for user |
 | POST | `/api/v1/chat/sessions` | Create session (`X-User-Id` or `Bearer` JWT) |
 | GET | `/api/v1/chat/sessions/{id}` | Get session |
 | GET | `/api/v1/chat/sessions/{id}/context` | Redis session context |
 | GET | `/api/v1/chat/sessions/{id}/messages` | Paginated message history |
-| POST | `/api/v1/chat/sessions/{id}/messages` | Send message (LangGraph + OpenAI when enabled) |
-| POST | `/api/v1/chat/sessions/{id}/graph/invoke` | Stateless graph turn |
+| POST | `/api/v1/chat/sessions/{id}/messages` | Send message (REST response) |
+| POST | `/api/v1/chat/sessions/{id}/messages/stream` | Send message with SSE thought streaming |
+| POST | `/api/v1/chat/sessions/{id}/graph/invoke` | Stateless graph turn (no persistence) |
 
-Postman collection: `docs/postman/Tech-Support-AI.postman_collection.json`
+Postman collection: [`docs/postman/Tech-Support-AI.postman_collection.json`](docs/postman/Tech-Support-AI.postman_collection.json)
 
-**Session persistence:** The web UI stores `session_id` in `localStorage` and resumes on refresh.
+**Session persistence:** the web UI stores `session_id` in `localStorage` and resumes on refresh.
 
-## Implementation status
+**Thought streaming:** when enabled, the UI calls the `/messages/stream` endpoint. Processing steps (`Thinking…`, `Applying support rules…`, `Creating ticket…`, etc.) appear in a collapsible panel that auto-collapses when the turn completes.
 
-- **Sprint 1:** Monorepo, Docker Compose, sessions/messages, health API, ChatShell UI
-- **Sprint 2:** Redis context, JWT auth stub, session resume, shared TS types
-- **Sprint 3:** Zammad client, orchestration, audit tables, create-ticket CLI
-- **Sprint 4:** Mock graph in chat, system status UI, Zammad sandbox E2E script
-- **Sprint 5:** LangGraph `support_graph`, orchestrate + zammad nodes, Postgres checkpointer option
-- **OpenAI LLM:** Direct OpenAI via `GRAPH_LLM_MODE=openai` (structured intent extraction)
+## AI agent (`support_graph`)
 
-## OpenAI (conversation LLM)
+LangGraph nodes:
 
-Set in `.env` (see `.env.example`):
+| Node | Role |
+| ---- | ---- |
+| `conversation` | OpenAI structured output — NLU, clarifying questions, `StructuredIntent` |
+| `orchestrate` | Policy validation + workflow command building (pure Python) |
+| `ticket_tool` | Execute approved commands against the ticketing provider |
+| `respond` | Format assistant reply and UI cards |
 
-```env
-GRAPH_ENABLED=true
-GRAPH_LLM_MODE=openai
-OPENAI_API_KEY=sk-...
-OPENAI_MODEL=gpt-4o-mini
-```
+Supported intents today:
 
-The API loads these at startup and uses OpenAI structured output to classify intents and extract ticket fields. Orchestration and Zammad calls remain deterministic (not in the LLM prompt).
+| Intent | LLM detection | End-to-end execution |
+| ------ | ------------- | -------------------- |
+| CreateTicket | Yes | Yes |
+| CheckStatus | Yes | Yes (search tickets) |
+| UpdateTicket, AddAttachment, EscalateIssue, CancelTicket | Yes (prompt) | Not yet |
 
-Use `GRAPH_LLM_MODE=mock` for offline tests or when no API key is available.
+Multi-turn intake hydrates conversation history from Redis (with Postgres fallback) on each turn so the LLM can synthesize facts across the full thread.
 
-## Zammad sandbox
+Use `GRAPH_LLM_MODE=mock` for offline tests, E2E, and local dev without an API key.
 
-Configure `config/providers/zammad/mapping.yaml` against your Zammad sandbox and set `ZAMMAD_BASE_URL` / `ZAMMAD_API_TOKEN` in `.env`.
-
-### Create ticket (Sprint 3 CLI)
+## Create ticket (CLI)
 
 ```bash
 make migrate
@@ -172,85 +234,72 @@ export ZAMMAD_API_TOKEN=your-api-token
 make create-ticket ARGS='--email john@company.com --title "VPN issue" --description "Cannot connect" --category network --priority high'
 ```
 
-Dry-run (orchestration only; uses `.venv` automatically if present):
+Dry-run (orchestration only):
 
 ```bash
-python3 scripts/create_ticket.py --dry-run --email john@company.com --title "VPN" --description "Test"
-# or: .venv/bin/python scripts/create_ticket.py --dry-run ...
+.venv/bin/python scripts/create_ticket.py --dry-run --email john@company.com --title "VPN" --description "Test"
 ```
 
-If you see `ModuleNotFoundError`, run `make install` first, or use `.venv/bin/python` explicitly.
+## Testing
 
-## E2E tests (Playwright)
+### Unit / integration (default)
 
-Fully automated browser tests against the real API and web UI. Uses **mock LLM** (`GRAPH_LLM_MODE=mock`) and **Wiremock** for Zammad — no OpenAI or sandbox credentials required.
+```bash
+make test
+```
+
+Runs pytest (API, agents, orchestration, ticketing) and vitest (web).
+
+### E2E (Playwright)
+
+Fully automated browser tests. Uses **mock LLM** and **Wiremock** for Zammad — no OpenAI or sandbox credentials required.
 
 ```bash
 make e2e
 # Interactive debugger: make e2e-ui
 ```
 
-**What runs:** Docker Compose starts Postgres, Redis, and Wiremock; Playwright starts the API (`:8010`) and Vite dev server (`:5174`) so they do not conflict with `make api` / `make web`.
+Docker Compose starts Postgres, Redis, and Wiremock; Playwright starts the API (`:8010`) and Vite (`:5174`) on alternate ports.
 
-**Specs:** `e2e/tests/` — session bootstrap, greeting, create ticket (#22042 from Wiremock), session resume, new chat.
+### Live integration (OpenAI + Zammad)
 
-## Live integration tests (OpenAI + Zammad)
+Ten multi-turn scenarios using **real OpenAI**, **real Zammad**, and an **AI User Simulator** that role-plays an employee — no scripted follow-ups.
 
-Ten multi-turn scenarios using **real OpenAI**, **real Zammad**, and an **AI User Simulator** that role-plays an employee reporting each issue — no scripted follow-ups, no mocks.
-
-Full strategy: [`docs/test-strategy-live-integration.md`](docs/test-strategy-live-integration.md)
-
-**Required `.env` variables:**
-
-```env
-GRAPH_ENABLED=true
-GRAPH_LLM_MODE=openai
-OPENAI_API_KEY=sk-...
-OPENAI_MODEL=gpt-4o-mini
-ZAMMAD_BASE_URL=https://your-zammad.example.com
-ZAMMAD_API_TOKEN=...
-ZAMMAD_TEST_EMAIL=you@company.com
-```
-
-**Optional:**
-
-```env
-USER_SIM_MODEL=gpt-4o-mini      # defaults to OPENAI_MODEL
-USER_SIM_TEMPERATURE=0.4
-INTEGRATION_MAX_TURNS=12
-```
-
-**Run (API — headless, with console logging):**
+Strategy: [`docs/test-strategy-live-integration.md`](docs/test-strategy-live-integration.md)
 
 ```bash
-docker compose up -d postgres redis   # required
+docker compose up -d postgres redis
 make migrate
-make test-live
+make test-live          # API-only, headless
+make test-live-ui       # visible Chromium
 ```
 
-**Run (browser — watch progress in Chromium):**
+Required `.env`: `OPENAI_API_KEY`, `ZAMMAD_BASE_URL`, `ZAMMAD_API_TOKEN`, `ZAMMAD_TEST_EMAIL`, `GRAPH_ENABLED=true`, `GRAPH_LLM_MODE=openai`.
 
-```bash
-make test-live-ui
+Transcripts: `tests/integration/artifacts/` (gitignored). Expect several minutes runtime and OpenAI API cost.
 
-# Single scenario in browser:
-INTEGRATION_HEADLESS=false .venv/bin/pytest tests/integration -m live_ui -k vpn_network -v -s --log-cli-level=INFO
-```
+## Implementation status
 
-Logs go to the terminal and to `tests/integration/artifacts/live_integration.log`. Each run also saves a JSON transcript per scenario.
+| Sprint / milestone | Status |
+| ------------------ | ------ |
+| Foundation (monorepo, Docker, sessions, chat UI) | Complete |
+| Redis context, auth stub, orchestration, Zammad client | Complete |
+| LangGraph `support_graph`, CreateTicket E2E | Complete |
+| OpenAI structured intent extraction | Complete |
+| Multi-turn history hydration | Complete |
+| Thought streaming (SSE) + collapsible UI panel | Complete |
+| CheckStatus via ticket search | Complete |
+| Ticketing provider abstraction (Zammad + ServiceNow stub) | Partial |
+| Confirm-before-submit, all intents, attachments, OIDC | Planned |
 
-**Optional tuning:**
+Detailed architecture: [`docs/solution-architecture.md`](docs/solution-architecture.md)
 
-```env
-INTEGRATION_HEADLESS=false       # show browser (default true for test-live, false for test-live-ui)
-INTEGRATION_SLOW_MO=350            # ms delay between UI actions (browser mode)
-INTEGRATION_UI_PAUSE_MS=2500     # pause on success so ticket card stays visible
-LIVE_API_PORT=8020                 # API port for browser mode (default)
-LIVE_WEB_PORT=5175                 # Web UI port for browser mode (default)
-```
+## Documentation
 
-- Scenarios: `tests/integration/scenarios.py` (fact sheets + personas)
-- User Sim: `tests/integration/user_sim/`
-- Transcripts (on failure or success): `tests/integration/artifacts/` (gitignored)
-
-Expect several minutes runtime and OpenAI API cost (two LLM calls per turn). Tickets are created in your Zammad sandbox — safe to close after the run.
+| Document | Description |
+| -------- | ----------- |
+| [`docs/functional-document.md`](docs/functional-document.md) | Functional requirements |
+| [`docs/technical-strategy.md`](docs/technical-strategy.md) | Stack and component boundaries |
+| [`docs/solution-architecture.md`](docs/solution-architecture.md) | As-built architecture |
+| [`docs/provider-abstraction-strategy.md`](docs/provider-abstraction-strategy.md) | Ticketing provider plug-in design |
+| [`docs/test-strategy-live-integration.md`](docs/test-strategy-live-integration.md) | Live integration test harness |
