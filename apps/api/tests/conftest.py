@@ -29,6 +29,7 @@ def _reset_auth_settings(monkeypatch):
     monkeypatch.setenv("AUTH_MODE", "dev")
     monkeypatch.setenv("GRAPH_ENABLED", "false")
     monkeypatch.setenv("GRAPH_LLM_MODE", "mock")
+    monkeypatch.setenv("THOUGHT_STREAMING_ENABLED", "false")
     monkeypatch.delenv("AUTH_JWT_SECRET", raising=False)
     monkeypatch.delenv("OPENAI_API_KEY", raising=False)
     get_settings.cache_clear()

@@ -22,6 +22,7 @@ class Settings(BaseSettings):
     graph_enabled: bool = False
     graph_llm_mode: str = "mock"  # mock | openai
     graph_checkpoint: bool = False
+    thought_streaming_enabled: bool = False
     ticketing_provider: str = "zammad"
     openai_api_key: str | None = None
     openai_model: str = "gpt-4o-mini"

@@ -1,6 +1,10 @@
+import json
+from collections.abc import AsyncIterator
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, Query, status
+from fastapi import APIRouter, Depends, HTTPException, Query, status
+from fastapi.responses import StreamingResponse
+from tech_support_api.config import get_settings
 from tech_support_api.db.models import ChatSession
 from tech_support_api.dependencies.auth import require_user_id
 from tech_support_api.dependencies.services import get_chat_service
@@ -94,4 +98,36 @@ async def create_message(
         assistant_message=assistant_message,
         system_statuses=statuses,
         detected_intent=intent,
+    )
+
+
+def _format_sse(payload: dict) -> str:
+    return f"data: {json.dumps(payload)}\n\n"
+
+
+@router.post("/sessions/{session_id}/messages/stream")
+async def create_message_stream(
+    session_id: UUID,
+    body: MessageCreate,
+    user_id: str = Depends(require_user_id),
+    chat: ChatService = Depends(get_chat_service),
+) -> StreamingResponse:
+    if not get_settings().thought_streaming_enabled:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Thought streaming is disabled",
+        )
+
+    async def event_generator() -> AsyncIterator[str]:
+        async for event in chat.send_message_stream(session_id, user_id, body):
+            yield _format_sse(event)
+
+    return StreamingResponse(
+        event_generator(),
+        media_type="text/event-stream",
+        headers={
+            "Cache-Control": "no-cache",
+            "Connection": "keep-alive",
+            "X-Accel-Buffering": "no",
+        },
     )

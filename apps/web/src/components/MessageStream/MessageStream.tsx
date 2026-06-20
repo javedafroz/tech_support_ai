@@ -1,6 +1,8 @@
 import { useEffect, useRef } from "react";
 import type { ChatMessage } from "../../types/api";
+import { groupMessages } from "./messageGrouping";
 import { MessageCard } from "./MessageCard";
+import { ThoughtStreamPanel } from "./ThoughtStreamPanel";
 import styles from "./MessageStream.module.css";
 
 interface MessageStreamProps {
@@ -8,14 +10,23 @@ interface MessageStreamProps {
   loading: boolean;
   sending: boolean;
   resumed?: boolean;
+  streamedThoughts?: string[];
 }
 
-export function MessageStream({ messages, loading, sending, resumed }: MessageStreamProps) {
+export function MessageStream({
+  messages,
+  loading,
+  sending,
+  resumed,
+  streamedThoughts = [],
+}: MessageStreamProps) {
   const endRef = useRef<HTMLDivElement>(null);
+  const segments = groupMessages(messages);
+  const showLiveThoughts = sending && streamedThoughts.length > 0;
 
   useEffect(() => {
     endRef.current?.scrollIntoView?.({ behavior: "smooth" });
-  }, [messages, sending]);
+  }, [messages, sending, streamedThoughts]);
 
   return (
     <div
@@ -34,10 +45,21 @@ export function MessageStream({ messages, loading, sending, resumed }: MessageSt
           Hi — I can help you create or check support tickets. Describe your issue to get started.
         </p>
       )}
-      {messages.map((message) => (
-        <MessageBubble key={message.id} message={message} />
-      ))}
-      {sending && !messages.some((m) => m.role === "system") && (
+      {segments.map((segment, index) => {
+        if (segment.type === "thoughts") {
+          return (
+            <ThoughtStreamPanel
+              key={`thoughts-${index}-${segment.thoughts.join("|")}`}
+              thoughts={segment.thoughts}
+            />
+          );
+        }
+        return <MessageBubble key={segment.message.id} message={segment.message} />;
+      })}
+      {showLiveThoughts && (
+        <ThoughtStreamPanel thoughts={streamedThoughts} isLive />
+      )}
+      {sending && streamedThoughts.length === 0 && !messages.some((m) => m.role === "system") && (
         <p className={styles.typing}>Assistant is typing…</p>
       )}
       <div ref={endRef} />

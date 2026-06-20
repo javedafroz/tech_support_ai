@@ -1,3 +1,4 @@
+import { readThoughtStream } from "./streamParser";
 import { getStoredUserId } from "../lib/sessionStorage";
 import type {
   ChatMessage,
@@ -6,6 +7,7 @@ import type {
   SendMessageResponse,
   SessionContextResponse,
 } from "../types/api";
+import type { ThoughtStreamEvent } from "../types/events";
 
 const USER_HEADER = "X-User-Id";
 
@@ -65,6 +67,47 @@ export async function sendMessage(
     body: JSON.stringify({ content }),
   });
   return parseJson<SendMessageResponse>(response);
+}
+
+export async function sendMessageStream(
+  sessionId: string,
+  content: string,
+  onEvent: (event: ThoughtStreamEvent) => void,
+): Promise<SendMessageResponse> {
+  const response = await fetch(apiUrl(`/api/v1/chat/sessions/${sessionId}/messages/stream`), {
+    method: "POST",
+    headers: {
+      ...headers(),
+      Accept: "text/event-stream",
+    },
+    body: JSON.stringify({ content }),
+  });
+
+  let result: SendMessageResponse | null = null;
+  for await (const event of readThoughtStream(response)) {
+    onEvent(event);
+    if (event.type === "done") {
+      result = {
+        user_message: event.user_message,
+        assistant_message: event.assistant_message,
+        system_statuses: event.system_statuses,
+        detected_intent: event.detected_intent,
+      };
+    }
+    if (event.type === "error") {
+      throw new Error(event.message);
+    }
+  }
+
+  if (!result) {
+    throw new Error("Thought stream ended without a final response");
+  }
+  return result;
+}
+
+export async function getPublicConfig(): Promise<{ thought_streaming_enabled: boolean }> {
+  const response = await fetch(apiUrl("/api/v1/config/public"));
+  return parseJson<{ thought_streaming_enabled: boolean }>(response);
 }
 
 export async function getSessionContext(sessionId: string): Promise<SessionContextResponse> {

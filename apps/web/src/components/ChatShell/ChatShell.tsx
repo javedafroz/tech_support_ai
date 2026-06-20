@@ -17,6 +17,8 @@ export function ChatShell() {
     sessionContext,
     detectedIntent,
     statusLabel,
+    streamedThoughts,
+    useThoughtStreaming,
     handleSend,
     startNewSession,
   } = useChatSession();
@@ -54,13 +56,17 @@ export function ChatShell() {
         detectedIntent={detectedIntent}
       />
 
-      <SystemStatusLine label={statusLabel} visible={sending} />
+      <SystemStatusLine
+        label={statusLabel}
+        visible={sending && (!useThoughtStreaming || Boolean(statusLabel))}
+      />
 
       <MessageStream
         messages={messages}
         loading={loading}
         sending={sending}
         resumed={resumed}
+        streamedThoughts={streamedThoughts}
       />
 
       {error && (

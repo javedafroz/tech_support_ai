@@ -8,7 +8,7 @@ from tech_support_ticketing import configure_ticketing, merge_ticketing_settings
 
 from tech_support_api import __version__
 from tech_support_api.config import get_settings
-from tech_support_api.routers import chat, graph, health
+from tech_support_api.routers import chat, config, graph, health
 from tech_support_api.services.graph_service import init_graph_runner
 from tech_support_api.services.redis_store import close_redis
 
@@ -69,6 +69,7 @@ def create_app() -> FastAPI:
         allow_headers=["*"],
     )
     app.include_router(health.router)
+    app.include_router(config.router, prefix="/api/v1")
     app.include_router(chat.router, prefix="/api/v1")
     app.include_router(graph.router, prefix="/api/v1")
     return app

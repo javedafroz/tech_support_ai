@@ -172,6 +172,30 @@ async def test_multi_turn_blue_screen_create_ticket():
 
 
 @pytest.mark.asyncio
+async def test_astream_turn_emits_thoughts_before_complete():
+    runner = SupportGraphRunner.compile()
+    session_id = __import__("uuid").uuid4()
+
+    thoughts = []
+    result = None
+    async for event_type, payload in runner.astream_turn(
+        session_id=session_id,
+        user_id="user@test.com",
+        user_input="Hello",
+        user_email="user@test.com",
+        message_count=0,
+    ):
+        if event_type == "thought":
+            thoughts.append(payload)
+        elif event_type == "complete":
+            result = payload
+
+    assert thoughts
+    assert result is not None
+    assert result.detected_intent is None
+
+
+@pytest.mark.asyncio
 async def test_invoke_turn_seeds_history_into_conversation_node():
     runner = SupportGraphRunner.compile()
     session_id = __import__("uuid").uuid4()

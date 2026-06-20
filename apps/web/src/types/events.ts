@@ -63,9 +63,21 @@ export type UICard =
   | TicketUpdatedCard
   | FallbackCard;
 
+export type ThoughtStreamEvent =
+  | { type: "thought"; content: string }
+  | {
+      type: "done";
+      user_message: import("./api").ChatMessage;
+      assistant_message: import("./api").ChatMessage;
+      system_statuses: string[];
+      detected_intent: string | null;
+    }
+  | { type: "error"; message: string };
+
 export type StreamEvent =
   | { type: "token"; content: string }
   | { type: "system_status"; label: SystemStatusLabel }
+  | { type: "thought"; content: string }
   | { type: "card"; card: UICard }
   | { type: "policy_rejected"; reason_code: string; message: string }
   | { type: "done"; message_id: string }

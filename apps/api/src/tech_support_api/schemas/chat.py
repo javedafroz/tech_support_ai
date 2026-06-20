@@ -71,3 +71,7 @@ class HealthResponse(BaseModel):
     status: str
     version: str
     checks: dict[str, str] | None = None
+
+
+class PublicConfigResponse(BaseModel):
+    thought_streaming_enabled: bool

@@ -100,6 +100,7 @@ services:
       API_PROXY_TARGET: http://api:8000
       # Browser on host calls published API port (avoids in-container proxy issues)
       VITE_API_BASE_URL: http://localhost:8000
+      VITE_THOUGHT_STREAMING_ENABLED: ${VITE_THOUGHT_STREAMING_ENABLED:-false}
     depends_on:
       api:
         condition: service_healthy

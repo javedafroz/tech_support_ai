@@ -2,11 +2,14 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import {
   checkApiHealth,
   createSession,
+  getPublicConfig,
   getSession,
   getSessionContext,
   listMessages,
   sendMessage,
+  sendMessageStream,
 } from "../api/chatClient";
+import { thoughtStreamingClientOverrideDisabled } from "../lib/features";
 import {
   clearStoredSessionId,
   getStoredSessionId,
@@ -27,6 +30,8 @@ export function useChatSession() {
   const [sessionContext, setSessionContext] = useState<SessionContext | null>(null);
   const [detectedIntent, setDetectedIntent] = useState<string | null>(null);
   const [statusLabel, setStatusLabel] = useState<string | null>(null);
+  const [streamedThoughts, setStreamedThoughts] = useState<string[]>([]);
+  const [useThoughtStreaming, setUseThoughtStreaming] = useState(false);
   const statusTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const stopStatusCycle = useCallback(() => {
@@ -86,6 +91,19 @@ export function useChatSession() {
       }
 
       try {
+        const config = await getPublicConfig();
+        if (!cancelled) {
+          setUseThoughtStreaming(
+            config.thought_streaming_enabled && !thoughtStreamingClientOverrideDisabled,
+          );
+        }
+      } catch {
+        if (!cancelled) {
+          setUseThoughtStreaming(false);
+        }
+      }
+
+      try {
         const storedId = getStoredSessionId();
         let activeSession: ChatSession | null = null;
 
@@ -126,7 +144,10 @@ export function useChatSession() {
       if (!session) return;
       setSending(true);
       setError(null);
-      startStatusCycle();
+      setStreamedThoughts([]);
+      if (!useThoughtStreaming) {
+        startStatusCycle();
+      }
 
       const optimistic: ChatMessage = {
         id: `optimistic-${Date.now()}`,
@@ -139,25 +160,36 @@ export function useChatSession() {
       setMessages((prev) => [...prev, optimistic]);
 
       try {
-        const result = await sendMessage(session.id, content);
+        const result = useThoughtStreaming
+          ? await sendMessageStream(session.id, content, (event) => {
+              if (event.type === "thought") {
+                setStreamedThoughts((prev) =>
+                  prev[prev.length - 1] === event.content ? prev : [...prev, event.content],
+                );
+                setStatusLabel(event.content);
+              }
+            })
+          : await sendMessage(session.id, content);
         setDetectedIntent(result.detected_intent);
-        if (result.system_statuses.length > 0) {
+        if (!useThoughtStreaming && result.system_statuses.length > 0) {
           setStatusLabel(result.system_statuses[result.system_statuses.length - 1] ?? null);
         }
         stopStatusCycle();
         await loadMessages(session.id);
+        setStreamedThoughts([]);
         const refreshed = await getSession(session.id);
         setSession(refreshed);
       } catch (err) {
         setMessages((prev) => prev.filter((m) => m.id !== optimistic.id));
         setError(err instanceof Error ? err.message : "Failed to send message");
+        setStreamedThoughts([]);
       } finally {
         stopStatusCycle();
         setSending(false);
         setStatusLabel(null);
       }
     },
-    [session, loadMessages, startStatusCycle, stopStatusCycle],
+    [session, loadMessages, startStatusCycle, stopStatusCycle, useThoughtStreaming],
   );
 
   const startNewSession = useCallback(async () => {
@@ -189,6 +221,8 @@ export function useChatSession() {
     sessionContext,
     detectedIntent,
     statusLabel,
+    streamedThoughts,
+    useThoughtStreaming,
     handleSend,
     startNewSession,
   };
