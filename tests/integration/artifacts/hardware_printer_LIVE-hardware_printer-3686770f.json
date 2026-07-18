@@ -1,0 +1,44 @@
+{
+  "scenario_id": "hardware_printer",
+  "session_id": "a96848b9-76c9-4a37-b733-5534093efa4c",
+  "ticket_number": "48207",
+  "ticket_id": 208,
+  "turns_used": 2,
+  "run_reference": "LIVE-hardware_printer-3686770f",
+  "success": true,
+  "failure_reason": null,
+  "completed_at": "2026-05-29T14:34:05.163920+00:00",
+  "transcript": [
+    {
+      "turn": 1,
+      "user": "Hi, I'm having an issue with the HP printer on the 3rd floor. It shows as offline on my computer, and I'm unable to print anything. My colleagues seem to be printing just fine. Can you help me with this?",
+      "assistant": "It sounds like there might be a connectivity issue with the HP printer on the 3rd floor. To help you better, could you please provide me with any error messages you see on your computer or any troubleshooting steps you've already tried? Additionally, when did this issue start?",
+      "card": null,
+      "intent": null,
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026"
+      ]
+    },
+    {
+      "turn": 2,
+      "user": "The printer shows an error code 0x00000709, and I've tried restarting my computer and the printer, but it still shows as offline. This issue started this morning. My colleagues on the same floor can print without any problems.",
+      "assistant": "Your support ticket **#48207** has been created successfully and assigned to **Hardware Support**.",
+      "card": {
+        "group": "Hardware Support",
+        "state": "open",
+        "priority": "2 normal",
+        "card_type": "ticket_created",
+        "ticket_id": 208,
+        "ticket_number": "48207"
+      },
+      "intent": "CreateTicket",
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026",
+        "Applying support rules\u2026",
+        "Creating ticket\u2026"
+      ]
+    }
+  ]
+}

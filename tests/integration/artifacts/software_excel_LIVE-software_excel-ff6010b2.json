@@ -1,0 +1,44 @@
+{
+  "scenario_id": "software_excel",
+  "session_id": "3c9f0942-b387-4b0f-b949-1dc9d5ff3065",
+  "ticket_number": "48196",
+  "ticket_id": 197,
+  "turns_used": 2,
+  "run_reference": "LIVE-software_excel-ff6010b2",
+  "success": true,
+  "failure_reason": null,
+  "completed_at": "2026-05-24T07:40:52.461333+00:00",
+  "transcript": [
+    {
+      "turn": 1,
+      "user": "Hi there, I'm having an issue with Excel crashing when I try to open finance spreadsheets that contain macros from our shared drive. It started happening today, and I really need to get this resolved as soon as possible. Can you help?",
+      "assistant": "I can definitely help you with that! It sounds like a frustrating issue with Excel crashing when you try to open those spreadsheets. To create a support ticket for you, I'll need to gather a bit more information. Could you please provide me with the following details:\n\n1. Are there any specific error messages that appear when Excel crashes?\n2. What version of Excel are you using?\n3. Is this happening with all finance spreadsheets or just specific ones?\n4. Would you like to categorize this issue as high priority since it's impacting your work?",
+      "card": null,
+      "intent": null,
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026"
+      ]
+    },
+    {
+      "turn": 2,
+      "user": "1. Yes, the error mentions an add-in problem. 2. I'm using Microsoft Excel 365. 3. It's happening with all finance spreadsheets that contain macros. 4. Yes, this is a high priority issue since it's affecting my month-end reporting due tomorrow.",
+      "assistant": "Your support ticket **#48196** has been created successfully and assigned to **Software Support**.",
+      "card": {
+        "group": "Software Support",
+        "state": "open",
+        "priority": "3 high",
+        "card_type": "ticket_created",
+        "ticket_id": 197,
+        "ticket_number": "48196"
+      },
+      "intent": "CreateTicket",
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026",
+        "Applying support rules\u2026",
+        "Creating ticket\u2026"
+      ]
+    }
+  ]
+}

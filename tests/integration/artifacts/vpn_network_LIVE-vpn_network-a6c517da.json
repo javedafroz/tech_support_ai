@@ -1,0 +1,66 @@
+{
+  "scenario_id": "vpn_network",
+  "session_id": "3df002ad-c0d1-4b9d-8103-824c813d3ade",
+  "ticket_number": "48186",
+  "ticket_id": 187,
+  "turns_used": 4,
+  "run_reference": "LIVE-vpn_network-a6c517da",
+  "success": true,
+  "failure_reason": null,
+  "completed_at": "2026-05-24T07:19:24.272791+00:00",
+  "transcript": [
+    {
+      "turn": 1,
+      "user": "Hi there, I'm having trouble with the VPN while working from home. It keeps disconnecting, and I'm unable to access internal tools like Jira. This started yesterday afternoon, and it's really blocking my work. Can you help?",
+      "assistant": "I can definitely help you with that! It sounds like a frustrating issue. I'll create a support ticket for you regarding the VPN disconnection problem. Just to confirm, can you provide me with your email address for the ticket?",
+      "card": null,
+      "intent": null,
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026"
+      ]
+    },
+    {
+      "turn": 2,
+      "user": "Sure, my email address is paul.rivera@msbc.test.",
+      "assistant": "Thank you for confirming your email address, Paul. How can I assist you today? Do you have a specific issue or question in mind?",
+      "card": null,
+      "intent": null,
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026"
+      ]
+    },
+    {
+      "turn": 3,
+      "user": "I already mentioned that I'm having trouble with the VPN disconnecting. Can you please create a support ticket for this issue?",
+      "assistant": "I can help with that! Could you please provide a bit more detail about the VPN issue? Specifically, when did it start happening, and are there any error messages you see when it disconnects?",
+      "card": null,
+      "intent": null,
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026"
+      ]
+    },
+    {
+      "turn": 4,
+      "user": "The VPN issue started yesterday afternoon, and I'm getting a \"DPD timeout\" error after about 30 seconds of being connected. It's completely blocking me from accessing Jira and other internal tools. Can you please create the ticket now?",
+      "assistant": "Your support ticket **#48186** has been created successfully and assigned to **Network Support**.",
+      "card": {
+        "group": "Network Support",
+        "state": "open",
+        "priority": "3 high",
+        "card_type": "ticket_created",
+        "ticket_id": 187,
+        "ticket_number": "48186"
+      },
+      "intent": "CreateTicket",
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026",
+        "Applying support rules\u2026",
+        "Creating ticket\u2026"
+      ]
+    }
+  ]
+}

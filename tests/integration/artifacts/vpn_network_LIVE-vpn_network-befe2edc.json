@@ -1,0 +1,66 @@
+{
+  "scenario_id": "vpn_network",
+  "session_id": "ce8f4c6e-1505-4f67-a762-1b6625338deb",
+  "ticket_number": "48214",
+  "ticket_id": 215,
+  "turns_used": 4,
+  "run_reference": "LIVE-vpn_network-befe2edc",
+  "success": true,
+  "failure_reason": null,
+  "completed_at": "2026-05-29T14:44:31.685875+00:00",
+  "transcript": [
+    {
+      "turn": 1,
+      "user": "Hi there, I'm having trouble with the VPN while working from home. It keeps disconnecting every 30 seconds, and I'm unable to access Jira and other internal tools. Can you help me resolve this?",
+      "assistant": "I can definitely help you with that! It sounds like a frustrating issue with your VPN connection. To create a support ticket for this problem, could you please provide me with the following details:\n\n1. When did this issue start occurring?\n2. Are you receiving any error messages when the VPN disconnects?\n3. What type of VPN are you using (e.g., company-provided software, third-party application)?\n\nOnce I have this information, I can create a ticket for you.",
+      "card": null,
+      "intent": null,
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026"
+      ]
+    },
+    {
+      "turn": 2,
+      "user": "The issue started yesterday afternoon. I'm getting a \"DPD timeout\" error after about 30 seconds of connection. I'm using Cisco AnyConnect for the VPN. Can you please create a ticket for me?",
+      "assistant": "I can help with that! I'll create a ticket for the \"DPD timeout\" error you're experiencing with Cisco AnyConnect VPN. Just to confirm, can you provide me with the priority level for this issue? Would you consider it low, normal, or high?",
+      "card": null,
+      "intent": null,
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026"
+      ]
+    },
+    {
+      "turn": 3,
+      "user": "This is a high priority issue for me since I'm completely blocked from work. Please go ahead and create the ticket.",
+      "assistant": "I can help with that! However, I need a bit more information about the issue you're facing. Could you please describe what the problem is, any error messages you're seeing, and when it started? This will help me create a detailed ticket for you.",
+      "card": null,
+      "intent": null,
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026"
+      ]
+    },
+    {
+      "turn": 4,
+      "user": "I've already mentioned that the problem started yesterday afternoon, and I'm receiving a \"DPD timeout\" error after about 30 seconds of connection. I'm using Cisco AnyConnect for the VPN, and this is a high priority issue since I'm completely blocked from work. Can you please create the ticket?",
+      "assistant": "Your support ticket **#48214** has been created successfully and assigned to **Network Support**.",
+      "card": {
+        "group": "Network Support",
+        "state": "open",
+        "priority": "3 high",
+        "card_type": "ticket_created",
+        "ticket_id": 215,
+        "ticket_number": "48214"
+      },
+      "intent": "CreateTicket",
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026",
+        "Applying support rules\u2026",
+        "Creating ticket\u2026"
+      ]
+    }
+  ]
+}

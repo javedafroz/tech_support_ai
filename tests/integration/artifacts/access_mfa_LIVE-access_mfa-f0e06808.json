@@ -1,0 +1,55 @@
+{
+  "scenario_id": "access_mfa",
+  "session_id": "b3031cdd-e7be-4315-88f3-dd5e966f0c28",
+  "ticket_number": "48209",
+  "ticket_id": 210,
+  "turns_used": 3,
+  "run_reference": "LIVE-access_mfa-f0e06808",
+  "success": true,
+  "failure_reason": null,
+  "completed_at": "2026-05-29T14:35:15.366484+00:00",
+  "transcript": [
+    {
+      "turn": 1,
+      "user": "Hi there, I'm having trouble with the Microsoft Authenticator app. Every time I try to sign in to Okta SSO, the MFA codes are being rejected. This started this morning, and I'm unable to access my email or any internal apps. Can you help?",
+      "assistant": "I can help you with that! It sounds like you're experiencing issues with the Microsoft Authenticator app and MFA codes for Okta SSO, which is preventing you from accessing your email and internal apps. I'll create a support ticket for you to get this resolved. \n\nJust to confirm, can you provide me with your preferred priority level for this issue? Would you consider it low, normal, or high priority?",
+      "card": null,
+      "intent": null,
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026"
+      ]
+    },
+    {
+      "turn": 2,
+      "user": "This is a high priority issue for me since I can't access any of my work. Please proceed with creating the ticket.",
+      "assistant": "I can help with that! However, I need a bit more information to create the ticket. Could you please describe what specific issue you're facing when trying to access your work? Any error messages or details about when this started would be very helpful.",
+      "card": null,
+      "intent": null,
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026"
+      ]
+    },
+    {
+      "turn": 3,
+      "user": "I'm getting rejected codes every time I try to use the Microsoft Authenticator for MFA at the Okta SSO login. This started this morning, and I've tried syncing my phone time and even re-enrolling, but nothing works. It's blocking me from accessing my email and internal apps, so it's quite urgent. Can you help me resolve this?",
+      "assistant": "Your support ticket **#48209** has been created successfully and assigned to **Software Support**.",
+      "card": {
+        "group": "Software Support",
+        "state": "open",
+        "priority": "3 high",
+        "card_type": "ticket_created",
+        "ticket_id": 210,
+        "ticket_number": "48209"
+      },
+      "intent": "CreateTicket",
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026",
+        "Applying support rules\u2026",
+        "Creating ticket\u2026"
+      ]
+    }
+  ]
+}

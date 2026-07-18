@@ -1,0 +1,2250 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Customer and partner documentation for the enterprise IT support chat assistant.">
+      
+      
+      
+      
+        <link rel="prev" href="../03-solution-architecture/">
+      
+      
+        <link rel="next" href="../05-integration-guide-zammad/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Security & Data Handling - Tech Support AI</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#security-data-handling" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Tech Support AI" class="md-header__button md-logo" aria-label="Tech Support AI" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Tech Support AI
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Security & Data Handling
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../01-executive-solution-overview/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Solution
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../05-integration-guide-zammad/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Integration & Operations
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../08-ui-ux-overview/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Experience & Quality
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../appendices/A-glossary/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Appendices
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../postman/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Resources
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Tech Support AI" class="md-nav__button md-logo" aria-label="Tech Support AI" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Tech Support AI
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../00-quick-start/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quick Start
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Solution
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Solution
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-executive-solution-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Executive Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-functional-specification-summary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Functional Specification
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-solution-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Solution Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security & Data Handling
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security & Data Handling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#security-model-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Security model summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#trust-boundaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trust boundaries
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Authentication
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Authentication">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#chat-api-apiv1chat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chat API (/api/v1/chat/*)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#admin-kb-api-apiv1adminkb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Admin KB API (/api/v1/admin/kb/*)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#session-ownership" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Session ownership
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#credential-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Credential handling
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Credential handling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#chat-transcript-on-tickets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chat transcript on tickets
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#attachments" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Attachments
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-classification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data classification
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#orchestration-as-security-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Orchestration as security control
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#provider-api-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Provider API access
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transport-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transport security
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#logging-and-observability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Logging and observability
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-retention" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data retention
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compliance-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Compliance considerations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hardening-checklist-production" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hardening checklist (production)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#incident-response" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Incident response
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-documents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related documents
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Integration & Operations
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Integration & Operations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-integration-guide-zammad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Zammad Integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-deployment-and-operations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment & Operations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-api-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Experience & Quality
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Experience & Quality
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-ui-ux-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UI/UX Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-test-and-acceptance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Test & Acceptance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Appendices
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Appendices
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../appendices/A-glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../appendices/B-environment-variables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Environment Variables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../appendices/C-capability-matrix/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capability Matrix
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resources
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Resources
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../postman/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Postman Collection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#security-model-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Security model summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#trust-boundaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trust boundaries
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Authentication
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Authentication">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#chat-api-apiv1chat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chat API (/api/v1/chat/*)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#admin-kb-api-apiv1adminkb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Admin KB API (/api/v1/admin/kb/*)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#session-ownership" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Session ownership
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#credential-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Credential handling
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Credential handling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#chat-transcript-on-tickets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chat transcript on tickets
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#attachments" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Attachments
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-classification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data classification
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#orchestration-as-security-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Orchestration as security control
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#provider-api-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Provider API access
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transport-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transport security
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#logging-and-observability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Logging and observability
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-retention" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data retention
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compliance-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Compliance considerations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hardening-checklist-production" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hardening checklist (production)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#incident-response" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Incident response
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-documents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related documents
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="security-data-handling">Security &amp; Data Handling<a class="headerlink" href="#security-data-handling" title="Permanent link">&para;</a></h1>
+<p>This document describes how <strong>Tech Support AI</strong> protects data, credentials, and user identity. It is intended for security reviewers, compliance stakeholders, and operations teams.</p>
+<h2 id="security-model-summary">Security model summary<a class="headerlink" href="#security-model-summary" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Principle</th>
+<th>Implementation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Least privilege</td>
+<td>Help desk API tokens are server-side only</td>
+</tr>
+<tr>
+<td>Separation of concerns</td>
+<td>LLM never calls help desk APIs directly</td>
+</tr>
+<tr>
+<td>Identity on every request</td>
+<td>User ID required via header or JWT</td>
+</tr>
+<tr>
+<td>Auditability</td>
+<td>Database tables for policy and provider operations</td>
+</tr>
+<tr>
+<td>No secrets in config files</td>
+<td>YAML mapping contains IDs only; tokens in environment</td>
+</tr>
+</tbody>
+</table>
+<h2 id="trust-boundaries">Trust boundaries<a class="headerlink" href="#trust-boundaries" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>┌─────────────────────────────────────────────────────────────┐
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>│  Untrusted: Browser (chat SPA + admin SPA)                   │
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>│  - No Zammad tokens                                          │
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>│  - No OpenAI keys                                            │
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>│  - Chat: session ID + user identity                          │
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>│  - Admin: Keycloak access token (Bearer) only                │
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>│  - Attachment bytes uploaded to API (not directly to Zammad) │
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>└──────────────────────────┬──────────────────────────────────┘
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>                           │ HTTPS
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>┌──────────────────────────▼──────────────────────────────────┐
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>│  Trusted: API + agent runtime (FastAPI, LangGraph)             │
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>│  - Validates chat identity / admin JWT                       │
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>│  - Holds provider, LLM, and handbook storage credentials     │
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>│  - Orchestration gates all ticket operations                 │
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>└──────────────────────────┬──────────────────────────────────┘
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>                           │ TLS (recommended)
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>┌──────────────────────────▼──────────────────────────────────┐
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>│  External: Zammad, OpenAI, PostgreSQL, Redis, MinIO/S3 (attachments +     │
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>│            optional local handbook bucket), Qdrant, Keycloak,             │
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>│            Ceph RGW (production handbooks)                                │
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>└─────────────────────────────────────────────────────────────┘
+</code></pre></div>
+<p>Handbook bytes use <code>CEPH_RGW_*</code> / <code>KB_HANDBOOK_*</code> credentials (not chat <code>X-User-Id</code>). Local Compose may point those vars at MinIO with a dedicated <code>agent-handbooks</code> bucket — production should use Ceph RGW or equivalent, separate from attachment storage.</p>
+<h2 id="authentication">Authentication<a class="headerlink" href="#authentication" title="Permanent link">&para;</a></h2>
+<h3 id="chat-api-apiv1chat">Chat API (<code>/api/v1/chat/*</code>)<a class="headerlink" href="#chat-api-apiv1chat" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Mechanism</th>
+<th>Use case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Development</td>
+<td><code>X-User-Id</code> request header</td>
+<td>Local and sandbox testing</td>
+</tr>
+<tr>
+<td>JWT stub</td>
+<td><code>Authorization: Bearer &lt;token&gt;</code> with <code>sub</code> claim</td>
+<td>Integration testing</td>
+</tr>
+<tr>
+<td>OIDC / SSO for end users</td>
+<td>Planned</td>
+<td>Production target</td>
+</tr>
+</tbody>
+</table>
+<p>Every chat endpoint requires a resolvable user identity. Anonymous access is not supported for ticket operations.</p>
+<h3 id="admin-kb-api-apiv1adminkb">Admin KB API (<code>/api/v1/admin/kb/*</code>)<a class="headerlink" href="#admin-kb-api-apiv1adminkb" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Mechanism</th>
+<th>Detail</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Keycloak OIDC</td>
+<td>Authorization Code + PKCE in Admin SPA; API validates Bearer JWT via JWKS</td>
+</tr>
+<tr>
+<td>Roles</td>
+<td><code>kb_editor</code> (upload/edit/reindex); <code>kb_admin</code> (publish/delete)</td>
+</tr>
+<tr>
+<td>Rejected</td>
+<td>Chat-style <code>X-User-Id</code> headers — admin routes require a valid Keycloak token</td>
+</tr>
+</tbody>
+</table>
+<p>Local realm import: <code>config/keycloak/tech-support-realm.json</code> (seed users for evaluation only).</p>
+<h3 id="session-ownership">Session ownership<a class="headerlink" href="#session-ownership" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Chat sessions are scoped to the authenticated user ID.</li>
+<li>API rejects access to sessions belonging to another user.</li>
+</ul>
+<h2 id="credential-handling">Credential handling<a class="headerlink" href="#credential-handling" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Secret</th>
+<th>Storage</th>
+<th>Exposure</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ZAMMAD_API_TOKEN</code></td>
+<td>Environment / secrets manager</td>
+<td>API process only</td>
+</tr>
+<tr>
+<td><code>OPENAI_API_KEY</code></td>
+<td>Environment / secrets manager</td>
+<td>API process only</td>
+</tr>
+<tr>
+<td><code>DATABASE_URL</code></td>
+<td>Environment</td>
+<td>API process only</td>
+</tr>
+<tr>
+<td><code>REDIS_URL</code></td>
+<td>Environment</td>
+<td>API process only</td>
+</tr>
+<tr>
+<td><code>S3_ACCESS_KEY</code> / <code>S3_SECRET_KEY</code></td>
+<td>Environment</td>
+<td>API process only (attachments)</td>
+</tr>
+<tr>
+<td><code>CEPH_RGW_ACCESS_KEY</code> / <code>CEPH_RGW_SECRET_KEY</code></td>
+<td>Environment</td>
+<td>API process only (handbooks)</td>
+</tr>
+<tr>
+<td><code>QDRANT_API_KEY</code></td>
+<td>Environment (optional)</td>
+<td>API process only</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Never</strong> commit <code>.env</code> files or paste tokens into chat logs, mapping YAML, or client-side code.</p>
+<h3 id="chat-transcript-on-tickets">Chat transcript on tickets<a class="headerlink" href="#chat-transcript-on-tickets" title="Permanent link">&para;</a></h3>
+<p>When troubleshoot escalates to CreateTicket, the ticket body may include the full chat transcript. Control with <code>KB_INCLUDE_CHAT_TRANSCRIPT_IN_TICKET</code> (default <code>true</code>). Treat ticket descriptions as containing potential PII accordingly.</p>
+<h2 id="attachments">Attachments<a class="headerlink" href="#attachments" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Control</th>
+<th>Implementation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Upload path</td>
+<td>Browser → API only; API writes to MinIO/S3</td>
+</tr>
+<tr>
+<td>Type allowlist</td>
+<td>MIME validation in <code>AttachmentService</code>; executables blocked</td>
+</tr>
+<tr>
+<td>Size limits</td>
+<td>10 MB per file, 5 per message (configurable)</td>
+</tr>
+<tr>
+<td>Zammad transfer</td>
+<td>Server-side base64 encoding; no presigned browser URLs to Zammad</td>
+</tr>
+<tr>
+<td>Vision</td>
+<td>Image bytes sent to OpenAI when <code>GRAPH_LLM_MODE=openai</code> — review data-processing policy</td>
+</tr>
+</tbody>
+</table>
+<p>Attachment content may include screenshots with sensitive error details or PII visible on screen.</p>
+<h2 id="data-classification">Data classification<a class="headerlink" href="#data-classification" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Data type</th>
+<th>Examples</th>
+<th>Handling</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>User messages</td>
+<td>Issue descriptions, emails, attachment filenames</td>
+<td>Stored in PostgreSQL; may contain PII</td>
+</tr>
+<tr>
+<td>Attachment files</td>
+<td>Screenshots, logs, documents</td>
+<td>Stored in MinIO/S3; may be sent to OpenAI for vision</td>
+</tr>
+<tr>
+<td>Agent Handbooks</td>
+<td>Markdown/PDF source, chunks, embeddings</td>
+<td>Ceph RGW (or S3-compatible) + Qdrant; metadata in PostgreSQL</td>
+</tr>
+<tr>
+<td>Structured intents</td>
+<td>Category, priority, title</td>
+<td>Stored in message metadata; used for orchestration</td>
+</tr>
+<tr>
+<td>Ticket data</td>
+<td>Numbers, states from Zammad</td>
+<td>Returned to user; cached in session context</td>
+</tr>
+<tr>
+<td>Audit logs</td>
+<td>Policy decisions, API calls</td>
+<td>PostgreSQL; operator access only</td>
+</tr>
+<tr>
+<td>LLM prompts</td>
+<td>System + conversation context; image bytes for vision</td>
+<td>Sent to OpenAI when not in mock mode</td>
+</tr>
+</tbody>
+</table>
+<p>Organizations should treat chat content as <strong>internal/confidential</strong> and align retention with corporate policy.</p>
+<h2 id="orchestration-as-security-control">Orchestration as security control<a class="headerlink" href="#orchestration-as-security-control" title="Permanent link">&para;</a></h2>
+<p>The orchestration layer is a <strong>control plane</strong>, not a convenience layer:</p>
+<ol>
+<li>Validates structured intent against JSON schema</li>
+<li>Enforces required fields and confidence thresholds</li>
+<li>Maps categories to allowed groups and priorities</li>
+<li>Emits neutral <code>TicketCommand</code> objects for the gateway</li>
+<li>On rejection, returns a reason code — <strong>no provider API call</strong></li>
+</ol>
+<p>This prevents prompt injection or model hallucination from creating unauthorized tickets.</p>
+<h2 id="provider-api-access">Provider API access<a class="headerlink" href="#provider-api-access" title="Permanent link">&para;</a></h2>
+<ul>
+<li>All Zammad calls go through <code>ZammadClient</code> → <code>ZammadAdapter</code> → <code>TicketGateway</code>.</li>
+<li>Retries and timeouts are centralized in the HTTP client.</li>
+<li>Ticket numbers displayed to users originate from provider responses only.</li>
+</ul>
+<h2 id="transport-security">Transport security<a class="headerlink" href="#transport-security" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Segment</th>
+<th>Recommendation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Browser ↔ API</td>
+<td>HTTPS in all non-local environments</td>
+</tr>
+<tr>
+<td>API ↔ Zammad</td>
+<td>HTTPS; verify TLS in production</td>
+</tr>
+<tr>
+<td>API ↔ OpenAI</td>
+<td>HTTPS (provider default)</td>
+</tr>
+<tr>
+<td>API ↔ Qdrant / Keycloak / handbook storage</td>
+<td>TLS in production; private network</td>
+</tr>
+<tr>
+<td>API ↔ Postgres / Redis</td>
+<td>TLS in production; private network</td>
+</tr>
+</tbody>
+</table>
+<h2 id="logging-and-observability">Logging and observability<a class="headerlink" href="#logging-and-observability" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Logged</th>
+<th>Not logged (target)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Request IDs, session IDs</td>
+<td>Full API tokens</td>
+</tr>
+<tr>
+<td>Orchestration decisions</td>
+<td>Raw JWT secrets</td>
+</tr>
+<tr>
+<td>Provider HTTP status / errors</td>
+<td>Complete user message bodies in production <em>(configurable)</em></td>
+</tr>
+</tbody>
+</table>
+<p>Structured logging via <code>structlog</code> is used in the API layer. Production deployments should configure log redaction and centralized aggregation.</p>
+<h2 id="data-retention">Data retention<a class="headerlink" href="#data-retention" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Store</th>
+<th>Default behavior</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PostgreSQL messages</td>
+<td>Durable until deleted</td>
+<td>Define retention policy per organization</td>
+</tr>
+<tr>
+<td>Redis session cache</td>
+<td>TTL ~24 hours</td>
+<td>Ephemeral; not authoritative</td>
+</tr>
+<tr>
+<td>Object storage (attachments)</td>
+<td>Durable until deleted</td>
+<td>Align with message retention policy</td>
+</tr>
+<tr>
+<td>Handbook storage + Qdrant</td>
+<td>Durable until deleted / reindexed</td>
+<td>Align with content governance</td>
+</tr>
+<tr>
+<td>Audit tables</td>
+<td>Durable</td>
+<td>Support compliance review</td>
+</tr>
+</tbody>
+</table>
+<p>Retention policies are <strong>not</strong> auto-enforced in the application today — operators should define backup and purge procedures.</p>
+<h2 id="compliance-considerations">Compliance considerations<a class="headerlink" href="#compliance-considerations" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Topic</th>
+<th>Current state</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GDPR / data subject access</td>
+<td>Chat messages in DB; export/delete procedures are organizational</td>
+</tr>
+<tr>
+<td>SOC 2</td>
+<td>Depends on hosting and operational controls</td>
+</tr>
+<tr>
+<td>AI data processing</td>
+<td>OpenAI API usage when not in mock mode — review OpenAI enterprise terms</td>
+</tr>
+<tr>
+<td>EU data residency</td>
+<td>Configure OpenAI and hosting region per policy</td>
+</tr>
+</tbody>
+</table>
+<h2 id="hardening-checklist-production">Hardening checklist (production)<a class="headerlink" href="#hardening-checklist-production" title="Permanent link">&para;</a></h2>
+<ul>
+<li>[ ] Enable HTTPS termination at load balancer or ingress</li>
+<li>[ ] Store secrets in a vault or cloud secrets manager</li>
+<li>[ ] Implement OIDC / enterprise SSO</li>
+<li>[ ] Restrict CORS to known web origins</li>
+<li>[ ] Enable database and Redis TLS</li>
+<li>[ ] Configure log redaction for PII and tokens</li>
+<li>[ ] Network isolate API from public internet except through gateway</li>
+<li>[ ] Rotate Zammad API tokens on schedule</li>
+<li>[ ] Review Zammad role permissions for the integration user</li>
+</ul>
+<h2 id="incident-response">Incident response<a class="headerlink" href="#incident-response" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Response</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Leaked API token</td>
+<td>Revoke in Zammad; rotate <code>ZAMMAD_API_TOKEN</code>; review audit logs</td>
+</tr>
+<tr>
+<td>Unauthorized session access</td>
+<td>Verify auth middleware; check session ownership checks</td>
+</tr>
+<tr>
+<td>Erroneous ticket creation</td>
+<td>Trace <code>policy_audit_log</code> and <code>zammad_operations</code> <em>(when wired)</em></td>
+</tr>
+</tbody>
+</table>
+<h2 id="related-documents">Related documents<a class="headerlink" href="#related-documents" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../06-deployment-and-operations/">Deployment &amp; Operations</a></li>
+<li><a href="../appendices/B-environment-variables/">Environment Variables</a></li>
+<li><a href="../07-api-overview/">API Overview</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "navigation.indexes", "search.suggest", "search.highlight", "content.code.copy", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://unpkg.com/mermaid@11/dist/mermaid.min.js"></script>
+      
+        <script src="../../javascripts/mermaid-init.js"></script>
+      
+    
+  </body>
+</html>

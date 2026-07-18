@@ -1,0 +1,55 @@
+{
+  "scenario_id": "infrastructure_wiki",
+  "session_id": "63dbf1cd-6c6f-4915-af59-a8c184a0eea5",
+  "ticket_number": "48197",
+  "ticket_id": 198,
+  "turns_used": 3,
+  "run_reference": "LIVE-infrastructure_wiki-78e40399",
+  "success": true,
+  "failure_reason": null,
+  "completed_at": "2026-05-24T07:41:55.876380+00:00",
+  "transcript": [
+    {
+      "turn": 1,
+      "user": "Hi there, we're currently experiencing a 502 Bad Gateway error when trying to access our internal Confluence wiki. This seems to be affecting everyone in the team. Can you please look into this?",
+      "assistant": "I understand that you're facing a 502 Bad Gateway error when trying to access your internal Confluence wiki, and it's impacting your entire team. I'll create a support ticket for this issue so that it can be addressed promptly. \n\nCould you please confirm if there are any specific times when this issue started or if there are any additional details you think might be helpful?",
+      "card": null,
+      "intent": null,
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026"
+      ]
+    },
+    {
+      "turn": 2,
+      "user": "The issue started at 10:15am, and we've tested it on both VPN and the office network with the same result for all users. It's urgent since teams can't access runbooks during an active deployment. Please let me know if you need any more information!",
+      "assistant": "Thank you for the details! It sounds like a critical issue affecting all users during an active deployment. Could you please provide a brief description of the specific problem you're experiencing? For example, are there any error messages or specific functionalities that are not working? This will help me create a ticket for you.",
+      "card": null,
+      "intent": null,
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026"
+      ]
+    },
+    {
+      "turn": 3,
+      "user": "The specific problem is that we're encountering a 502 Bad Gateway error when trying to access the Confluence wiki at https://wiki.company.internal. This error prevents all users from accessing the site, which is critical for our ongoing deployment. Thank you for your help!",
+      "assistant": "Your support ticket **#48197** has been created successfully and assigned to **Software Support**.",
+      "card": {
+        "group": "Software Support",
+        "state": "open",
+        "priority": "3 high",
+        "card_type": "ticket_created",
+        "ticket_id": 198,
+        "ticket_number": "48197"
+      },
+      "intent": "CreateTicket",
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026",
+        "Applying support rules\u2026",
+        "Creating ticket\u2026"
+      ]
+    }
+  ]
+}

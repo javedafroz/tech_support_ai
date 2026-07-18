@@ -1,0 +1,33 @@
+{
+  "scenario_id": "infrastructure_wiki",
+  "session_id": "82ade414-6c1f-4ca0-a694-3dd14e88b634",
+  "ticket_number": "48190",
+  "ticket_id": 191,
+  "turns_used": 1,
+  "run_reference": "LIVE-infrastructure_wiki-b0438f5f",
+  "success": true,
+  "failure_reason": null,
+  "completed_at": "2026-05-24T07:21:27.660116+00:00",
+  "transcript": [
+    {
+      "turn": 1,
+      "user": "Hi there, we're experiencing a 502 Bad Gateway error on our internal Confluence wiki. This issue has been affecting everyone since around 10:15 AM, and it's critical for our teams as they need access to runbooks during an active deployment. Can you please help us resolve this?",
+      "assistant": "Your support ticket **#48190** has been created successfully and assigned to **Software Support**.",
+      "card": {
+        "group": "Software Support",
+        "state": "open",
+        "priority": "3 high",
+        "card_type": "ticket_created",
+        "ticket_id": 191,
+        "ticket_number": "48190"
+      },
+      "intent": "CreateTicket",
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026",
+        "Applying support rules\u2026",
+        "Creating ticket\u2026"
+      ]
+    }
+  ]
+}

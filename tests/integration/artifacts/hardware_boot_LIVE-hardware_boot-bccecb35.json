@@ -1,0 +1,33 @@
+{
+  "scenario_id": "hardware_boot",
+  "session_id": "2995d45e-a002-402e-9a74-9cfcabaa23a2",
+  "ticket_number": "48188",
+  "ticket_id": 189,
+  "turns_used": 1,
+  "run_reference": "LIVE-hardware_boot-bccecb35",
+  "success": true,
+  "failure_reason": null,
+  "completed_at": "2026-05-24T07:20:50.231074+00:00",
+  "transcript": [
+    {
+      "turn": 1,
+      "user": "Hi there, I'm having an issue with my laptop. It's stuck on the spinning Windows logo after a restart and hasn't booted up for over 20 minutes. Can you help me get it working again?",
+      "assistant": "Your support ticket **#48188** has been created successfully and assigned to **Software Support**.",
+      "card": {
+        "group": "Software Support",
+        "state": "open",
+        "priority": "3 high",
+        "card_type": "ticket_created",
+        "ticket_id": 189,
+        "ticket_number": "48188"
+      },
+      "intent": "CreateTicket",
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026",
+        "Applying support rules\u2026",
+        "Creating ticket\u2026"
+      ]
+    }
+  ]
+}

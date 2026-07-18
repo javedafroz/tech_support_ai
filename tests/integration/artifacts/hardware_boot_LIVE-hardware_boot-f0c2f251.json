@@ -1,0 +1,44 @@
+{
+  "scenario_id": "hardware_boot",
+  "session_id": "9aa919f0-cdf9-4c59-8bc3-3ca7ad3629f8",
+  "ticket_number": "48203",
+  "ticket_id": 204,
+  "turns_used": 2,
+  "run_reference": "LIVE-hardware_boot-f0c2f251",
+  "success": true,
+  "failure_reason": null,
+  "completed_at": "2026-05-29T14:32:22.669288+00:00",
+  "transcript": [
+    {
+      "turn": 1,
+      "user": "Hi there, I'm having an issue with my laptop. It's stuck on the spinning Windows logo after I restarted it, and I can't seem to get it to boot up. Can you help?",
+      "assistant": "It sounds like your laptop is having trouble booting up. This issue can be caused by various factors, such as corrupted system files or hardware problems. Can you tell me how long it's been stuck on the spinning Windows logo? Also, have you tried any troubleshooting steps, like booting into safe mode or using recovery options?",
+      "card": null,
+      "intent": null,
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026"
+      ]
+    },
+    {
+      "turn": 2,
+      "user": "It's been stuck on the spinning Windows logo for over 20 minutes. I haven't been able to try any troubleshooting steps since I can't access the device. This started happening after an overnight Windows update. Can you help me get it booting again?",
+      "assistant": "Your support ticket **#48203** has been created successfully and assigned to **Software Support**.",
+      "card": {
+        "group": "Software Support",
+        "state": "open",
+        "priority": "3 high",
+        "card_type": "ticket_created",
+        "ticket_id": 204,
+        "ticket_number": "48203"
+      },
+      "intent": "CreateTicket",
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026",
+        "Applying support rules\u2026",
+        "Creating ticket\u2026"
+      ]
+    }
+  ]
+}

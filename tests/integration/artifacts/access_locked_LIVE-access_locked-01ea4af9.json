@@ -1,0 +1,44 @@
+{
+  "scenario_id": "access_locked",
+  "session_id": "5c91ead9-1efe-4550-8720-4de77b8de004",
+  "ticket_number": "48202",
+  "ticket_id": 203,
+  "turns_used": 2,
+  "run_reference": "LIVE-access_locked-01ea4af9",
+  "success": true,
+  "failure_reason": null,
+  "completed_at": "2026-05-29T14:32:03.984045+00:00",
+  "transcript": [
+    {
+      "turn": 1,
+      "user": "Hi there, I'm currently locked out of my domain account after too many password attempts. I need help unlocking it so I can log in and complete some urgent payroll tasks. Thanks!",
+      "assistant": "I can help you with that! To unlock your domain account, I will need to create a support ticket for you. Can you please confirm if you have received any specific error messages when trying to log in? Also, when did this issue start?",
+      "card": null,
+      "intent": null,
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026"
+      ]
+    },
+    {
+      "turn": 2,
+      "user": "The login screen says my account is locked. This issue started about an hour ago. I also tried the self-service password reset, but it failed. I really need to get back to work as I have payroll tasks due today. Please go ahead and create the ticket!",
+      "assistant": "Your support ticket **#48202** has been created successfully and assigned to **Software Support**.",
+      "card": {
+        "group": "Software Support",
+        "state": "open",
+        "priority": "3 high",
+        "card_type": "ticket_created",
+        "ticket_id": 203,
+        "ticket_number": "48202"
+      },
+      "intent": "CreateTicket",
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026",
+        "Applying support rules\u2026",
+        "Creating ticket\u2026"
+      ]
+    }
+  ]
+}

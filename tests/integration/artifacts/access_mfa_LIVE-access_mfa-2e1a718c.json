@@ -1,0 +1,33 @@
+{
+  "scenario_id": "access_mfa",
+  "session_id": "f4e5d8b9-ae0d-4bba-a83e-07f9d578cebf",
+  "ticket_number": "48192",
+  "ticket_id": 193,
+  "turns_used": 1,
+  "run_reference": "LIVE-access_mfa-2e1a718c",
+  "success": true,
+  "failure_reason": null,
+  "completed_at": "2026-05-24T07:23:08.082984+00:00",
+  "transcript": [
+    {
+      "turn": 1,
+      "user": "Hi there, I'm having trouble signing in to Okta SSO. My Microsoft Authenticator codes are being rejected, and I can't access my email or any internal apps. This started this morning, and it's really urgent. Can you help?",
+      "assistant": "Your support ticket **#48192** has been created successfully and assigned to **Software Support**.",
+      "card": {
+        "group": "Software Support",
+        "state": "open",
+        "priority": "3 high",
+        "card_type": "ticket_created",
+        "ticket_id": 193,
+        "ticket_number": "48192"
+      },
+      "intent": "CreateTicket",
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026",
+        "Applying support rules\u2026",
+        "Creating ticket\u2026"
+      ]
+    }
+  ]
+}

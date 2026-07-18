@@ -1,0 +1,33 @@
+{
+  "scenario_id": "email_outlook",
+  "session_id": "02639525-fcfb-4489-a0bc-3e1897727d3f",
+  "ticket_number": "48201",
+  "ticket_id": 202,
+  "turns_used": 1,
+  "run_reference": "LIVE-email_outlook-b3836fd2",
+  "success": true,
+  "failure_reason": null,
+  "completed_at": "2026-05-29T14:31:46.649141+00:00",
+  "transcript": [
+    {
+      "turn": 1,
+      "user": "Hi, I'm having an issue with Outlook. It stopped syncing my inbox since this morning, and I keep getting a 'Need Password' message. Can you help me fix this?",
+      "assistant": "Your support ticket **#48201** has been created successfully and assigned to **Software Support**.",
+      "card": {
+        "group": "Software Support",
+        "state": "open",
+        "priority": "2 normal",
+        "card_type": "ticket_created",
+        "ticket_id": 202,
+        "ticket_number": "48201"
+      },
+      "intent": "CreateTicket",
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026",
+        "Applying support rules\u2026",
+        "Creating ticket\u2026"
+      ]
+    }
+  ]
+}

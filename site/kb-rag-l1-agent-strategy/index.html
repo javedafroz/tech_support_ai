@@ -1,0 +1,3350 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Customer and partner documentation for the enterprise IT support chat assistant.">
+      
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>KB / RAG L1 Agent Strategy - Tech Support AI</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#kb-rag-l1-agent-strategy" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Tech Support AI" class="md-header__button md-logo" aria-label="Tech Support AI" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Tech Support AI
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              KB / RAG L1 Agent Strategy
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../external/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../external/01-executive-solution-overview/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Solution
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../external/05-integration-guide-zammad/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Integration & Operations
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../external/08-ui-ux-overview/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Experience & Quality
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../external/appendices/A-glossary/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Appendices
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../postman/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Resources
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Tech Support AI" class="md-nav__button md-logo" aria-label="Tech Support AI" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Tech Support AI
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../external/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../external/00-quick-start/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quick Start
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Solution
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Solution
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../external/01-executive-solution-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Executive Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../external/02-functional-specification-summary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Functional Specification
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../external/03-solution-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Solution Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../external/04-security-and-data-handling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security & Data Handling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Integration & Operations
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Integration & Operations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../external/05-integration-guide-zammad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Zammad Integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../external/06-deployment-and-operations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment & Operations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../external/07-api-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Experience & Quality
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Experience & Quality
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../external/08-ui-ux-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UI/UX Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../external/09-test-and-acceptance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Test & Acceptance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Appendices
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Appendices
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../external/appendices/A-glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../external/appendices/B-environment-variables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Environment Variables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../external/appendices/C-capability-matrix/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capability Matrix
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resources
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Resources
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../postman/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Postman Collection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-executive-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Executive summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-current-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Current state
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Current state">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reusable-building-blocks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reusable building blocks
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-target-user-flows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Target user flows
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Target user flows">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-operating-model-guide-dont-act" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Operating model — guide, don’t act
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-happy-path-resolved-without-ticket" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 Happy path — resolved without ticket
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-escalation-path-ticket-with-full-transcript" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 Escalation path — ticket with full transcript
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-no-kb-match" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4 No KB match
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#35-when-troubleshoot-runs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.5 When troubleshoot runs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-target-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Target architecture
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Target architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#separation-of-concerns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Separation of concerns
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-technology-choices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Technology choices
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Technology choices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-object-storage-ceph-rgw-only-locked" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 Object storage — Ceph RGW only (locked)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-vector-store-qdrant-locked" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 Vector store — Qdrant (locked)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-embeddings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 Embeddings
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-pdf-markdown-conversion-docling-locked" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.4 PDF → Markdown conversion — Docling (locked)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#55-chunking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.5 Chunking
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-langgraph-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. LangGraph changes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. LangGraph changes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-extended-topology" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 Extended topology
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-new-extended-state-fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 New / extended state fields
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-troubleshoot-node-responsibilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 troubleshoot node responsibilities
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64-feature-flag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4 Feature flag
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-ticket-enrichment-escalation-payload" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Ticket enrichment (escalation payload)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-admin-module-separate-spa-locked" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Admin module (separate SPA — locked)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Admin module (separate SPA — locked)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.1 Scope
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82-suggested-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2 Suggested layout
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#83-admin-api-sketch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.3 Admin API (sketch)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#84-authentication-authorization-keycloak-locked" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.4 Authentication &amp; authorization — Keycloak (locked)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.4 Authentication &amp; authorization — Keycloak (locked)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Flow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#realm-roles-suggested" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Realm / roles (suggested)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#local-compose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Local / Compose
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#production" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Production
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-data-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Data model
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Data model">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91-postgresql-metadata-ops" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.1 PostgreSQL (metadata &amp; ops)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92-qdrant-collection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.2 Qdrant collection
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-ingest-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Ingest pipeline
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-retrieval-api-runtime" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Retrieval API (runtime)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-security-compliance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Security &amp; compliance
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-observability-success-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. Observability &amp; success metrics
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-phased-delivery" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. Phased delivery
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="14. Phased delivery">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-0-foundations-12-sprints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 0 — Foundations (1–2 sprints)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-1-ingest-admin-mvp-23-sprints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 1 — Ingest + Admin MVP (2–3 sprints)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-2-graph-troubleshoot-implemented" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 2 — Graph troubleshoot (implemented)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-3-hardening-ongoing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 3 — Hardening (ongoing)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-testing-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15. Testing strategy
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-decisions-locked" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16. Decisions (locked)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#17-risks-and-mitigations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17. Risks and mitigations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#18-out-of-scope-this-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        18. Out of scope (this strategy)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#19-implementation-map-target-repo-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19. Implementation map (target repo layout)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#20-success-criteria-for-mvp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        20. Success criteria for MVP
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#21-related-documents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        21. Related documents
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#document-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Document control
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="kb-rag-l1-agent-strategy">KB / RAG L1 Agent Strategy<a class="headerlink" href="#kb-rag-l1-agent-strategy" title="Permanent link">&para;</a></h1>
+<p>This document defines the strategy to add <strong>Handbook KB + RAG troubleshooting</strong> to Tech Support AI before ticket creation. It is intended for engineering leads, architects, and product owners planning the work.</p>
+<p><strong>Status:</strong> Strategy — <strong>decisions locked (§16)</strong> · <strong>Phase 0 done · Phase 1 ingest/admin upload implemented · Phase 2 graph troubleshoot implemented</strong><br />
+<strong>Prerequisite:</strong> LangGraph <code>support_graph</code> (conversation → orchestrate → ticket_tool → respond); <code>packages/storage</code> S3-compatible client (target: Ceph RGW)<br />
+<strong>Target scope (MVP):</strong> Retrieve from Agent Handbook → guide user through troubleshooting steps (user performs actions) → deflect or create ticket with <strong>full chat transcript</strong> + attempted steps  </p>
+<hr />
+<h2 id="1-executive-summary">1. Executive summary<a class="headerlink" href="#1-executive-summary" title="Permanent link">&para;</a></h2>
+<p>Today the agent is an <strong>intake + triage bot</strong>: once enough detail exists, it proposes <code>CreateTicket</code> and creates a Zammad ticket. It does <strong>not</strong> consult knowledge before escalating.</p>
+<p><strong>Goal:</strong> Turn the agent into a true <strong>L1 support agent</strong>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Understand issue
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  → Search Agent Handbook (RAG via Qdrant)
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>  → Guide the user through troubleshooting steps (user takes all actions)
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>  → If resolved → close without ticket (deflection)
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>  → If not resolved → CreateTicket with enriched description
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>       (symptoms + steps tried + full chat transcript)
+</code></pre></div>
+<p><strong>Locked approach:</strong></p>
+<ol>
+<li>Extend LangGraph with a dedicated <code>troubleshoot</code> stage.  </li>
+<li>Store handbook <strong>source files in Ceph RGW only</strong> (S3-compatible API) — <strong>not MinIO</strong>. Accept <strong>PDF and Markdown</strong>; convert PDF → Markdown with <strong>Docling</strong> before indexing.  </li>
+<li>Index chunks in <strong>Qdrant</strong> (dedicated vector DB).  </li>
+<li>Keep document metadata and ingest jobs in <strong>PostgreSQL</strong>.  </li>
+<li>Ship a <strong>separate Admin SPA</strong> (<code>apps/admin</code>) for handbook CRUD and re-indexing.  </li>
+<li>Authenticate admin users via <strong>Keycloak</strong> (OIDC Authorization Code + PKCE); enforce realm roles on admin API.  </li>
+<li><strong>No category allow-list</strong> — any <code>CreateTicket</code> candidate may enter troubleshoot when KB is enabled.  </li>
+<li>On escalate, attach the <strong>full chat transcript</strong> (with secret redaction), not an LLM summary.  </li>
+</ol>
+<p>Do <strong>not</strong> let the LLM call Zammad, Ceph, or Qdrant directly — keep orchestration as the gate for ticket actions. The agent <strong>guides</strong>; the <strong>user performs</strong> every remediation step. End-user chat auth remains unchanged for MVP (dev header / existing JWT); Keycloak is required for <strong>admin</strong> only.</p>
+<p><strong>Design principle (unchanged):</strong> LLM for language and presenting grounded steps; deterministic Python for retrieval, policy, storage, and ticket execution.</p>
+<hr />
+<h2 id="2-current-state">2. Current state<a class="headerlink" href="#2-current-state" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Today</th>
+<th>Gap for KB/RAG</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Graph</td>
+<td><code>conversation → orchestrate → ticket_tool → respond</code></td>
+<td>No pre-ticket troubleshoot path</td>
+</tr>
+<tr>
+<td>LLM role</td>
+<td>Intent + slot filling only</td>
+<td>No grounded answers from handbook</td>
+</tr>
+<tr>
+<td>Object storage</td>
+<td>Existing S3 client used for chat attachments (historically MinIO in local Compose)</td>
+<td>Handbook KB uses <strong>Ceph RGW only</strong> — no MinIO</td>
+</tr>
+<tr>
+<td>Vector / RAG</td>
+<td>None</td>
+<td>No embeddings, chunks, or retrieval API</td>
+</tr>
+<tr>
+<td>Admin</td>
+<td>None (config via <code>.env</code> + YAML)</td>
+<td>No UI to upload/edit handbooks</td>
+</tr>
+<tr>
+<td>Ticket body</td>
+<td>Title + synthesized description from user turns</td>
+<td>No “steps attempted” or full transcript</td>
+</tr>
+<tr>
+<td>Deflection metrics</td>
+<td>Not tracked</td>
+<td>Cannot prove L1 ROI</td>
+</tr>
+</tbody>
+</table>
+<h3 id="reusable-building-blocks">Reusable building blocks<a class="headerlink" href="#reusable-building-blocks" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Asset</th>
+<th>Reuse</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>packages/storage</code> (<code>ObjectStorage</code> + S3 backend)</td>
+<td>Same S3 API client pointed at <strong>Ceph RGW</strong>; dedicated bucket <code>agent-handbooks</code> (<strong>not</strong> MinIO)</td>
+</tr>
+<tr>
+<td>LangGraph + <code>SupportGraphState</code></td>
+<td>Add fields + nodes; keep conditional routing</td>
+</tr>
+<tr>
+<td>Redis session memory</td>
+<td>Hold troubleshoot state across turns</td>
+</tr>
+<tr>
+<td>Orchestration / <code>CreateTicket</code></td>
+<td>Unchanged gate; enrich payload before approve</td>
+</tr>
+<tr>
+<td>Thought streaming</td>
+<td>Surface “Searching handbook…”, “Presenting step 2…”, “Waiting for your result…”</td>
+</tr>
+<tr>
+<td>Auth (<code>dev</code> / JWT for chat)</td>
+<td>Admin uses <strong>Keycloak</strong> OIDC + realm roles (separate from chat)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="3-target-user-flows">3. Target user flows<a class="headerlink" href="#3-target-user-flows" title="Permanent link">&para;</a></h2>
+<h3 id="31-operating-model-guide-dont-act">3.1 Operating model — guide, don’t act<a class="headerlink" href="#31-operating-model-guide-dont-act" title="Permanent link">&para;</a></h3>
+<p>The agent <strong>never</strong> performs remediations (no AD unlock, no remote commands, no clicking on the user’s device). It:</p>
+<ol>
+<li>Retrieves relevant handbook content.  </li>
+<li>Presents the next step in plain language.  </li>
+<li>Waits for the user to say what happened.  </li>
+<li>Advances, retries, or escalates based on the user’s report.</li>
+</ol>
+<p>The user remains in control of every action.</p>
+<h3 id="32-happy-path-resolved-without-ticket">3.2 Happy path — resolved without ticket<a class="headerlink" href="#32-happy-path-resolved-without-ticket" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>1. User: &quot;VPN disconnects every 30 seconds&quot;
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>2. Agent gathers minimal symptoms (device, client, error) if missing
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>3. Agent retrieves top handbook chunks (e.g. AnyConnect DPD timeout)
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>4. Agent presents Step 1 and asks the user to try it
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>5. User performs the step, then reports: &quot;That fixed it&quot;
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>6. Agent confirms resolution; records deflection event; no Zammad call
+</code></pre></div>
+<h3 id="33-escalation-path-ticket-with-full-transcript">3.3 Escalation path — ticket with full transcript<a class="headerlink" href="#33-escalation-path-ticket-with-full-transcript" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>1–4. Same as above (retrieve + present steps; user acts)
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>5. User: &quot;Still failing&quot; / steps exhausted / user asks for ticket
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>6. Agent (optional MVP+): confirm-before-submit summary card
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>7. CreateTicket description includes:
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>   - User problem narrative
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>   - Handbook article(s) consulted (title + id)
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>   - Steps presented + user-reported outcomes
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>   - Full chat transcript (redacted)
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>8. Ticket routed via existing category → group mapping
+</code></pre></div>
+<h3 id="34-no-kb-match">3.4 No KB match<a class="headerlink" href="#34-no-kb-match" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>1. Retrieval confidence below threshold or empty results
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>2. Skip troubleshoot loop; proceed to CreateTicket
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>3. Description notes &quot;No matching handbook article&quot;
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>4. Full chat transcript still included
+</code></pre></div>
+<h3 id="35-when-troubleshoot-runs">3.5 When troubleshoot runs<a class="headerlink" href="#35-when-troubleshoot-runs" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Condition</th>
+<th>Enter troubleshoot?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>KB_RAG_ENABLED=true</code> and intent is <code>CreateTicket</code> candidate</td>
+<td><strong>Yes</strong> (all categories — no allow-list)</td>
+</tr>
+<tr>
+<td><code>CheckStatus</code>, updates, cancel, etc.</td>
+<td><strong>No</strong> — bypass</td>
+</tr>
+<tr>
+<td><code>KB_RAG_ENABLED=false</code></td>
+<td><strong>No</strong> — today’s graph only</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="4-target-architecture">4. Target architecture<a class="headerlink" href="#4-target-architecture" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>┌──────────────────────────────────────────────────────────────────────────┐
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>│  Keycloak (IdP)                                                           │
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>│  Realm roles: kb_editor · kb_admin · Login → OIDC tokens for Admin SPA   │
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>└───────────────────────────────┬──────────────────────────────────────────┘
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>                                │ OIDC (Auth Code + PKCE)
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>┌───────────────────────────────▼──────────────────────────────────────────┐
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>│  Admin UI (apps/admin) — separate SPA                                     │
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>│  Keycloak login · Upload / edit / publish · reindex · retrieval preview  │
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>└───────────────────────────────┬──────────────────────────────────────────┘
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>                                │ HTTPS + Bearer access token
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>┌───────────────────────────────▼──────────────────────────────────────────┐
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>│  Admin API (apps/api routers under /api/v1/admin/kb/*)                    │
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>│  Validate JWT (Keycloak JWKS) · AuthZ by realm role · CRUD / ingest      │
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>└───────┬───────────────────────────────┬──────────────────────────────────┘
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>        │                               │
+<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>        ▼                               ▼
+<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a>┌───────────────────┐         ┌─────────────────────────┐
+<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a>│  Ceph RGW (S3)    │         │  PostgreSQL             │
+<a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a>│  bucket:          │         │  kb_documents           │
+<a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a>│  agent-handbooks  │         │  kb_ingest_jobs         │
+<a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a>│  (source of truth │         │  kb_deflection_events   │
+<a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a>│   for files)      │         │  (metadata only — no    │
+<a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a>└───────────────────┘         │   embeddings here)      │
+<a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a>                              └─────────────────────────┘
+<a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a>        │
+<a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a>        ▼ (on publish / reindex)
+<a id="__codelineno-4-27" name="__codelineno-4-27" href="#__codelineno-4-27"></a>┌──────────────────────────────────────────────────────────────────────────┐
+<a id="__codelineno-4-28" name="__codelineno-4-28" href="#__codelineno-4-28"></a>│  Ingest worker (sync in API for MVP; async queue later)                   │
+<a id="__codelineno-4-29" name="__codelineno-4-29" href="#__codelineno-4-29"></a>│  download from Ceph → Docling (PDF→MD) → chunk MD → embed → Qdrant        │
+<a id="__codelineno-4-30" name="__codelineno-4-30" href="#__codelineno-4-30"></a>└────────────────────────────────────┬─────────────────────────────────────┘
+<a id="__codelineno-4-31" name="__codelineno-4-31" href="#__codelineno-4-31"></a>                                     ▼
+<a id="__codelineno-4-32" name="__codelineno-4-32" href="#__codelineno-4-32"></a>                          ┌─────────────────────┐
+<a id="__codelineno-4-33" name="__codelineno-4-33" href="#__codelineno-4-33"></a>                          │  Qdrant             │
+<a id="__codelineno-4-34" name="__codelineno-4-34" href="#__codelineno-4-34"></a>                          │  collection:        │
+<a id="__codelineno-4-35" name="__codelineno-4-35" href="#__codelineno-4-35"></a>                          │  agent_handbook     │
+<a id="__codelineno-4-36" name="__codelineno-4-36" href="#__codelineno-4-36"></a>                          │  (vectors + payload)│
+<a id="__codelineno-4-37" name="__codelineno-4-37" href="#__codelineno-4-37"></a>                          └──────────▲──────────┘
+<a id="__codelineno-4-38" name="__codelineno-4-38" href="#__codelineno-4-38"></a>                                     │ retrieve
+<a id="__codelineno-4-39" name="__codelineno-4-39" href="#__codelineno-4-39"></a>┌────────────────────────────────────┴─────────────────────────────────────┐
+<a id="__codelineno-4-40" name="__codelineno-4-40" href="#__codelineno-4-40"></a>│  User chat (existing)                                                     │
+<a id="__codelineno-4-41" name="__codelineno-4-41" href="#__codelineno-4-41"></a>│  conversation → troubleshoot (RAG + user-guided steps) → orchestrate → … │
+<a id="__codelineno-4-42" name="__codelineno-4-42" href="#__codelineno-4-42"></a>└──────────────────────────────────────────────────────────────────────────┘
+</code></pre></div>
+<h3 id="separation-of-concerns">Separation of concerns<a class="headerlink" href="#separation-of-concerns" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Responsibility</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Ceph</strong></td>
+<td>Authoritative handbook <strong>files</strong> (original PDF and/or Markdown; derived Markdown from PDF)</td>
+</tr>
+<tr>
+<td><strong>Postgres</strong></td>
+<td>Document metadata, publish status, ingest jobs, deflection analytics</td>
+</tr>
+<tr>
+<td><strong>Qdrant</strong></td>
+<td>Chunk vectors + payload (<code>document_id</code>, title, section, body excerpt, tags)</td>
+</tr>
+<tr>
+<td><strong>LangGraph troubleshoot</strong></td>
+<td>Retrieve, present steps to user, track outcomes, decide escalate</td>
+</tr>
+<tr>
+<td><strong>Orchestration</strong></td>
+<td>Still the only path that can create tickets</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="5-technology-choices">5. Technology choices<a class="headerlink" href="#5-technology-choices" title="Permanent link">&para;</a></h2>
+<h3 id="51-object-storage-ceph-rgw-only-locked">5.1 Object storage — Ceph RGW only (locked)<a class="headerlink" href="#51-object-storage-ceph-rgw-only-locked" title="Permanent link">&para;</a></h3>
+<p><strong>Decision:</strong> Handbook source files live in <strong>Ceph Object Gateway (RGW)</strong> in every environment (dev, CI, production). <strong>Do not use MinIO</strong> for Agent Handbooks.</p>
+<table>
+<thead>
+<tr>
+<th>Env</th>
+<th>Backend</th>
+<th>Bucket</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Local / CI</td>
+<td>Ceph RGW endpoint (shared sandbox or team-provided)</td>
+<td><code>agent-handbooks</code></td>
+</tr>
+<tr>
+<td>Production</td>
+<td>Ceph RGW</td>
+<td><code>agent-handbooks</code></td>
+</tr>
+<tr>
+<td>Unit tests</td>
+<td>In-memory <code>ObjectStorage</code> fake (<code>STORAGE_BACKEND=memory</code>)</td>
+<td>N/A — no real object store</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Why not MinIO:</strong> MinIO is only an S3-compatible stand-in; this project standardizes handbook storage on <strong>Ceph</strong> so paths, IAM, and ops match production. Chat attachments elsewhere in the repo may still use other backends; <strong>KB/handbook storage must not depend on MinIO</strong>.</p>
+<p><strong>Implementation notes:</strong></p>
+<ul>
+<li>Reuse <code>packages/storage</code> S3/<code>boto3</code> client with Ceph RGW <code>endpoint_url</code>, access key, and secret (RGW S3 API).</li>
+<li>Prefer dedicated settings (<code>CEPH_RGW_*</code> / <code>KB_HANDBOOK_S3_*</code>) so handbook credentials are not shared with any attachment MinIO config.</li>
+<li>Object key convention: <code>handbooks/{org_id}/{document_id}/v{version}/{filename}</code></li>
+<li>Store checksum (SHA-256) in metadata for integrity and skip-reindex if unchanged.</li>
+<li>Handbooks are <strong>not</strong> served directly to end users; admin downloads via signed URL or API proxy.</li>
+<li>Compose for KB work: <strong>do not</strong> add a MinIO service for handbooks; document required <code>CEPH_RGW_ENDPOINT</code> (and credentials) for local admin/ingest.</li>
+</ul>
+<h3 id="52-vector-store-qdrant-locked">5.2 Vector store — Qdrant (locked)<a class="headerlink" href="#52-vector-store-qdrant-locked" title="Permanent link">&para;</a></h3>
+<p><strong>Decision:</strong> Use <strong>Qdrant</strong> as the vector database from day one.</p>
+<table>
+<thead>
+<tr>
+<th>Concern</th>
+<th>Approach</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Local / CI</td>
+<td><code>qdrant/qdrant</code> service in Docker Compose</td>
+</tr>
+<tr>
+<td>Production</td>
+<td>Managed Qdrant Cloud or self-hosted Qdrant cluster</td>
+</tr>
+<tr>
+<td>Client</td>
+<td>Official <code>qdrant-client</code> (Python) behind <code>packages/knowledge</code></td>
+</tr>
+<tr>
+<td>Collection</td>
+<td><code>agent_handbook</code> (name configurable)</td>
+</tr>
+<tr>
+<td>Point id</td>
+<td>Stable UUID per chunk (same as logical chunk id)</td>
+</tr>
+<tr>
+<td>Payload</td>
+<td><code>document_id</code>, <code>chunk_index</code>, <code>title</code>, <code>section_title</code>, <code>body</code>, <code>category_tags</code>, <code>status</code>, <code>embedding_model</code>, <code>version</code></td>
+</tr>
+<tr>
+<td>Filters</td>
+<td><code>status=published</code> (and optional org_id later)</td>
+</tr>
+</tbody>
+</table>
+<p>Postgres remains the system of record for <strong>documents and jobs</strong>; Qdrant is the system of record for <strong>searchable chunks</strong>. On reindex, delete-by-<code>document_id</code> filter then upsert new points.</p>
+<p>Abstract behind <code>KnowledgeStore</code> protocol in <code>packages/knowledge</code> so tests can use an in-memory fake without running Qdrant.</p>
+<h3 id="53-embeddings">5.3 Embeddings<a class="headerlink" href="#53-embeddings" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OpenAI <code>text-embedding-3-small</code></td>
+<td>Fits current OpenAI usage; simple</td>
+</tr>
+<tr>
+<td>Azure OpenAI embeddings</td>
+<td>When <code>LLM_PROVIDER=azure_openai</code></td>
+</tr>
+<tr>
+<td>Local / open model</td>
+<td>Later cost/privacy option</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Decision:</strong> Use the same provider family as chat where possible; configure via <code>EMBEDDING_MODEL</code> / provider settings. Store embedding model id on each Qdrant point (and on <code>kb_documents</code>) so re-embed is explicit when the model changes. Collection vector size must match the model.</p>
+<h3 id="54-pdf-markdown-conversion-docling-locked">5.4 PDF → Markdown conversion — Docling (locked)<a class="headerlink" href="#54-pdf-markdown-conversion-docling-locked" title="Permanent link">&para;</a></h3>
+<p><strong>Decision:</strong> The system <strong>accepts PDF</strong> handbook uploads. Before chunking/indexing, convert PDF to Markdown with <strong><a href="https://github.com/docling-project/docling">Docling</a></strong> (IBM Research, MIT-licensed, open source).</p>
+<table>
+<thead>
+<tr>
+<th>Tool considered</th>
+<th>Why not primary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Docling</strong></td>
+<td><strong>Selected</strong> — strong structure for RAG, MIT license, CPU-capable, Markdown export</td>
+</tr>
+<tr>
+<td>Marker</td>
+<td>High fidelity but heavier GPU bias and more restrictive model licensing for commercial use</td>
+</tr>
+<tr>
+<td>pymupdf4llm</td>
+<td>Fast/light for simple digital PDFs; weaker on tables/complex layout / scans</td>
+</tr>
+<tr>
+<td>unstructured / pypdf</td>
+<td>Adequate extractors; not best-in-class Markdown structure for handbooks</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Pipeline rule:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>PDF upload → store original in Ceph
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>           → Docling convert → Markdown
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>           → store derived Markdown in Ceph (sidecar)
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>           → chunk Markdown → embed → Qdrant
+</code></pre></div>
+<p><strong>Also accept</strong> native <code>.md</code> uploads (skip conversion). DOCX/HTML are out of MVP unless needed later.</p>
+<p><strong>Ops notes:</strong></p>
+<ul>
+<li>Run Docling in the ingest worker (same process MVP; dedicated worker if CPU-heavy).</li>
+<li>Persist converter version (<code>docling==x.y.z</code>) on <code>kb_documents</code> / ingest job for reproducibility.</li>
+<li>On conversion failure → job <code>failed</code> with error; do not publish; allow admin retry.</li>
+<li>Optional admin preview: show derived Markdown before publish.</li>
+<li>Scanned/image PDFs: rely on Docling’s OCR/layout path; document quality expectations for operators.</li>
+</ul>
+<h3 id="55-chunking">5.5 Chunking<a class="headerlink" href="#55-chunking" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Override</th>
+<th>Rationale</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Input</td>
+<td><strong>Markdown</strong> (native upload or Docling output)</td>
+<td>—</td>
+<td>Single chunking path</td>
+</tr>
+<tr>
+<td>Strategy</td>
+<td><strong><code>page</code></strong> (one chunk per PDF page)</td>
+<td><code>KB_CHUNK_STRATEGY=page\|heading</code></td>
+<td>Keeps a page's context intact; markdown without page markers falls back to headings</td>
+</tr>
+<tr>
+<td>Chunk size (max chars)</td>
+<td><code>4000</code></td>
+<td><code>KB_CHUNK_MAX_CHARS</code></td>
+<td>Oversized pages are windowed to this cap</td>
+</tr>
+<tr>
+<td>Overlap (chars)</td>
+<td><code>200</code></td>
+<td><code>KB_CHUNK_OVERLAP_CHARS</code></td>
+<td>Continuity across windowed boundaries</td>
+</tr>
+<tr>
+<td>Metadata per chunk</td>
+<td><code>document_id</code>, <code>title</code>, <code>section_title</code>, <code>page</code>, <code>category_tags</code></td>
+<td>—</td>
+<td>Citations + optional payload filters</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Page markers:</strong> the Docling worker exports Markdown with a <code>&lt;!-- docling-page-break --&gt;</code> marker (via <code>export_to_markdown(page_break_placeholder=...)</code>, with a fallback for older docling builds). The chunker splits on this marker for the <code>page</code> strategy.</p>
+<p><strong>Canonical searchable text is always Markdown</strong> — never chunk raw PDF bytes.</p>
+<hr />
+<h2 id="6-langgraph-changes">6. LangGraph changes<a class="headerlink" href="#6-langgraph-changes" title="Permanent link">&para;</a></h2>
+<h3 id="61-extended-topology">6.1 Extended topology<a class="headerlink" href="#61-extended-topology" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>START → conversation
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>            │
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>            ├─ (clarify / CheckStatus / non-create) ──────────────► respond
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>            │
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>            └─ (CreateTicket candidate, KB enabled)   # all categories
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>                    ▼
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>              troubleshoot
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>                    │
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>                    ├─ needs_user_step_outcome ───────────────────► respond
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>                    ├─ resolved_without_ticket ───────────────────► respond
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>                    ├─ escalate_to_ticket ────────────────────────► orchestrate → ticket_tool → respond
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>                    └─ no_kb_match ───────────────────────────────► orchestrate → ticket_tool → respond
+</code></pre></div>
+<h3 id="62-new-extended-state-fields">6.2 New / extended state fields<a class="headerlink" href="#62-new-extended-state-fields" title="Permanent link">&para;</a></h3>
+<p>Add to <code>SupportGraphState</code> (and Redis session context for multi-turn):</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>troubleshoot_status</code></td>
+<td><code>idle</code> | <code>retrieving</code> | <code>guiding</code> | <code>resolved</code> | <code>escalate</code> | <code>skipped</code></td>
+</tr>
+<tr>
+<td><code>retrieved_chunks</code></td>
+<td>Top-k hits (id, title, excerpt, score)</td>
+</tr>
+<tr>
+<td><code>active_runbook_id</code></td>
+<td>Current handbook document</td>
+</tr>
+<tr>
+<td><code>active_step_index</code></td>
+<td>Which step the user is on</td>
+</tr>
+<tr>
+<td><code>steps_attempted</code></td>
+<td>List of <code>{step, instruction, user_outcome}</code></td>
+</tr>
+<tr>
+<td><code>kb_citations</code></td>
+<td>Stable refs for ticket body and audit</td>
+</tr>
+<tr>
+<td><code>resolution_outcome</code></td>
+<td><code>resolved</code> | <code>unresolved</code> | <code>user_requested_ticket</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="63-troubleshoot-node-responsibilities">6.3 <code>troubleshoot</code> node responsibilities<a class="headerlink" href="#63-troubleshoot-node-responsibilities" title="Permanent link">&para;</a></h3>
+<ol>
+<li>If insufficient symptoms → set clarification (or rely on conversation first).  </li>
+<li>Embed query from synthesized problem text; retrieve top-k from <strong>Qdrant</strong> (published only). <strong>No category allow-list</strong> — do not gate entry by suggested category.  </li>
+<li>If score &lt; threshold → <code>skipped</code> / escalate path.  </li>
+<li>If guiding: select next step from retrieved runbook content (structured sections preferred). <strong>Present</strong> the step to the user; do not execute it.  </li>
+<li>On user reply interpreting outcome (worked / failed / unclear / “create a ticket”): advance, retry, or escalate.  </li>
+<li>Cap steps (e.g. max 3–5) and max turns in troubleshoot mode to avoid loops; always offer “create a ticket.”  </li>
+<li>On escalate: build enriched description including <strong>full transcript</strong>; set/refresh <code>CreateTicket</code> intent → route to <code>orchestrate</code>.</li>
+</ol>
+<p><strong>Important:</strong></p>
+<ul>
+<li>Retrieval and step progression are <strong>tool/code paths</strong>.  </li>
+<li>The LLM may <strong>phrase</strong> the step and interpret the user’s outcome report.  </li>
+<li>It must not invent procedures absent from retrieved content (grounding rule).  </li>
+<li>It must not claim to have performed an action on the user’s behalf.</li>
+</ul>
+<h3 id="64-feature-flag">6.4 Feature flag<a class="headerlink" href="#64-feature-flag" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nv">KB_RAG_ENABLED</span><span class="o">=</span><span class="nb">false</span><span class="w">          </span><span class="c1"># master switch</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="nv">KB_RETRIEVAL_TOP_K</span><span class="o">=</span><span class="m">5</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="nv">KB_MIN_SCORE</span><span class="o">=</span><span class="m">0</span>.72<span class="w">             </span><span class="c1"># tune empirically</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="nv">KB_MAX_TROUBLESHOOT_STEPS</span><span class="o">=</span><span class="m">5</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="nv">KB_INCLUDE_CHAT_TRANSCRIPT_IN_TICKET</span><span class="o">=</span><span class="nb">true</span>
+</code></pre></div>
+<p>When <code>KB_RAG_ENABLED=false</code>, graph behavior remains identical to today.</p>
+<hr />
+<h2 id="7-ticket-enrichment-escalation-payload">7. Ticket enrichment (escalation payload)<a class="headerlink" href="#7-ticket-enrichment-escalation-payload" title="Permanent link">&para;</a></h2>
+<p>When creating a ticket after failed troubleshooting (or no KB match), the description (Zammad article body) should be structured as follows.</p>
+<p><strong>Decision (locked):</strong> include the <strong>full chat transcript</strong>, not an LLM summary.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>## Problem
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>VPN disconnects after ~30s with DPD timeout on Cisco AnyConnect (macOS 14).
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>Started yesterday; cannot reach internal tools.
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>## Handbook consulted
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>- VPN / AnyConnect DPD Timeout (doc_id=kb_018, v3)
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>## Steps presented (user-performed)
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>1. Quit AnyConnect and clear VPN cache — User reported: did not help
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>2. Reinstall AnyConnect profile — User reported: still disconnects
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>
+<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>## Full conversation transcript
+<a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>[user] VPN disconnects every 30 seconds
+<a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>[assistant] When did this start, and do you see an error?
+<a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a>[user] Yesterday — DPD timeout
+<a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a>[assistant] Please try step 1: …
+<a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a>[user] Still failing
+<a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a>…
+</code></pre></div>
+<p><strong>Rules:</strong></p>
+<ul>
+<li>Ticket <strong>number</strong> still comes only from Zammad.  </li>
+<li>Run a <strong>redaction pass</strong> before attach (passwords, tokens, API keys, obvious secrets).  </li>
+<li>Include <strong>all</strong> user/assistant turns for the session (system “thought” labels may be omitted).  </li>
+<li>If transcript length risks provider limits, truncate oldest turns <strong>after</strong> problem + steps sections, and note truncation — do not replace with a summary.  </li>
+<li>Attach <code>kb_citations</code> in audit log even if not shown in UI.  </li>
+<li>Label steps as <strong>presented / user-reported outcomes</strong> so L2 knows the agent did not execute them.</li>
+</ul>
+<hr />
+<h2 id="8-admin-module-separate-spa-locked">8. Admin module (separate SPA — locked)<a class="headerlink" href="#8-admin-module-separate-spa-locked" title="Permanent link">&para;</a></h2>
+<h3 id="81-scope">8.1 Scope<a class="headerlink" href="#81-scope" title="Permanent link">&para;</a></h3>
+<p>A <strong>dedicated Admin application</strong> (<code>apps/admin</code>) for knowledge operators (IT content owners), not end users. <strong>Do not</strong> embed admin in <code>apps/web</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Capability</th>
+<th>MVP</th>
+<th>Later</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>List / search documents</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>Upload handbook file → Ceph (PDF or Markdown)</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>PDF → Markdown via Docling (preview + store)</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>Edit metadata (title, categories, tags, locale)</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>Publish / unpublish</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>Trigger reindex / view job status</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>Preview retrieval (query sandbox against Qdrant)</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>Review / lightly edit derived Markdown</td>
+<td>✅</td>
+<td>✅ richer editor</td>
+</tr>
+<tr>
+<td>In-browser Markdown editor</td>
+<td></td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Version diff / rollback</td>
+<td></td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Multi-tenant org isolation UI</td>
+<td></td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Analytics (deflection by article)</td>
+<td></td>
+<td>✅</td>
+</tr>
+</tbody>
+</table>
+<h3 id="82-suggested-layout">8.2 Suggested layout<a class="headerlink" href="#82-suggested-layout" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>apps/
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>  admin/          # React + Vite admin SPA (separate from apps/web)
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>apps/api/
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>  routers/admin/  # /api/v1/admin/kb/*
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>packages/
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>  knowledge/      # ingest, retrieve, models, Qdrant store
+</code></pre></div>
+<p><strong>Why separate from <code>apps/web</code>:</strong> different audience, authz, UX density, and release cadence. Share design tokens only if useful; do not mix composer/chat into admin.</p>
+<h3 id="83-admin-api-sketch">8.3 Admin API (sketch)<a class="headerlink" href="#83-admin-api-sketch" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Path</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>GET</code></td>
+<td><code>/api/v1/admin/kb/documents</code></td>
+<td>List</td>
+</tr>
+<tr>
+<td><code>POST</code></td>
+<td><code>/api/v1/admin/kb/documents</code></td>
+<td>Create metadata + upload</td>
+</tr>
+<tr>
+<td><code>GET</code></td>
+<td><code>/api/v1/admin/kb/documents/{id}</code></td>
+<td>Detail</td>
+</tr>
+<tr>
+<td><code>PATCH</code></td>
+<td><code>/api/v1/admin/kb/documents/{id}</code></td>
+<td>Update metadata / publish</td>
+</tr>
+<tr>
+<td><code>DELETE</code></td>
+<td><code>/api/v1/admin/kb/documents/{id}</code></td>
+<td>Soft-delete + deindex Qdrant</td>
+</tr>
+<tr>
+<td><code>POST</code></td>
+<td><code>/api/v1/admin/kb/documents/{id}/reindex</code></td>
+<td>Enqueue ingest</td>
+</tr>
+<tr>
+<td><code>GET</code></td>
+<td><code>/api/v1/admin/kb/jobs/{id}</code></td>
+<td>Ingest job status</td>
+</tr>
+<tr>
+<td><code>POST</code></td>
+<td><code>/api/v1/admin/kb/search/preview</code></td>
+<td>Retrieval sandbox</td>
+</tr>
+</tbody>
+</table>
+<h3 id="84-authentication-authorization-keycloak-locked">8.4 Authentication &amp; authorization — Keycloak (locked)<a class="headerlink" href="#84-authentication-authorization-keycloak-locked" title="Permanent link">&para;</a></h3>
+<p><strong>Decision:</strong> Admin login is via <strong>Keycloak</strong> (OpenID Connect). Do not use chat <code>X-User-Id</code> / <code>AUTH_MODE=dev</code> for admin routes.</p>
+<h4 id="flow">Flow<a class="headerlink" href="#flow" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>Admin SPA
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>  → redirect to Keycloak login (Authorization Code + PKCE)
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>  → receive access token (+ refresh token)
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>  → call /api/v1/admin/kb/* with Authorization: Bearer &lt;access_token&gt;
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>API
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>  → validate JWT signature via Keycloak JWKS
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>  → check issuer, audience/client, expiry
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>  → authorize by realm role (or client role) claims
+</code></pre></div>
+<h4 id="realm-roles-suggested">Realm / roles (suggested)<a class="headerlink" href="#realm-roles-suggested" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Keycloak role</th>
+<th>Access</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>(none / end user)</em></td>
+<td>Chat only — no admin routes</td>
+</tr>
+<tr>
+<td><code>kb_editor</code></td>
+<td>Create/update handbooks, reindex, retrieval preview</td>
+</tr>
+<tr>
+<td><code>kb_admin</code></td>
+<td>Everything <code>kb_editor</code> has + publish, delete, archive, config</td>
+</tr>
+</tbody>
+</table>
+<p>Map roles from the access token (<code>realm_access.roles</code> or client roles under the admin client). Prefer <strong>realm roles</strong> for MVP simplicity.</p>
+<h4 id="local-compose">Local / Compose<a class="headerlink" href="#local-compose" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Approach</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Keycloak service</td>
+<td>Add to Docker Compose (dev realm import)</td>
+</tr>
+<tr>
+<td>Clients</td>
+<td><code>tech-support-admin</code> (public SPA, PKCE); optional <code>tech-support-api</code> for audience</td>
+</tr>
+<tr>
+<td>Seed users</td>
+<td>e.g. <code>kb-editor@local</code> / <code>kb-admin@local</code> in realm JSON</td>
+</tr>
+<tr>
+<td>Chat UI</td>
+<td>Unchanged — does not require Keycloak in MVP</td>
+</tr>
+</tbody>
+</table>
+<h4 id="production">Production<a class="headerlink" href="#production" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Enterprise Keycloak (or org-hosted) realm  </li>
+<li>HTTPS only; short-lived access tokens; refresh in SPA  </li>
+<li>Restrict admin CORS to admin origin  </li>
+<li>Optional: require MFA at Keycloak for <code>kb_admin</code>  </li>
+</ul>
+<p><strong>Never</strong> expose <code>/api/v1/admin/*</code> behind open <code>X-User-Id</code> trust. If Keycloak is unreachable, admin is unavailable (fail closed) — chat may continue.</p>
+<hr />
+<h2 id="9-data-model">9. Data model<a class="headerlink" href="#9-data-model" title="Permanent link">&para;</a></h2>
+<h3 id="91-postgresql-metadata-ops">9.1 PostgreSQL (metadata &amp; ops)<a class="headerlink" href="#91-postgresql-metadata-ops" title="Permanent link">&para;</a></h3>
+<p><strong><code>kb_documents</code></strong></p>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code></td>
+<td>UUID</td>
+</tr>
+<tr>
+<td><code>org_id</code></td>
+<td>Optional multi-tenant</td>
+</tr>
+<tr>
+<td><code>title</code></td>
+<td>Display name</td>
+</tr>
+<tr>
+<td><code>slug</code></td>
+<td>Stable key</td>
+</tr>
+<tr>
+<td><code>status</code></td>
+<td><code>draft</code> | <code>published</code> | <code>archived</code></td>
+</tr>
+<tr>
+<td><code>category_tags</code></td>
+<td>Metadata for operators / payload filters (not an entry allow-list)</td>
+</tr>
+<tr>
+<td><code>source_content_type</code></td>
+<td><code>application/pdf</code> or <code>text/markdown</code></td>
+</tr>
+<tr>
+<td><code>object_key</code></td>
+<td>Ceph key for <strong>original</strong> upload</td>
+</tr>
+<tr>
+<td><code>derived_markdown_object_key</code></td>
+<td>Ceph key for Docling Markdown (null if source was already <code>.md</code>)</td>
+</tr>
+<tr>
+<td><code>converter_name</code></td>
+<td>e.g. <code>docling</code></td>
+</tr>
+<tr>
+<td><code>converter_version</code></td>
+<td>Package version used for last successful conversion</td>
+</tr>
+<tr>
+<td><code>checksum_sha256</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>version</code></td>
+<td>Integer</td>
+</tr>
+<tr>
+<td><code>embedding_model</code></td>
+<td>Last successful index model</td>
+</tr>
+<tr>
+<td><code>qdrant_collection</code></td>
+<td>Collection name used at index time</td>
+</tr>
+<tr>
+<td><code>chunk_count</code></td>
+<td>Last successful index</td>
+</tr>
+<tr>
+<td><code>published_at</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>created_by</code> / <code>updated_by</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong><code>kb_ingest_jobs</code></strong></p>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code></td>
+<td>UUID</td>
+</tr>
+<tr>
+<td><code>document_id</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>status</code></td>
+<td><code>queued</code> | <code>running</code> | <code>succeeded</code> | <code>failed</code></td>
+</tr>
+<tr>
+<td><code>error_message</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>started_at</code> / <code>finished_at</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong><code>kb_deflection_events</code></strong> (analytics)</p>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>session_id</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>document_id</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>outcome</code></td>
+<td><code>resolved</code> | <code>escalated</code> | <code>abandoned</code></td>
+</tr>
+<tr>
+<td><code>steps_count</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>created_at</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Note:</strong> There is <strong>no</strong> <code>kb_chunks</code> table with embeddings in Postgres. Chunk vectors live in Qdrant.</p>
+<h3 id="92-qdrant-collection">9.2 Qdrant collection<a class="headerlink" href="#92-qdrant-collection" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>MVP default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Collection</td>
+<td><code>agent_handbook</code></td>
+</tr>
+<tr>
+<td>Distance</td>
+<td>Cosine</td>
+</tr>
+<tr>
+<td>Vector size</td>
+<td>Match embedding model (e.g. 1536 for <code>text-embedding-3-small</code>)</td>
+</tr>
+<tr>
+<td>Payload index</td>
+<td><code>document_id</code>, <code>status</code>, <code>org_id</code> (when used)</td>
+</tr>
+</tbody>
+</table>
+<p>On document delete/unpublish: delete points by <code>document_id</code> filter (and/or set payload <code>status</code> and filter at query time — prefer delete on unpublish for simplicity in MVP).</p>
+<hr />
+<h2 id="10-ingest-pipeline">10. Ingest pipeline<a class="headerlink" href="#10-ingest-pipeline" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>Admin upload (PDF or Markdown)
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>  → put original object to Ceph (agent-handbooks)
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>  → insert/update kb_documents (draft)
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>  → on Publish or Reindex:
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>       create kb_ingest_jobs
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>       → download original from Ceph
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>       → if PDF:
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>            Docling.convert → Markdown
+<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>            put derived Markdown to Ceph (sidecar key)
+<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a>         if Markdown:
+<a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a>            use as-is
+<a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a>       → chunk Markdown (heading-aware)
+<a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a>       → embed
+<a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a>       → delete existing Qdrant points for document_id
+<a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a>       → upsert new points
+<a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a>       → mark job succeeded; set embedding_model, chunk_count,
+<a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a>         converter_name/version, derived_markdown_object_key
+</code></pre></div>
+<p><strong>MVP execution:</strong> run Docling + ingest <strong>inline or background task in API process</strong>.<br />
+<strong>Phase 2:</strong> dedicated worker when PDF conversion is CPU-heavy or queue depth grows.</p>
+<p><strong>Idempotency:</strong> same original checksum + same embedding model + same Docling version → skip. Embedding or converter version change → full reconvert/re-embed as needed.</p>
+<p><strong>Object keys (example):</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>handbooks/{org}/{document_id}/v{n}/source.pdf
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>handbooks/{org}/{document_id}/v{n}/derived.md
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>handbooks/{org}/{document_id}/v{n}/source.md
+</code></pre></div>
+<hr />
+<h2 id="11-retrieval-api-runtime">11. Retrieval API (runtime)<a class="headerlink" href="#11-retrieval-api-runtime" title="Permanent link">&para;</a></h2>
+<p><code>packages/knowledge</code> exposes something like:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>retrieve(query: str, *, top_k, min_score) -&gt; list[ChunkHit]
+</code></pre></div>
+<p>Used by the <code>troubleshoot</code> node and admin preview. Category tags may appear in <strong>payload</strong> for ranking/debug, but <strong>must not</strong> gate whether troubleshoot runs.</p>
+<p><strong>Grounding policy:</strong></p>
+<ul>
+<li>Steps presented to the user must be attributable to <code>ChunkHit</code>s.  </li>
+<li>If ungrounded → escalate or clarify — do not invent fixes.  </li>
+<li>Never imply the agent executed a step.  </li>
+<li>Citations in thought stream / optional UI “Sources” chip (MVP+: nice-to-have).</li>
+</ul>
+<hr />
+<h2 id="12-security-compliance">12. Security &amp; compliance<a class="headerlink" href="#12-security-compliance" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Topic</th>
+<th>Approach</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Handbook sensitivity</td>
+<td>Treat as internal; Ceph private bucket; no public ACLs</td>
+</tr>
+<tr>
+<td>Admin auth</td>
+<td><strong>Keycloak OIDC</strong>; JWT validation + role checks; fail closed if IdP down</td>
+</tr>
+<tr>
+<td>Token handling</td>
+<td>Access tokens in memory (SPA); no admin tokens in chat app</td>
+</tr>
+<tr>
+<td>PII / secrets in tickets</td>
+<td><strong>Mandatory redaction</strong> before attaching full transcript</td>
+</tr>
+<tr>
+<td>Transcript volume</td>
+<td>Full transcript by policy; redact first; truncate oldest only if provider limit</td>
+</tr>
+<tr>
+<td>Prompt injection via KB</td>
+<td>Sanitize retrieved text; never execute handbook content as tools</td>
+</tr>
+<tr>
+<td>Qdrant access</td>
+<td>Network-private; API key if exposed; no end-user direct access</td>
+</tr>
+<tr>
+<td>Audit</td>
+<td>Log retrieve document ids, escalate decisions, admin mutations</td>
+</tr>
+<tr>
+<td>Retention</td>
+<td>Soft-delete docs; deindex Qdrant; align with org policy</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="13-observability-success-metrics">13. Observability &amp; success metrics<a class="headerlink" href="#13-observability-success-metrics" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Deflection rate</td>
+<td><code>% sessions resolved without ticket</code></td>
+</tr>
+<tr>
+<td>Escalation after N steps</td>
+<td>Tune max steps / content quality</td>
+</tr>
+<tr>
+<td>Retrieval hit rate</td>
+<td><code>% CreateTicket candidates with ≥1 chunk above threshold</code></td>
+</tr>
+<tr>
+<td>Mean time to resolve (chat)</td>
+<td>L1 speed</td>
+</tr>
+<tr>
+<td>Ticket quality score (human)</td>
+<td>Did L2 find steps + transcript useful?</td>
+</tr>
+<tr>
+<td>Ingest job failure rate</td>
+<td>Content pipeline health</td>
+</tr>
+<tr>
+<td>Qdrant latency / errors</td>
+<td>Runtime retrieve health</td>
+</tr>
+</tbody>
+</table>
+<p>Emit structured logs for: <code>kb.retrieve</code>, <code>kb.step_presented</code>, <code>kb.user_outcome</code>, <code>kb.resolved</code>, <code>kb.escalate</code>.</p>
+<hr />
+<h2 id="14-phased-delivery">14. Phased delivery<a class="headerlink" href="#14-phased-delivery" title="Permanent link">&para;</a></h2>
+<h3 id="phase-0-foundations-12-sprints">Phase 0 — Foundations (1–2 sprints)<a class="headerlink" href="#phase-0-foundations-12-sprints" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>packages/knowledge</code> skeleton + <code>KnowledgeStore</code> protocol  </li>
+<li>Qdrant in Docker Compose + collection bootstrap  </li>
+<li><strong>Ceph RGW</strong> handbook bucket wiring (dedicated settings; <strong>no MinIO</strong>)  </li>
+<li><strong>Keycloak</strong> in Docker Compose + realm export (clients, <code>kb_editor</code> / <code>kb_admin</code> roles, seed users)  </li>
+<li>Empty <code>apps/admin</code> shell with OIDC login (PKCE)  </li>
+<li>Admin API middleware: JWKS validation + role gate (reject <code>X-User-Id</code> on admin routes)  </li>
+</ul>
+<h3 id="phase-1-ingest-admin-mvp-23-sprints">Phase 1 — Ingest + Admin MVP (2–3 sprints)<a class="headerlink" href="#phase-1-ingest-admin-mvp-23-sprints" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Upload <strong>PDF and Markdown</strong> to <strong>Ceph RGW</strong> (authenticated as Keycloak user)  </li>
+<li><strong>Docling</strong> PDF → Markdown conversion; store derived <code>.md</code> sidecar  </li>
+<li>Admin preview of derived Markdown before publish  </li>
+<li>Chunk + embed + upsert to Qdrant  </li>
+<li>List / publish / reindex / deindex (role-scoped)  </li>
+<li>Retrieval preview in admin  </li>
+<li>Seed 5–10 handbooks (PDF and/or Markdown: VPN, Outlook, password/lockout, Wi-Fi, printer)  </li>
+<li>Audit admin mutations with Keycloak <code>sub</code> / username  </li>
+</ul>
+<h3 id="phase-2-graph-troubleshoot-implemented">Phase 2 — Graph troubleshoot (implemented)<a class="headerlink" href="#phase-2-graph-troubleshoot-implemented" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>troubleshoot</code> node + state + feature flag (<code>KB_RAG_ENABLED</code>) — <strong>done</strong></li>
+<li><code>packages/agents/src/tech_support_agents/nodes/troubleshoot.py</code></li>
+<li><code>packages/agents/src/tech_support_agents/kb.py</code> (retriever + step extraction, injectable for tests)</li>
+<li>Routing: <code>conversation → troubleshoot → orchestrate | respond</code> (<code>graph.py</code>)</li>
+<li>Multi-turn <strong>user-guided</strong> step loop with caps (all CreateTicket candidates) — <strong>done</strong></li>
+<li>Progress persisted per session in Redis <code>SessionContext.troubleshoot</code>, threaded through the runner</li>
+<li>Outcome classifier (resolved / failed / escalate / unclear); the agent only guides, never acts</li>
+<li>Escalation payload: problem + handbook + steps attempted + <strong>full transcript</strong> — <strong>done</strong></li>
+<li>Appended to <code>structured_intent.payload["description"]</code> before orchestration (transcript gated by <code>KB_INCLUDE_CHAT_TRANSCRIPT_IN_TICKET</code>)</li>
+<li>Deflection events — <strong>done</strong></li>
+<li><code>resolved</code> / <code>escalated</code> outcomes written to <code>kb_deflection_events</code> in <code>chat_service</code></li>
+<li>Thought-stream labels — <strong>done</strong> ("Searching the knowledge base…", "Found a matching guide…", "Preparing your ticket…")</li>
+<li>Tests: node paths (begin / resolve / advance / exhaust / explicit-ticket / no-match / flag-off) + step extraction — <strong>done</strong></li>
+<li><code>packages/agents/tests/test_troubleshoot_node.py</code>, <code>packages/agents/tests/test_kb_steps.py</code></li>
+</ul>
+<p><strong>Remaining for Phase 2 polish:</strong> live end-to-end integration test against a real Qdrant + seeded handbook (currently covered by unit-level fake retriever + <code>MemoryKnowledgeStore</code>).  </p>
+<h3 id="phase-3-hardening-ongoing">Phase 3 — Hardening (ongoing)<a class="headerlink" href="#phase-3-hardening-ongoing" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Versioning UI, richer Markdown editor  </li>
+<li>Confirm-before-submit card on escalate  </li>
+<li>Production Keycloak realm (MFA for <code>kb_admin</code>, group federation if needed)  </li>
+<li>Async Docling workers / GPU optional acceleration if volume requires  </li>
+<li>Qdrant HA / managed offering in production  </li>
+</ul>
+<hr />
+<h2 id="15-testing-strategy">15. Testing strategy<a class="headerlink" href="#15-testing-strategy" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>What</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Unit</td>
+<td>Chunking, redaction, score threshold routing, transcript assembly, Docling conversion fixtures</td>
+</tr>
+<tr>
+<td>Package</td>
+<td><code>KnowledgeStore</code> with fake Qdrant / testcontainers Qdrant; PDF→MD golden files</td>
+</tr>
+<tr>
+<td>Graph</td>
+<td>Mock retrieve → present step → user outcome → escalate vs resolve</td>
+</tr>
+<tr>
+<td>API</td>
+<td>Admin CRUD + Keycloak JWT rejection / role denials</td>
+</tr>
+<tr>
+<td>Live (optional)</td>
+<td>Real embeddings + Ceph RGW + Qdrant + seeded handbook</td>
+</tr>
+<tr>
+<td>Eval</td>
+<td>Golden questions: expected doc id in top-k; no-ticket when user reports success; ticket body contains full transcript + steps</td>
+</tr>
+</tbody>
+</table>
+<p>Extend user-simulator scenarios with “user follows steps then says it worked” and “steps fail then expect ticket body contains Steps presented and Full conversation transcript”.</p>
+<hr />
+<h2 id="16-decisions-locked">16. Decisions (locked)<a class="headerlink" href="#16-decisions-locked" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Topic</th>
+<th>Decision</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Vector DB</td>
+<td><strong>Qdrant</strong></td>
+</tr>
+<tr>
+<td>2</td>
+<td>Admin app</td>
+<td><strong>Separate SPA</strong> (<code>apps/admin</code>)</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Admin login</td>
+<td><strong>Keycloak</strong> (OIDC Authorization Code + PKCE); realm roles <code>kb_editor</code> / <code>kb_admin</code></td>
+</tr>
+<tr>
+<td>4</td>
+<td>Authoring / ingest formats</td>
+<td><strong>PDF and Markdown</strong>; PDF converted to Markdown with <strong>Docling</strong> before chunking</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Step source</td>
+<td><strong>Grounded handbook content</strong>; LLM phrases only</td>
+</tr>
+<tr>
+<td>6</td>
+<td>When to enter troubleshoot</td>
+<td><strong>All <code>CreateTicket</code> candidates</strong> when KB enabled — <strong>no category allow-list</strong></td>
+</tr>
+<tr>
+<td>7</td>
+<td>Agency model</td>
+<td>Agent <strong>guides</strong>; <strong>user takes actions</strong> — agent never remediates</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Chat history in ticket</td>
+<td><strong>Full transcript</strong> (redacted), not summary</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Multi-tenancy</td>
+<td>Column ready; single-org behavior in MVP</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Object storage</td>
+<td><strong>Ceph RGW only</strong> — dedicated <code>agent-handbooks</code> bucket; <strong>no MinIO</strong> for KB</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="17-risks-and-mitigations">17. Risks and mitigations<a class="headerlink" href="#17-risks-and-mitigations" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Risk</th>
+<th>Impact</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hallucinated fixes</td>
+<td>Wrong advice</td>
+<td>Grounding rule; cite chunks; escalate if ungrounded</td>
+</tr>
+<tr>
+<td>Poor PDF conversion</td>
+<td>Bad steps / broken structure</td>
+<td>Docling + admin Markdown preview before publish; converter version pinned</td>
+</tr>
+<tr>
+<td>User thinks agent “did” something</td>
+<td>Confusion / unsafe assumptions</td>
+<td>Explicit copy: “Please try this… then tell me the result”</td>
+</tr>
+<tr>
+<td>Stale handbooks</td>
+<td>Bad L1 guidance</td>
+<td>Publish workflow; owners per doc</td>
+</tr>
+<tr>
+<td>Endless troubleshoot loops</td>
+<td>Poor UX</td>
+<td>Max steps/turns; always allow ticket creation</td>
+</tr>
+<tr>
+<td>Full transcript size / PII</td>
+<td>Provider limits; privacy</td>
+<td>Redaction; truncate oldest only as last resort; audit access</td>
+</tr>
+<tr>
+<td>Embedding cost / latency</td>
+<td>Slow chat</td>
+<td>Cache query embeddings per turn; small top-k</td>
+</tr>
+<tr>
+<td>Ceph outage</td>
+<td>Admin upload / reindex fails; runtime retrieve still works if Qdrant warm</td>
+<td>Runtime retrieve uses <strong>Qdrant</strong>, not Ceph; alert on ingest failures</td>
+</tr>
+<tr>
+<td>Qdrant outage</td>
+<td>Troubleshoot unavailable</td>
+<td>Fail open to CreateTicket with note; alert ops</td>
+</tr>
+<tr>
+<td>Admin exposed via chat auth</td>
+<td>Unauthorized KB edits</td>
+<td>Admin routes accept <strong>Keycloak Bearer only</strong>; reject <code>X-User-Id</code></td>
+</tr>
+<tr>
+<td>Keycloak outage</td>
+<td>Admin unavailable</td>
+<td>Fail closed for admin; chat unaffected</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="18-out-of-scope-this-strategy">18. Out of scope (this strategy)<a class="headerlink" href="#18-out-of-scope-this-strategy" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Replacing Zammad with a knowledge-only bot  </li>
+<li>Fully autonomous remediations (AD unlock, Intune actions) — separate runbook-executor strategy  </li>
+<li>Public internet-facing handbook portal  </li>
+<li>Training a custom LLM on handbook text  </li>
+<li>Automatic generation of handbooks from closed tickets (future content ops)  </li>
+<li>Category allow-list gating of troubleshoot entry  </li>
+<li><strong>MinIO</strong> (or any non-Ceph stand-in) for Agent Handbook object storage  </li>
+<li>Chunking raw PDF without Markdown conversion  </li>
+<li>Marker / proprietary cloud OCR as the primary converter (Docling is locked)  </li>
+</ul>
+<hr />
+<h2 id="19-implementation-map-target-repo-layout">19. Implementation map (target repo layout)<a class="headerlink" href="#19-implementation-map-target-repo-layout" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>packages/knowledge/           # retrieve, ingest, models, Qdrant store
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>apps/admin/                   # KB admin SPA (Keycloak OIDC login)
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>apps/api/.../routers/admin/   # admin KB API (JWKS + role checks)
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>packages/agents/nodes/troubleshoot.py
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>packages/agents/graph.py      # new edges
+<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>config/knowledge/             # optional seed handbooks (Markdown)
+<a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>config/keycloak/              # realm export for local Compose
+<a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>docker-compose.yml            # + qdrant + keycloak
+<a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>docs/kb-rag-l1-agent-strategy.md
+</code></pre></div>
+<p>Env additions (illustrative):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="nv">KB_RAG_ENABLED</span><span class="o">=</span><span class="nb">false</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="nv">KB_HANDBOOK_S3_BUCKET</span><span class="o">=</span>agent-handbooks
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="c1"># Ceph RGW (S3 API) — required for handbook upload/ingest. Do NOT point these at MinIO.</span>
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="nv">CEPH_RGW_ENDPOINT</span><span class="o">=</span>https://rgw.example.com
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="nv">CEPH_RGW_ACCESS_KEY</span><span class="o">=</span>
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="nv">CEPH_RGW_SECRET_KEY</span><span class="o">=</span>
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="nv">CEPH_RGW_REGION</span><span class="o">=</span>us-east-1
+<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a><span class="c1"># Optional path-style addressing if required by your RGW:</span>
+<a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a><span class="c1"># CEPH_RGW_ADDRESSING_STYLE=path</span>
+<a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a>
+<a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a><span class="nv">EMBEDDING_PROVIDER</span><span class="o">=</span>openai
+<a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a><span class="nv">EMBEDDING_MODEL</span><span class="o">=</span>text-embedding-3-small
+<a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a>
+<a id="__codelineno-15-14" name="__codelineno-15-14" href="#__codelineno-15-14"></a><span class="nv">VECTOR_BACKEND</span><span class="o">=</span>qdrant
+<a id="__codelineno-15-15" name="__codelineno-15-15" href="#__codelineno-15-15"></a><span class="nv">QDRANT_URL</span><span class="o">=</span>http://localhost:6333
+<a id="__codelineno-15-16" name="__codelineno-15-16" href="#__codelineno-15-16"></a><span class="nv">QDRANT_API_KEY</span><span class="o">=</span>
+<a id="__codelineno-15-17" name="__codelineno-15-17" href="#__codelineno-15-17"></a><span class="nv">QDRANT_COLLECTION</span><span class="o">=</span>agent_handbook
+<a id="__codelineno-15-18" name="__codelineno-15-18" href="#__codelineno-15-18"></a>
+<a id="__codelineno-15-19" name="__codelineno-15-19" href="#__codelineno-15-19"></a><span class="c1"># Keycloak (admin SPA + admin API)</span>
+<a id="__codelineno-15-20" name="__codelineno-15-20" href="#__codelineno-15-20"></a><span class="nv">KEYCLOAK_URL</span><span class="o">=</span>http://localhost:8081
+<a id="__codelineno-15-21" name="__codelineno-15-21" href="#__codelineno-15-21"></a><span class="nv">KEYCLOAK_REALM</span><span class="o">=</span>tech-support
+<a id="__codelineno-15-22" name="__codelineno-15-22" href="#__codelineno-15-22"></a><span class="nv">KEYCLOAK_ADMIN_CLIENT_ID</span><span class="o">=</span>tech-support-admin
+<a id="__codelineno-15-23" name="__codelineno-15-23" href="#__codelineno-15-23"></a><span class="nv">KEYCLOAK_API_AUDIENCE</span><span class="o">=</span>tech-support-admin<span class="w">   </span><span class="c1"># or dedicated API client</span>
+<a id="__codelineno-15-24" name="__codelineno-15-24" href="#__codelineno-15-24"></a><span class="c1"># KEYCLOAK_JWKS_URL=   # optional override; default derived from URL + realm</span>
+<a id="__codelineno-15-25" name="__codelineno-15-25" href="#__codelineno-15-25"></a>
+<a id="__codelineno-15-26" name="__codelineno-15-26" href="#__codelineno-15-26"></a><span class="nv">KB_RETRIEVAL_TOP_K</span><span class="o">=</span><span class="m">5</span>
+<a id="__codelineno-15-27" name="__codelineno-15-27" href="#__codelineno-15-27"></a><span class="nv">KB_MIN_SCORE</span><span class="o">=</span><span class="m">0</span>.72
+<a id="__codelineno-15-28" name="__codelineno-15-28" href="#__codelineno-15-28"></a><span class="nv">KB_MAX_TROUBLESHOOT_STEPS</span><span class="o">=</span><span class="m">5</span>
+<a id="__codelineno-15-29" name="__codelineno-15-29" href="#__codelineno-15-29"></a><span class="nv">KB_INCLUDE_CHAT_TRANSCRIPT_IN_TICKET</span><span class="o">=</span><span class="nb">true</span>
+<a id="__codelineno-15-30" name="__codelineno-15-30" href="#__codelineno-15-30"></a>
+<a id="__codelineno-15-31" name="__codelineno-15-31" href="#__codelineno-15-31"></a><span class="c1"># PDF → Markdown (Docling)</span>
+<a id="__codelineno-15-32" name="__codelineno-15-32" href="#__codelineno-15-32"></a><span class="nv">PDF_TO_MARKDOWN_CONVERTER</span><span class="o">=</span>docling
+<a id="__codelineno-15-33" name="__codelineno-15-33" href="#__codelineno-15-33"></a><span class="c1"># DOCLING_DO_OCR=true          # enable if scanned PDFs are expected</span>
+<a id="__codelineno-15-34" name="__codelineno-15-34" href="#__codelineno-15-34"></a><span class="c1"># DOCLING_ARTIFACTS_PATH=      # optional model cache path</span>
+</code></pre></div>
+<hr />
+<h2 id="20-success-criteria-for-mvp">20. Success criteria for MVP<a class="headerlink" href="#20-success-criteria-for-mvp" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Operator signs into <strong>Admin via Keycloak</strong>; users without <code>kb_editor</code> / <code>kb_admin</code> cannot call admin APIs.  </li>
+<li>Operator can upload a <strong>PDF or Markdown</strong> handbook to <strong>Ceph RGW</strong> via <strong>Admin</strong>; PDFs are converted to Markdown with <strong>Docling</strong>; operator can publish (<code>kb_admin</code>).  </li>
+<li>Chunks appear in <strong>Qdrant</strong> (from Markdown); admin retrieval preview returns the expected article.  </li>
+<li>With <code>KB_RAG_ENABLED=true</code>, a VPN-style chat retrieves the handbook and presents at least one step for the <strong>user</strong> to perform.  </li>
+<li>User saying the issue is fixed → <strong>no</strong> Zammad ticket; deflection event recorded.  </li>
+<li>User saying it still fails → ticket created; description contains <strong>problem</strong>, <strong>handbook consulted</strong>, <strong>steps presented / user outcomes</strong>, and <strong>full conversation transcript</strong> (redacted).  </li>
+<li>Troubleshoot runs for CreateTicket candidates <strong>without</strong> category allow-list gating.  </li>
+<li>With flag off, existing CreateTicket / CheckStatus behavior unchanged.  </li>
+<li>Chat continues to work without Keycloak; admin fails closed if Keycloak is down.  </li>
+</ol>
+<hr />
+<h2 id="21-related-documents">21. Related documents<a class="headerlink" href="#21-related-documents" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../external/03-solution-architecture/">Solution Architecture</a>  </li>
+<li><a href="../external/appendices/C-capability-matrix/">Capability Matrix</a> — update when Phase 2 ships  </li>
+<li><a href="../servicenow-integration-strategy/">ServiceNow Integration Strategy</a> — parallel provider work; orthogonal to KB  </li>
+<li><a href="../external/04-security-and-data-handling/">Security &amp; Data Handling</a>  </li>
+</ul>
+<hr />
+<h2 id="document-control">Document control<a class="headerlink" href="#document-control" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Detail</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Audience</strong></td>
+<td>Engineering leads, architects, product, IT content owners</td>
+</tr>
+<tr>
+<td><strong>Classification</strong></td>
+<td>Internal strategy</td>
+</tr>
+<tr>
+<td><strong>Decisions</strong></td>
+<td>Locked in §16 (Qdrant, separate admin, Keycloak, Ceph RGW only, <strong>Docling PDF→Markdown</strong>, no category allow-list, user-guided actions, full transcript)</td>
+</tr>
+<tr>
+<td><strong>Next step</strong></td>
+<td>Spike Phase 0: <code>packages/knowledge</code> + Qdrant + Keycloak Compose + Ceph RGW handbook bucket client</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "navigation.indexes", "search.suggest", "search.highlight", "content.code.copy", "toc.follow"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://unpkg.com/mermaid@11/dist/mermaid.min.js"></script>
+      
+        <script src="../javascripts/mermaid-init.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,88 @@
+{
+  "scenario_id": "network_wifi",
+  "session_id": "a6a2dfc3-adbb-41b2-bd3d-ee74b9f67181",
+  "ticket_number": "48208",
+  "ticket_id": 209,
+  "turns_used": 6,
+  "run_reference": "LIVE-network_wifi-2d2946e1",
+  "success": true,
+  "failure_reason": null,
+  "completed_at": "2026-05-29T14:34:40.456060+00:00",
+  "transcript": [
+    {
+      "turn": 1,
+      "user": "Hi there, I'm experiencing an issue with the corporate Wi-Fi in the east wing. It keeps disconnecting every few minutes during video calls, which is really disrupting my meetings. Can you help me with this?",
+      "assistant": "I can definitely help you with that! It sounds like a frustrating issue, especially during video calls. To create a support ticket for this Wi-Fi problem, could you please let me know when this issue started? Also, do you have any specific error messages or details about your device that might help us troubleshoot?",
+      "card": null,
+      "intent": null,
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026"
+      ]
+    },
+    {
+      "turn": 2,
+      "user": "The issue started after I moved desks yesterday. I'm using a laptop for my video calls, but there are no specific error messages\u2014just that the calls freeze and I get disconnected every 5\u201310 minutes.",
+      "assistant": "It sounds like you're experiencing connectivity issues with your video calls after moving desks. This could be related to your network connection or possibly the setup at your new desk. Can you let me know if you're using a wired connection or Wi-Fi? Also, are there any other devices connected to the same network that might be causing interference?",
+      "card": null,
+      "intent": null,
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026"
+      ]
+    },
+    {
+      "turn": 3,
+      "user": "I'm currently using the corporate Wi-Fi, and I have tried a wired dock connection, which works fine. No other devices are causing interference that I'm aware of. Can we create a support ticket for this issue?",
+      "assistant": "It sounds like you're experiencing issues with the corporate Wi-Fi while a wired connection works fine. To create a support ticket, could you please provide more details? Specifically, it would help to know what exactly is wrong with the Wi-Fi connection (e.g., slow speeds, frequent disconnections), the impact it's having on your work, and when you first noticed the issue. Any error messages would also be useful!",
+      "card": null,
+      "intent": null,
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026"
+      ]
+    },
+    {
+      "turn": 4,
+      "user": "The Wi-Fi disconnects every 5\u201310 minutes during video calls, causing them to freeze and making it hard to attend meetings reliably. I first noticed the issue after moving desks yesterday. There are no specific error messages, just the disconnections. Can we please create a support ticket for this?",
+      "assistant": "I can help you create a support ticket for the Wi-Fi disconnection issue during video calls. I'll include the details you've provided. Just to confirm, is there a specific priority level you would like to assign to this issue (low, normal, or high)?",
+      "card": null,
+      "intent": null,
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026"
+      ]
+    },
+    {
+      "turn": 5,
+      "user": "I'd say it's a normal priority level. Thank you for your help!",
+      "assistant": "You're welcome! If you have a specific issue you'd like to report or need assistance with, please provide some details, and I can help you create a ticket. Just let me know what the problem is, its impact, and any error messages you might have encountered.",
+      "card": null,
+      "intent": null,
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026"
+      ]
+    },
+    {
+      "turn": 6,
+      "user": "I already provided all the details about the Wi-Fi issue. It disconnects every 5\u201310 minutes during video calls, which is impacting my ability to attend meetings reliably. Can we please create a support ticket for this?",
+      "assistant": "Your support ticket **#48208** has been created successfully and assigned to **Network Support**.",
+      "card": {
+        "group": "Network Support",
+        "state": "open",
+        "priority": "3 high",
+        "card_type": "ticket_created",
+        "ticket_id": 209,
+        "ticket_number": "48208"
+      },
+      "intent": "CreateTicket",
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026",
+        "Applying support rules\u2026",
+        "Creating ticket\u2026"
+      ]
+    }
+  ]
+}

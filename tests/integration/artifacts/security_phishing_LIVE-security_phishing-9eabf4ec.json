@@ -1,0 +1,35 @@
+{
+  "scenario_id": "security_phishing",
+  "session_id": "24b502cc-d360-459a-9147-57090a4b3fe3",
+  "ticket_number": null,
+  "ticket_id": null,
+  "turns_used": 2,
+  "run_reference": "LIVE-security_phishing-9eabf4ec",
+  "success": false,
+  "failure_reason": "User simulator ended conversation: ticket_created. Notes: None",
+  "completed_at": "2026-05-24T07:21:21.258754+00:00",
+  "transcript": [
+    {
+      "turn": 1,
+      "user": "Hi there, I received a suspicious email that appears to be from IT, asking me to reset my credentials. It seems like a phishing attempt. Can you help me report this?",
+      "assistant": "It's important to report phishing attempts like this. I can create a ticket for you to report this suspicious email. Could you please provide me with any specific details about the email, such as the sender's address, the content of the email, and when you received it? This information will help us address the issue more effectively.",
+      "card": null,
+      "intent": null,
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026"
+      ]
+    },
+    {
+      "turn": 2,
+      "user": "The email was from IT-Support@payroll-verify.net, which seems suspicious. It contained a link to a fake login page asking for my credentials. I didn't click the link, but several of my colleagues received the same email. It's urgent as it looks like a phishing incident.",
+      "assistant": "Thank you for reporting this suspicious email. It's important to address potential phishing incidents quickly. I will create a ticket for this issue to ensure it gets the attention it needs. \n\nCould you please confirm if you would like to include any specific details about the email, such as the subject line or any other information that might help us investigate further?",
+      "card": null,
+      "intent": null,
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026"
+      ]
+    }
+  ]
+}

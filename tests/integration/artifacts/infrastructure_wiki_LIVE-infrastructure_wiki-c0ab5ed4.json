@@ -1,0 +1,55 @@
+{
+  "scenario_id": "infrastructure_wiki",
+  "session_id": "9cc8c0b7-a749-42ea-a770-785d4829db9c",
+  "ticket_number": "48219",
+  "ticket_id": 220,
+  "turns_used": 3,
+  "run_reference": "LIVE-infrastructure_wiki-c0ab5ed4",
+  "success": true,
+  "failure_reason": null,
+  "completed_at": "2026-05-29T14:47:25.246530+00:00",
+  "transcript": [
+    {
+      "turn": 1,
+      "user": "Hi there, I'm having an issue with our internal Confluence wiki. It seems to be showing a 502 Bad Gateway error for everyone. Can you please help us restore access?",
+      "assistant": "I can help you with that! It sounds like your Confluence wiki is experiencing a server issue, which is affecting all users. To proceed, I'll create a support ticket for you. Could you please confirm if there are any specific times when this issue started or if there are any additional details you would like to include?",
+      "card": null,
+      "intent": null,
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026"
+      ]
+    },
+    {
+      "turn": 2,
+      "user": "The issue started at 10:15 am, and we've tested it on both VPN and office network with the same result for all users. This is urgent since teams can't access runbooks during an active deployment. Please go ahead and create the ticket!",
+      "assistant": "I can help with that! Could you please provide me with a brief description of the issue you're facing? Additionally, let me know which category it falls under, such as hardware, software, network, etc.",
+      "card": null,
+      "intent": null,
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026"
+      ]
+    },
+    {
+      "turn": 3,
+      "user": "The issue is a 502 Bad Gateway error on our internal Confluence wiki, which affects all users. This falls under software issues. Please proceed with the ticket creation!",
+      "assistant": "Your support ticket **#48219** has been created successfully and assigned to **Software Support**.",
+      "card": {
+        "group": "Software Support",
+        "state": "open",
+        "priority": "3 high",
+        "card_type": "ticket_created",
+        "ticket_id": 220,
+        "ticket_number": "48219"
+      },
+      "intent": "CreateTicket",
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026",
+        "Applying support rules\u2026",
+        "Creating ticket\u2026"
+      ]
+    }
+  ]
+}

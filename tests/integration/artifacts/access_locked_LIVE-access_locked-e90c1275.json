@@ -1,0 +1,66 @@
+{
+  "scenario_id": "access_locked",
+  "session_id": "384e0c20-a507-4609-9730-7b4ba99ea35c",
+  "ticket_number": "48215",
+  "ticket_id": 216,
+  "turns_used": 4,
+  "run_reference": "LIVE-access_locked-e90c1275",
+  "success": true,
+  "failure_reason": null,
+  "completed_at": "2026-05-29T14:45:21.886971+00:00",
+  "transcript": [
+    {
+      "turn": 1,
+      "user": "Hi, I'm locked out of my domain account after too many password attempts. I need help unlocking it so I can get back to work. My email is paul.rivera@msbc.test.",
+      "assistant": "I can help you with that! To proceed, I'll create a support ticket for unlocking your domain account. Can you please let me know if you received any specific error messages when you tried to log in, and when this issue started?",
+      "card": null,
+      "intent": null,
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026"
+      ]
+    },
+    {
+      "turn": 2,
+      "user": "The login screen says my account is locked. This started about an hour ago. I also tried the self-service password reset, but it failed. I need to unlock my account urgently to approve payroll tasks due today.",
+      "assistant": "I understand that your account is locked and that you need urgent access to approve payroll tasks. I'll create a ticket for you to get this resolved as quickly as possible. Can you please confirm if this is your primary email address: paul.rivera@msbc.test?",
+      "card": null,
+      "intent": null,
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026"
+      ]
+    },
+    {
+      "turn": 3,
+      "user": "Yes, that is my primary email address. Please go ahead and create the ticket. Thank you!",
+      "assistant": "I can help with that! However, I need a bit more information about the issue you're experiencing. Could you please provide details on what is wrong, the impact it's having, and when it started? Any error messages would also be helpful.",
+      "card": null,
+      "intent": null,
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026"
+      ]
+    },
+    {
+      "turn": 4,
+      "user": "The issue is that my account is locked, and I can't log in. This started about an hour ago, and I attempted a self-service password reset, but it failed. The impact is that I cannot approve payroll tasks that are due today, so it's quite urgent. The login screen simply says my account is locked. Please create the ticket so I can get this resolved quickly.",
+      "assistant": "Your support ticket **#48215** has been created successfully and assigned to **Software Support**.",
+      "card": {
+        "group": "Software Support",
+        "state": "open",
+        "priority": "3 high",
+        "card_type": "ticket_created",
+        "ticket_id": 216,
+        "ticket_number": "48215"
+      },
+      "intent": "CreateTicket",
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026",
+        "Applying support rules\u2026",
+        "Creating ticket\u2026"
+      ]
+    }
+  ]
+}

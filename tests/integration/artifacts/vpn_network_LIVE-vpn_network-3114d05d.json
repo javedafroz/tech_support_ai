@@ -1,0 +1,99 @@
+{
+  "scenario_id": "vpn_network",
+  "session_id": "381b7d4d-5ad4-4e69-ab29-4bce9531e520",
+  "ticket_number": "48193",
+  "ticket_id": 194,
+  "turns_used": 7,
+  "run_reference": "LIVE-vpn_network-3114d05d",
+  "success": true,
+  "failure_reason": null,
+  "completed_at": "2026-05-24T07:39:29.523612+00:00",
+  "transcript": [
+    {
+      "turn": 1,
+      "user": "Hi there, I'm having trouble with the VPN while working from home. It keeps disconnecting, and I'm unable to access internal tools like Jira. This started yesterday afternoon, and it's really blocking my work. Can you help?",
+      "assistant": "I can definitely help you with that! It sounds like a frustrating issue with the VPN disconnecting. I'll create a support ticket for you to get this resolved. Just to confirm, can you provide me with your email address for the ticket?",
+      "card": null,
+      "intent": null,
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026"
+      ]
+    },
+    {
+      "turn": 2,
+      "user": "Sure, my email address is paul.rivera@msbc.test.",
+      "assistant": "Thank you for providing your email address, Paul. How can I assist you today? Do you have a specific issue or question in mind?",
+      "card": null,
+      "intent": null,
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026"
+      ]
+    },
+    {
+      "turn": 3,
+      "user": "I already mentioned that I'm having trouble with the VPN disconnecting. It keeps giving me a DPD timeout after about 30 seconds, and I can't access Jira or any internal tools. Can you confirm if a ticket was created for this issue?",
+      "assistant": "I can help you check the status of your ticket regarding the VPN disconnecting issue. Could you please provide me with the ticket number?",
+      "card": null,
+      "intent": null,
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026"
+      ]
+    },
+    {
+      "turn": 4,
+      "user": "I haven't received a ticket number yet. Can you confirm if one was created for my VPN issue?",
+      "assistant": "It seems like you haven't received a ticket number for your VPN issue yet. Could you please provide me with any details about the issue you reported? This will help me check if a ticket was created for you.",
+      "card": null,
+      "intent": null,
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026"
+      ]
+    },
+    {
+      "turn": 5,
+      "user": "I mentioned earlier that the VPN keeps disconnecting with a DPD timeout after about 30 seconds. This started yesterday afternoon, and it's blocking my access to Jira and other internal tools. Can you please confirm if a ticket was created for this issue?",
+      "assistant": "I can help you check the status of your ticket. Could you please provide me with the ticket number?",
+      "card": null,
+      "intent": null,
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026"
+      ]
+    },
+    {
+      "turn": 6,
+      "user": "I haven't received a ticket number yet. Can you please confirm if one was created for my VPN issue?",
+      "assistant": "I can help with that! However, I need you to provide the ticket number to check the status of your existing ticket. If you haven't received a ticket number yet, it may mean that a ticket hasn't been created. Could you please describe the VPN issue you were experiencing?",
+      "card": null,
+      "intent": null,
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026"
+      ]
+    },
+    {
+      "turn": 7,
+      "user": "I already described the VPN issue to you. It keeps disconnecting with a DPD timeout after about 30 seconds, and this started yesterday afternoon. I can't access Jira or any internal tools, which is blocking my work. Can you please confirm if a ticket was created for this issue?",
+      "assistant": "Your support ticket **#48193** has been created successfully and assigned to **Network Support**.",
+      "card": {
+        "group": "Network Support",
+        "state": "open",
+        "priority": "3 high",
+        "card_type": "ticket_created",
+        "ticket_id": 194,
+        "ticket_number": "48193"
+      },
+      "intent": "CreateTicket",
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026",
+        "Applying support rules\u2026",
+        "Creating ticket\u2026"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "scenario_id": "access_locked",
+  "session_id": "d4f12f6a-ed28-45cc-8991-4012f5af39c1",
+  "ticket_number": "48212",
+  "ticket_id": 213,
+  "turns_used": 2,
+  "run_reference": "LIVE-access_locked-598fa787",
+  "success": true,
+  "failure_reason": null,
+  "completed_at": "2026-05-29T14:40:25.567270+00:00",
+  "transcript": [
+    {
+      "turn": 1,
+      "user": "Hi, I'm Sam Patel from the Finance department. I've been locked out of my domain account after too many password attempts, and I need help unlocking it so I can log in and complete some urgent payroll tasks.",
+      "assistant": "Hi Sam, I can help you with that. Could you please provide me with your domain account username or any specific error messages you received when trying to log in? Additionally, let me know if there is a specific time when this issue started.",
+      "card": null,
+      "intent": null,
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026"
+      ]
+    },
+    {
+      "turn": 2,
+      "user": "My account is locked, and the login screen says \"account locked.\" This started about an hour ago. I also tried the self-service password reset, but it failed. My email is paul.rivera@msbc.test. This is urgent because I need to approve payroll tasks due today.",
+      "assistant": "Your support ticket **#48212** has been created successfully and assigned to **Software Support**.",
+      "card": {
+        "group": "Software Support",
+        "state": "open",
+        "priority": "2 normal",
+        "card_type": "ticket_created",
+        "ticket_id": 213,
+        "ticket_number": "48212"
+      },
+      "intent": "CreateTicket",
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026",
+        "Applying support rules\u2026",
+        "Creating ticket\u2026"
+      ]
+    }
+  ]
+}

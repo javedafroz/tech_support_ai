@@ -1,0 +1,104 @@
+{
+  "info": {
+    "name": "Tech Support AI API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Sprint 2 — chat sessions and messages"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8000" },
+    { "key": "userId", "value": "dev-user@company.com" },
+    { "key": "sessionId", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Health",
+      "item": [
+        {
+          "name": "Liveness",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/health/live"
+          }
+        },
+        {
+          "name": "Readiness",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/health/ready"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Chat",
+      "item": [
+        {
+          "name": "Create session",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('created', () => pm.response.to.have.status(201));",
+                  "const json = pm.response.json();",
+                  "pm.collectionVariables.set('sessionId', json.id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "X-User-Id", "value": "{{userId}}" }],
+            "url": "{{baseUrl}}/api/v1/chat/sessions",
+            "body": { "mode": "raw", "raw": "{}", "options": { "raw": { "language": "json" } } }
+          }
+        },
+        {
+          "name": "List sessions",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "X-User-Id", "value": "{{userId}}" }],
+            "url": "{{baseUrl}}/api/v1/chat/sessions"
+          }
+        },
+        {
+          "name": "Get session",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "X-User-Id", "value": "{{userId}}" }],
+            "url": "{{baseUrl}}/api/v1/chat/sessions/{{sessionId}}"
+          }
+        },
+        {
+          "name": "List messages",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "X-User-Id", "value": "{{userId}}" }],
+            "url": "{{baseUrl}}/api/v1/chat/sessions/{{sessionId}}/messages"
+          }
+        },
+        {
+          "name": "Send message",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "X-User-Id", "value": "{{userId}}" }],
+            "url": "{{baseUrl}}/api/v1/chat/sessions/{{sessionId}}/messages",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"content\": \"My VPN is not connecting\"\n}",
+              "options": { "raw": { "language": "json" } }
+            }
+          }
+        },
+        {
+          "name": "Get session context (Redis)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "X-User-Id", "value": "{{userId}}" }],
+            "url": "{{baseUrl}}/api/v1/chat/sessions/{{sessionId}}/context"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "scenario_id": "vpn_network",
+  "session_id": "09f7c700-e45f-4f5f-bfff-d34167bac383",
+  "ticket_number": "48210",
+  "ticket_id": 211,
+  "turns_used": 3,
+  "run_reference": "LIVE-vpn_network-89cbbfed",
+  "success": true,
+  "failure_reason": null,
+  "completed_at": "2026-05-29T14:39:17.702843+00:00",
+  "transcript": [
+    {
+      "turn": 1,
+      "user": "Hi there, I'm having trouble with the VPN while working from home. It keeps disconnecting, and I'm unable to access internal tools like Jira. This started yesterday afternoon, and it's really blocking my work. Can you help?",
+      "assistant": "I can definitely help you with that! It sounds like a frustrating issue. I'll create a support ticket for you to get this resolved. Just to confirm, could you please provide me with your preferred priority level for this issue? Would you consider it low, normal, or high?",
+      "card": null,
+      "intent": null,
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026"
+      ]
+    },
+    {
+      "turn": 2,
+      "user": "I would consider this a high priority issue since it's completely blocking my work. Thank you for your help!",
+      "assistant": "I understand that this is a high priority issue for you. Could you please provide more details about the specific problem you're facing? Information such as what is wrong, the impact on your work, and any error messages you've encountered would be very helpful.",
+      "card": null,
+      "intent": null,
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026"
+      ]
+    },
+    {
+      "turn": 3,
+      "user": "I'm using a MacBook with macOS 14 and the Cisco AnyConnect software. The error I'm getting is a \"DPD timeout\" after about 30 seconds of being connected. This started yesterday afternoon, and it's preventing me from accessing Jira and other internal tools, so I'm completely blocked from work. I really appreciate your help!",
+      "assistant": "Your support ticket **#48210** has been created successfully and assigned to **Software Support**.",
+      "card": {
+        "group": "Software Support",
+        "state": "open",
+        "priority": "3 high",
+        "card_type": "ticket_created",
+        "ticket_id": 211,
+        "ticket_number": "48210"
+      },
+      "intent": "CreateTicket",
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026",
+        "Applying support rules\u2026",
+        "Creating ticket\u2026"
+      ]
+    }
+  ]
+}

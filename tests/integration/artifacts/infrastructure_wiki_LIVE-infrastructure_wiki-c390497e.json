@@ -1,0 +1,55 @@
+{
+  "scenario_id": "infrastructure_wiki",
+  "session_id": "4a1793e3-4d55-4345-995b-e7f951fb0d65",
+  "ticket_number": "48206",
+  "ticket_id": 207,
+  "turns_used": 3,
+  "run_reference": "LIVE-infrastructure_wiki-c390497e",
+  "success": true,
+  "failure_reason": null,
+  "completed_at": "2026-05-29T14:33:48.024072+00:00",
+  "transcript": [
+    {
+      "turn": 1,
+      "user": "Hi there, I'm having an issue with our internal Confluence wiki. It seems to be showing a 502 Bad Gateway error for everyone. Can you please help us restore access?",
+      "assistant": "It sounds like you're experiencing a significant issue with your Confluence wiki, as a 502 Bad Gateway error can affect all users' access. To assist you better, could you please provide me with any additional details? For example, when did this issue start, and have there been any recent changes to the server or network settings?",
+      "card": null,
+      "intent": null,
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026"
+      ]
+    },
+    {
+      "turn": 2,
+      "user": "The issue started at 10:15 am, and we've tested it on both VPN and the office network \u2014 it's the same for all users. There haven't been any recent changes that I'm aware of. This is impacting our teams as they can't access runbooks during an active deployment, so it's quite urgent. Can you help us resolve this?",
+      "assistant": "It sounds like you're experiencing a critical issue that is affecting your team's ability to access runbooks during an active deployment. To assist you better, could you please provide more details about the specific problem you're encountering? For example, are you receiving any error messages, or is there a specific application or service that is not accessible?",
+      "card": null,
+      "intent": null,
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026"
+      ]
+    },
+    {
+      "turn": 3,
+      "user": "We're receiving a 502 Bad Gateway error when trying to access the internal wiki at https://wiki.company.internal. This issue has been consistent since 10:15 am for all users, both on VPN and the office network. It's crucial for us to get this resolved as our teams need access to runbooks during an active deployment.",
+      "assistant": "Your support ticket **#48206** has been created successfully and assigned to **Infrastructure**.",
+      "card": {
+        "group": "Infrastructure",
+        "state": "open",
+        "priority": "3 high",
+        "card_type": "ticket_created",
+        "ticket_id": 207,
+        "ticket_number": "48206"
+      },
+      "intent": "CreateTicket",
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026",
+        "Applying support rules\u2026",
+        "Creating ticket\u2026"
+      ]
+    }
+  ]
+}

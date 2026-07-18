@@ -1,0 +1,36 @@
+# ServiceNow field mapping (stub — adapter not fully implemented)
+# Uses the same canonical category/priority keys as orchestration workflow.
+
+version: "1.0"
+instance_notes: |
+  Stub mapping profile for future ServiceNow adapter integration.
+  Map groups to assignment groups and priorities to ServiceNow impact/urgency.
+
+priorities:
+  low: "4 - Low"
+  normal: "3 - Moderate"
+  high: "1 - Critical"
+
+groups:
+  network: "Network Operations"
+  security: "Security Operations"
+  software: "Application Support"
+  hardware: "Desktop Support"
+  access: "Identity Management"
+  email: "Messaging Support"
+  infrastructure: "Infrastructure Operations"
+
+categories:
+  hardware: "Hardware"
+  software: "Software"
+  network: "Network"
+  access_management: "Access Management"
+  email: "Email"
+  security: "Security"
+  infrastructure: "Infrastructure"
+
+customer_lookup:
+  customer_id_pattern: "{email}"
+
+default_group: "Application Support"
+default_priority: "3 - Moderate"

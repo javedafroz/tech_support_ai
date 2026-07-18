@@ -1,0 +1,44 @@
+{
+  "scenario_id": "vpn_network",
+  "session_id": "08675c47-29c5-4d77-9175-d3b8af46136a",
+  "ticket_number": "48200",
+  "ticket_id": 201,
+  "turns_used": 2,
+  "run_reference": "LIVE-vpn_network-6dafd7e6",
+  "success": true,
+  "failure_reason": null,
+  "completed_at": "2026-05-29T14:31:32.859022+00:00",
+  "transcript": [
+    {
+      "turn": 1,
+      "user": "Hi there, I'm having trouble with the VPN while working from home. It keeps disconnecting, and I'm unable to access internal tools like Jira. This started yesterday afternoon, and it's really blocking my work. Can you help?",
+      "assistant": "I can definitely help you with that! It sounds like a frustrating issue. To create a support ticket for your VPN disconnection problem, I'll need to gather a bit more information. Can you please provide your email address (if it's different from the one you used to contact me) and let me know if there are any specific error messages you see when it disconnects?",
+      "card": null,
+      "intent": null,
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026"
+      ]
+    },
+    {
+      "turn": 2,
+      "user": "My email is paul.rivera@msbc.test. The error message I see is 'DPD timeout' after about 30 seconds of being connected. This started yesterday afternoon, and it's preventing me from accessing Jira and other internal tools.",
+      "assistant": "Your support ticket **#48200** has been created successfully and assigned to **Network Support**.",
+      "card": {
+        "group": "Network Support",
+        "state": "open",
+        "priority": "3 high",
+        "card_type": "ticket_created",
+        "ticket_id": 201,
+        "ticket_number": "48200"
+      },
+      "intent": "CreateTicket",
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026",
+        "Applying support rules\u2026",
+        "Creating ticket\u2026"
+      ]
+    }
+  ]
+}

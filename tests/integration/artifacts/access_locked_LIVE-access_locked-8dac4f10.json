@@ -1,0 +1,66 @@
+{
+  "scenario_id": "access_locked",
+  "session_id": "06d31fa4-a92d-4730-a78d-bb5e45e9d24b",
+  "ticket_number": "48187",
+  "ticket_id": 188,
+  "turns_used": 4,
+  "run_reference": "LIVE-access_locked-8dac4f10",
+  "success": true,
+  "failure_reason": null,
+  "completed_at": "2026-05-24T07:20:42.590685+00:00",
+  "transcript": [
+    {
+      "turn": 1,
+      "user": "Hi there, I'm locked out of my domain account after too many password attempts. I need help unlocking it so I can log in and complete my work.",
+      "assistant": "I can help you with that! To proceed, could you please provide me with the name of your domain or any specific error messages you received when trying to log in? Also, let me know if there\u2019s a particular time when this issue started.",
+      "card": null,
+      "intent": null,
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026"
+      ]
+    },
+    {
+      "turn": 2,
+      "user": "My account is locked, and the login screen says \"account locked.\" This started about an hour ago. I also tried the self-service password reset, but it failed. I really need to get back to work as I can't approve payroll tasks due today.",
+      "assistant": "I understand how urgent this is, especially with payroll tasks due today. I'll create a support ticket for you to get your account unlocked as soon as possible. Just to confirm, can you provide me with the suggested priority for this issue? Should I mark it as high due to the urgency?",
+      "card": null,
+      "intent": null,
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026"
+      ]
+    },
+    {
+      "turn": 3,
+      "user": "Yes, please mark it as high priority. I really need to get this resolved quickly. Thank you!",
+      "assistant": "I understand that you need this resolved quickly, but I need more details about the issue you're facing to create a ticket. Could you please provide a brief description of the problem, its impact, and when it started?",
+      "card": null,
+      "intent": null,
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026"
+      ]
+    },
+    {
+      "turn": 4,
+      "user": "Sure! My account is locked after too many password attempts, and the login screen says \"account locked.\" This started about an hour ago. I attempted a self-service password reset, but it failed. The impact is that I cannot approve payroll tasks due today, so the urgency is high. Please create the ticket for me. Thank you!",
+      "assistant": "Your support ticket **#48187** has been created successfully and assigned to **Software Support**.",
+      "card": {
+        "group": "Software Support",
+        "state": "open",
+        "priority": "3 high",
+        "card_type": "ticket_created",
+        "ticket_id": 188,
+        "ticket_number": "48187"
+      },
+      "intent": "CreateTicket",
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026",
+        "Applying support rules\u2026",
+        "Creating ticket\u2026"
+      ]
+    }
+  ]
+}

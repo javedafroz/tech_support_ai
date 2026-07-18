@@ -1,0 +1,19 @@
+{
+  "request": {
+    "method": "POST",
+    "urlPath": "/api/v1/tickets"
+  },
+  "response": {
+    "status": 201,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": {
+      "id": 42,
+      "number": "22042",
+      "title": "VPN problem",
+      "state": "open",
+      "group_id": 1
+    }
+  }
+}

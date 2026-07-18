@@ -1,0 +1,2465 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Customer and partner documentation for the enterprise IT support chat assistant.">
+      
+      
+      
+      
+        <link rel="prev" href="../05-integration-guide-zammad/">
+      
+      
+        <link rel="next" href="../07-api-overview/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Deployment & Operations - Tech Support AI</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#deployment-operations" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Tech Support AI" class="md-header__button md-logo" aria-label="Tech Support AI" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Tech Support AI
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Deployment & Operations
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../01-executive-solution-overview/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Solution
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../05-integration-guide-zammad/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Integration & Operations
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../08-ui-ux-overview/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Experience & Quality
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../appendices/A-glossary/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Appendices
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../postman/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Resources
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Tech Support AI" class="md-nav__button md-logo" aria-label="Tech Support AI" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Tech Support AI
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../00-quick-start/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quick Start
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Solution
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Solution
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-executive-solution-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Executive Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-functional-specification-summary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Functional Specification
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-solution-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Solution Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-security-and-data-handling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security & Data Handling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Integration & Operations
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Integration & Operations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-integration-guide-zammad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Zammad Integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment & Operations
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment & Operations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#deployment-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deployment options
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker-compose-evaluation-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Docker Compose (evaluation path)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Docker Compose (evaluation path)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#health-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Health endpoints
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#host-run-development" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Host-run development
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Host-run development">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        API
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#web" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Web
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#environment-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Environment configuration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#database-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Database operations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Database operations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#schema" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Schema
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#backup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Backup
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#redis-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Redis operations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scaling-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scaling considerations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Monitoring
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Monitoring">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#recommended-signals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recommended signals
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logging" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Logging
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#release-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Release process
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration changes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#operational-runbook" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Operational runbook
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Operational runbook">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#api-wont-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        API won't start
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tickets-not-creating" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tickets not creating
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#attachments-failing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Attachments failing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#high-latency" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        High latency
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#redis-down" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Redis down
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#security-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Security operations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#production-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Production checklist
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-documents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related documents
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-api-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Experience & Quality
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Experience & Quality
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-ui-ux-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UI/UX Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-test-and-acceptance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Test & Acceptance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Appendices
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Appendices
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../appendices/A-glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../appendices/B-environment-variables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Environment Variables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../appendices/C-capability-matrix/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capability Matrix
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resources
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Resources
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../postman/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Postman Collection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#deployment-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deployment options
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker-compose-evaluation-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Docker Compose (evaluation path)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Docker Compose (evaluation path)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#health-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Health endpoints
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#host-run-development" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Host-run development
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Host-run development">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        API
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#web" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Web
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#environment-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Environment configuration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#database-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Database operations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Database operations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#schema" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Schema
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#backup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Backup
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#redis-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Redis operations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scaling-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scaling considerations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Monitoring
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Monitoring">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#recommended-signals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recommended signals
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logging" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Logging
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#release-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Release process
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration changes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#operational-runbook" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Operational runbook
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Operational runbook">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#api-wont-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        API won't start
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tickets-not-creating" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tickets not creating
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#attachments-failing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Attachments failing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#high-latency" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        High latency
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#redis-down" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Redis down
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#security-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Security operations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#production-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Production checklist
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-documents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related documents
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="deployment-operations">Deployment &amp; Operations<a class="headerlink" href="#deployment-operations" title="Permanent link">&para;</a></h1>
+<p>This guide covers how to deploy, configure, monitor, and operate <strong>Tech Support AI</strong> in development and production-like environments.</p>
+<h2 id="deployment-options">Deployment options<a class="headerlink" href="#deployment-options" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Best for</th>
+<th>Components</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Docker Compose</strong></td>
+<td>Local dev, demos, CI</td>
+<td>API, web, Postgres, Redis, MinIO, Qdrant, Keycloak</td>
+</tr>
+<tr>
+<td><strong>Host-run (uvicorn + vite)</strong></td>
+<td>Active development</td>
+<td>Processes on developer machine</td>
+</tr>
+<tr>
+<td><strong>Kubernetes</strong> <em>(target)</em></td>
+<td>Production</td>
+<td>Containerized API/web, managed data stores</td>
+</tr>
+</tbody>
+</table>
+<h2 id="docker-compose-evaluation-path">Docker Compose (evaluation path)<a class="headerlink" href="#docker-compose-evaluation-path" title="Permanent link">&para;</a></h2>
+<p>Follow the single path in <a href="../00-quick-start/">Quick Start</a>: <code>docker compose up -d --build</code>, then <code>make seed-kb</code>.</p>
+<p>From the repository root:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>cp<span class="w"> </span>.env.example<span class="w"> </span>.env
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="c1"># Required: Zammad must already be running — set ZAMMAD_BASE_URL + ZAMMAD_API_TOKEN</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="c1"># Also set KB_RAG_ENABLED=true and OPENAI_API_KEY (or GRAPH_LLM_MODE=mock)</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>--build
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Service</th>
+<th>Default port</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Web</td>
+<td>5173</td>
+<td>React chat UI</td>
+</tr>
+<tr>
+<td>Admin</td>
+<td>5174</td>
+<td>Handbook admin SPA (<code>make admin</code>)</td>
+</tr>
+<tr>
+<td>API</td>
+<td>8000</td>
+<td>FastAPI backend</td>
+</tr>
+<tr>
+<td>PostgreSQL</td>
+<td>5433 → 5432</td>
+<td>Durable storage</td>
+</tr>
+<tr>
+<td>Redis</td>
+<td>6380 → 6379</td>
+<td>Session cache</td>
+</tr>
+<tr>
+<td>MinIO API</td>
+<td>9002 → 9000</td>
+<td>Object storage (attachments; Compose also hosts handbook bucket)</td>
+</tr>
+<tr>
+<td>MinIO Console</td>
+<td>9003</td>
+<td>MinIO admin UI</td>
+</tr>
+<tr>
+<td>Qdrant</td>
+<td>6333</td>
+<td>Vector store for Agent Handbooks</td>
+</tr>
+<tr>
+<td>Keycloak</td>
+<td>8081 → 8080</td>
+<td>Admin OIDC (realm import for local)</td>
+</tr>
+</tbody>
+</table>
+<p>Useful Make targets:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>make<span class="w"> </span>up<span class="w">         </span><span class="c1"># postgres, redis, minio, qdrant, keycloak</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>make<span class="w"> </span>up-kb<span class="w">      </span><span class="c1"># postgres, redis, qdrant, keycloak (no MinIO)</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>make<span class="w"> </span>up-all<span class="w">     </span><span class="c1"># full Compose stack including api, web, admin, docs</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>make<span class="w"> </span>migrate<span class="w">    </span><span class="c1"># includes KB tables (004)</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>make<span class="w"> </span>seed-kb<span class="w">    </span><span class="c1"># ingest + publish config/knowledge/*.md</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>make<span class="w"> </span>admin<span class="w">      </span><span class="c1"># Admin SPA on :5174</span>
+</code></pre></div>
+<h3 id="health-endpoints">Health endpoints<a class="headerlink" href="#health-endpoints" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>curl<span class="w"> </span>http://localhost:8000/health/live<span class="w">    </span><span class="c1"># process up</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>curl<span class="w"> </span>http://localhost:8000/health/ready<span class="w">   </span><span class="c1"># dependencies ready</span>
+</code></pre></div>
+<h2 id="host-run-development">Host-run development<a class="headerlink" href="#host-run-development" title="Permanent link">&para;</a></h2>
+<h3 id="api">API<a class="headerlink" href="#api" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">source</span><span class="w"> </span>.venv/bin/activate
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements-dev.txt
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>cp<span class="w"> </span>.env.example<span class="w"> </span>.env
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="c1"># Start Postgres + Redis (Docker or local)</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>alembic<span class="w"> </span>upgrade<span class="w"> </span>head<span class="w">   </span><span class="c1"># if migrations configured</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>uvicorn<span class="w"> </span>tech_support_api.main:app<span class="w"> </span>--reload<span class="w"> </span>--port<span class="w"> </span><span class="m">8000</span>
+</code></pre></div>
+<h3 id="web">Web<a class="headerlink" href="#web" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nb">cd</span><span class="w"> </span>apps/web
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>npm<span class="w"> </span>install
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>npm<span class="w"> </span>run<span class="w"> </span>dev
+</code></pre></div>
+<p>Set <code>VITE_API_BASE_URL=http://localhost:8000</code> if needed.</p>
+<h2 id="environment-configuration">Environment configuration<a class="headerlink" href="#environment-configuration" title="Permanent link">&para;</a></h2>
+<p>Copy <code>.env.example</code> to <code>.env</code>. Critical variables:</p>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DATABASE_URL</code></td>
+<td>Yes</td>
+<td>PostgreSQL connection string</td>
+</tr>
+<tr>
+<td><code>REDIS_URL</code></td>
+<td>Yes</td>
+<td>Redis connection string</td>
+</tr>
+<tr>
+<td><code>GRAPH_LLM_MODE</code></td>
+<td>Yes</td>
+<td><code>openai</code> or <code>mock</code></td>
+</tr>
+<tr>
+<td><code>OPENAI_API_KEY</code></td>
+<td>If openai</td>
+<td>OpenAI API key</td>
+</tr>
+<tr>
+<td><code>TICKETING_PROVIDER</code></td>
+<td>Yes</td>
+<td><code>zammad</code> (default)</td>
+</tr>
+<tr>
+<td><code>ZAMMAD_BASE_URL</code></td>
+<td>If zammad</td>
+<td>Zammad instance URL</td>
+</tr>
+<tr>
+<td><code>ZAMMAD_API_TOKEN</code></td>
+<td>If zammad</td>
+<td>API token</td>
+</tr>
+<tr>
+<td><code>S3_ENDPOINT</code></td>
+<td>If attachments</td>
+<td>MinIO/S3 endpoint</td>
+</tr>
+<tr>
+<td><code>S3_ACCESS_KEY</code></td>
+<td>If attachments</td>
+<td>Object storage access key</td>
+</tr>
+<tr>
+<td><code>S3_SECRET_KEY</code></td>
+<td>If attachments</td>
+<td>Object storage secret</td>
+</tr>
+<tr>
+<td><code>S3_BUCKET</code></td>
+<td>No</td>
+<td>Bucket name (default <code>attachments</code>)</td>
+</tr>
+<tr>
+<td><code>AUTH_MODE</code></td>
+<td>Yes</td>
+<td><code>dev</code> or <code>jwt</code></td>
+</tr>
+<tr>
+<td><code>THOUGHT_STREAMING_ENABLED</code></td>
+<td>No</td>
+<td><code>true</code> / <code>false</code></td>
+</tr>
+<tr>
+<td><code>KB_RAG_ENABLED</code></td>
+<td>No</td>
+<td><code>true</code> to enable L1 handbook troubleshoot</td>
+</tr>
+<tr>
+<td><code>VECTOR_BACKEND</code></td>
+<td>If KB</td>
+<td><code>qdrant</code> (shared) or <code>memory</code> (process-local / tests)</td>
+</tr>
+<tr>
+<td><code>QDRANT_URL</code></td>
+<td>If KB</td>
+<td>Vector store URL (default <code>http://localhost:6333</code>)</td>
+</tr>
+<tr>
+<td><code>EMBEDDING_PROVIDER</code></td>
+<td>If KB</td>
+<td><code>openai</code> or <code>hash</code> (offline/tests)</td>
+</tr>
+<tr>
+<td><code>KB_MIN_SCORE</code></td>
+<td>No</td>
+<td>Retrieval threshold (default <code>0.35</code>)</td>
+</tr>
+<tr>
+<td><code>KEYCLOAK_URL</code></td>
+<td>Yes (Admin KB)</td>
+<td>Admin OIDC issuer host</td>
+</tr>
+<tr>
+<td><code>KB_HANDBOOK_STORAGE_BACKEND</code></td>
+<td>Yes (Admin upload)</td>
+<td><code>memory</code> or <code>s3</code> (S3-compatible / Ceph RGW)</td>
+</tr>
+</tbody>
+</table>
+<p>Full reference: <a href="../appendices/B-environment-variables/">Environment Variables</a>.</p>
+<h2 id="database-operations">Database operations<a class="headerlink" href="#database-operations" title="Permanent link">&para;</a></h2>
+<h3 id="schema">Schema<a class="headerlink" href="#schema" title="Permanent link">&para;</a></h3>
+<p>PostgreSQL holds:</p>
+<ul>
+<li>Chat sessions and messages</li>
+<li>Session attachments metadata (<code>session_attachments</code>)</li>
+<li>KB handbook metadata (<code>kb_documents</code>, <code>kb_ingest_jobs</code>, <code>kb_deflection_events</code>)</li>
+<li>Audit tables (<code>policy_audit_log</code>, <code>zammad_operations</code>)</li>
+<li>Reason code catalog</li>
+</ul>
+<p>Apply migrations on deploy:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>make<span class="w"> </span>migrate
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="c1"># or: cd apps/api &amp;&amp; alembic upgrade head</span>
+</code></pre></div>
+<h3 id="backup">Backup<a class="headerlink" href="#backup" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Store</th>
+<th>Recommendation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PostgreSQL</td>
+<td>Daily automated backups; point-in-time recovery for production</td>
+</tr>
+<tr>
+<td>Redis</td>
+<td>Ephemeral — backup optional; rebuild from Postgres on cold start</td>
+</tr>
+</tbody>
+</table>
+<h2 id="redis-operations">Redis operations<a class="headerlink" href="#redis-operations" title="Permanent link">&para;</a></h2>
+<p>Session context keys expire after configurable TTL (default ~24 hours). Redis loss causes:</p>
+<ul>
+<li>Loss of hot session context (recent turns cache)</li>
+<li><strong>No</strong> loss of message history (PostgreSQL)</li>
+</ul>
+<p>Users may experience slightly slower context rebuild after Redis flush.</p>
+<h2 id="scaling-considerations">Scaling considerations<a class="headerlink" href="#scaling-considerations" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Scale approach</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>API</td>
+<td>Horizontal replicas behind load balancer; stateless</td>
+</tr>
+<tr>
+<td>Web / Admin</td>
+<td>Static CDN or multiple Vite/nginx replicas</td>
+</tr>
+<tr>
+<td>PostgreSQL</td>
+<td>Vertical scale or managed RDS; connection pooling</td>
+</tr>
+<tr>
+<td>Redis</td>
+<td>Single instance or Redis Cluster for HA</td>
+</tr>
+<tr>
+<td>Qdrant</td>
+<td>Dedicated cluster or managed vector service for production</td>
+</tr>
+<tr>
+<td>Keycloak</td>
+<td>Shared IdP or dedicated realm; HA per IdP guidance</td>
+</tr>
+<tr>
+<td>OpenAI</td>
+<td>Rate limits per API key — consider queueing for high volume</td>
+</tr>
+</tbody>
+</table>
+<p>LangGraph runs in-process per API worker today. For high concurrency, size workers appropriately and monitor OpenAI latency.</p>
+<h2 id="monitoring">Monitoring<a class="headerlink" href="#monitoring" title="Permanent link">&para;</a></h2>
+<h3 id="recommended-signals">Recommended signals<a class="headerlink" href="#recommended-signals" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Signal</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>API latency p95</td>
+<td>APM / ingress metrics</td>
+</tr>
+<tr>
+<td>Error rate 5xx</td>
+<td>API logs</td>
+</tr>
+<tr>
+<td>OpenAI call failures</td>
+<td>Agent logs</td>
+</tr>
+<tr>
+<td>Zammad HTTP errors</td>
+<td>Ticketing client logs</td>
+</tr>
+<tr>
+<td>Postgres connection pool</td>
+<td>DB metrics</td>
+</tr>
+<tr>
+<td>Redis memory</td>
+<td>Redis INFO</td>
+</tr>
+</tbody>
+</table>
+<h3 id="logging">Logging<a class="headerlink" href="#logging" title="Permanent link">&para;</a></h3>
+<p>API uses structured logging (<code>structlog</code>). Configure JSON output in production for log aggregation (ELK, CloudWatch, Datadog, etc.).</p>
+<h2 id="release-process">Release process<a class="headerlink" href="#release-process" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Run test suite: <code>pytest</code> across packages</li>
+<li>Build containers: <code>docker compose build</code></li>
+<li>Apply DB migrations</li>
+<li>Rolling deploy API replicas</li>
+<li>Deploy web static assets</li>
+<li>Smoke test: health endpoints + create session + send message</li>
+</ol>
+<h2 id="configuration-changes">Configuration changes<a class="headerlink" href="#configuration-changes" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Change type</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.env</code> secrets</td>
+<td>Rolling restart API</td>
+</tr>
+<tr>
+<td><code>mapping.yaml</code></td>
+<td>Restart API to reload</td>
+</tr>
+<tr>
+<td>Reason codes</td>
+<td>DB seed or migration</td>
+</tr>
+<tr>
+<td>Feature flags</td>
+<td>Restart API (<code>THOUGHT_STREAMING_ENABLED</code>, etc.)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="operational-runbook">Operational runbook<a class="headerlink" href="#operational-runbook" title="Permanent link">&para;</a></h2>
+<h3 id="api-wont-start">API won't start<a class="headerlink" href="#api-wont-start" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Check <code>DATABASE_URL</code> and <code>REDIS_URL</code> connectivity</li>
+<li>Verify migrations applied</li>
+<li>Check logs for missing <code>OPENAI_API_KEY</code> when <code>GRAPH_LLM_MODE=openai</code></li>
+</ol>
+<h3 id="tickets-not-creating">Tickets not creating<a class="headerlink" href="#tickets-not-creating" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Verify <code>TICKETING_PROVIDER=zammad</code></li>
+<li>Test Zammad token manually (see <a href="../05-integration-guide-zammad/">Zammad Integration Guide</a>)</li>
+<li>Check orchestration rejection in API response / logs</li>
+<li>Validate <code>mapping.yaml</code> group IDs exist in Zammad</li>
+</ol>
+<h3 id="attachments-failing">Attachments failing<a class="headerlink" href="#attachments-failing" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Verify MinIO is running (<code>docker compose ps minio</code>)</li>
+<li>Check <code>S3_*</code> variables — Docker uses <code>http://minio:9000</code> inside the API container</li>
+<li>For Zammad <code>mime-type</code> errors, ensure API image includes current <code>ZammadClient</code> serialization</li>
+<li>For vision not reading screenshots, confirm <code>GRAPH_LLM_MODE=openai</code> and a vision-capable model</li>
+</ol>
+<h3 id="high-latency">High latency<a class="headerlink" href="#high-latency" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Check OpenAI API status and latency</li>
+<li>Check Zammad response times</li>
+<li>Review Postgres slow queries</li>
+<li>Consider <code>GRAPH_LLM_MODE=mock</code> for isolated perf testing</li>
+</ol>
+<h3 id="redis-down">Redis down<a class="headerlink" href="#redis-down" title="Permanent link">&para;</a></h3>
+<ul>
+<li>API may degrade session context performance</li>
+<li>Restore Redis; sessions recover from Postgres on next message</li>
+</ul>
+<h2 id="security-operations">Security operations<a class="headerlink" href="#security-operations" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Rotate <code>ZAMMAD_API_TOKEN</code> and <code>OPENAI_API_KEY</code> on schedule</li>
+<li>Restrict network egress from API to required hosts only</li>
+<li>Use secrets manager in production (not plain <code>.env</code> on disk)</li>
+</ul>
+<p>See <a href="../04-security-and-data-handling/">Security &amp; Data Handling</a>.</p>
+<h2 id="production-checklist">Production checklist<a class="headerlink" href="#production-checklist" title="Permanent link">&para;</a></h2>
+<ul>
+<li>[ ] HTTPS everywhere</li>
+<li>[ ] Secrets in vault</li>
+<li>[ ] OIDC auth <em>(when available)</em></li>
+<li>[ ] DB backups automated</li>
+<li>[ ] Log aggregation and alerting</li>
+<li>[ ] CORS restricted to production web origin</li>
+<li>[ ] Resource limits on containers</li>
+<li>[ ] Zammad integration user with least privilege</li>
+</ul>
+<h2 id="related-documents">Related documents<a class="headerlink" href="#related-documents" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../00-quick-start/">Quick Start</a></li>
+<li><a href="../05-integration-guide-zammad/">Zammad Integration Guide</a></li>
+<li><a href="../09-test-and-acceptance/">Test &amp; Acceptance</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "navigation.indexes", "search.suggest", "search.highlight", "content.code.copy", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://unpkg.com/mermaid@11/dist/mermaid.min.js"></script>
+      
+        <script src="../../javascripts/mermaid-init.js"></script>
+      
+    
+  </body>
+</html>

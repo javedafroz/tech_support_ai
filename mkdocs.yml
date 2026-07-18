@@ -1,0 +1,85 @@
+site_name: Tech Support AI
+site_description: Customer and partner documentation for the enterprise IT support chat assistant.
+
+theme:
+  name: material
+  language: en
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - navigation.indexes
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - toc.follow
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.snippets
+
+plugins:
+  - search
+
+extra_javascript:
+  - https://unpkg.com/mermaid@11/dist/mermaid.min.js
+  - javascripts/mermaid-init.js
+
+nav:
+  - Home: index.md
+  - Getting Started:
+    - Documentation Index: external/README.md
+    - Quick Start: external/00-quick-start.md
+  - Solution:
+    - Executive Overview: external/01-executive-solution-overview.md
+    - Functional Specification: external/02-functional-specification-summary.md
+    - Solution Architecture: external/03-solution-architecture.md
+    - Security & Data Handling: external/04-security-and-data-handling.md
+  - Integration & Operations:
+    - Zammad Integration: external/05-integration-guide-zammad.md
+    - Deployment & Operations: external/06-deployment-and-operations.md
+    - API Overview: external/07-api-overview.md
+  - Experience & Quality:
+    - UI/UX Overview: external/08-ui-ux-overview.md
+    - Test & Acceptance: external/09-test-and-acceptance.md
+  - Appendices:
+    - Glossary: external/appendices/A-glossary.md
+    - Environment Variables: external/appendices/B-environment-variables.md
+    - Capability Matrix: external/appendices/C-capability-matrix.md
+  - Resources:
+    - Postman Collection: postman.md
+
+extra:
+  generator: false

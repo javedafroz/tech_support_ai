@@ -1,0 +1,57 @@
+{
+  "scenario_id": "email_outlook",
+  "session_id": "f989fa6c-4c28-4aff-a692-8f3d9f55e694",
+  "ticket_number": null,
+  "ticket_id": null,
+  "turns_used": 4,
+  "run_reference": "LIVE-email_outlook-dd068f79",
+  "success": false,
+  "failure_reason": "User simulator ended conversation: ticket_created. Notes: None",
+  "completed_at": "2026-05-29T14:45:00.144542+00:00",
+  "transcript": [
+    {
+      "turn": 1,
+      "user": "Hi there, I'm having an issue with Outlook. It stopped syncing my inbox since this morning, and I'm not receiving any new emails. Can you help me with this?",
+      "assistant": "I can definitely help you with that! It sounds like you're experiencing a syncing issue with Outlook. To assist you better, could you let me know if you see any error messages in Outlook? Additionally, have you tried any troubleshooting steps, like restarting the application or checking your internet connection?",
+      "card": null,
+      "intent": null,
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026"
+      ]
+    },
+    {
+      "turn": 2,
+      "user": "Yes, I'm seeing a 'Need Password' message in Outlook. I haven't tried restarting yet, but I did check my internet connection, and it's working fine. I can access my emails through webmail in Chrome, but I'm concerned about missing urgent client emails during meetings today.",
+      "assistant": "It sounds like you're experiencing an issue with Outlook asking for your password, which can be frustrating, especially when you need to access urgent emails. Before we proceed, could you let me know if you've recently changed your password or if this issue started suddenly? Also, have you tried any troubleshooting steps aside from checking your internet connection?",
+      "card": null,
+      "intent": null,
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026"
+      ]
+    },
+    {
+      "turn": 3,
+      "user": "I haven't changed my password recently, and this issue just started this morning. I haven't tried restarting Outlook yet, but I'm worried about missing important emails. Can you help me fix this?",
+      "assistant": "It sounds like you're having trouble with Outlook, possibly related to receiving emails. Since this issue just started this morning and you haven't changed your password, it might be a temporary glitch. Restarting Outlook is a good first step to try and resolve the issue. If that doesn't work, could you let me know what specific problem you're experiencing? For example, are you unable to send or receive emails, or are you seeing any error messages?",
+      "card": null,
+      "intent": null,
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026"
+      ]
+    },
+    {
+      "turn": 4,
+      "user": "I understand, and I will try restarting Outlook now. However, I want to make sure that a ticket is created for this issue in case it persists. Can you confirm that a ticket has been created for me?",
+      "assistant": "I can help you create a ticket for the issue you're experiencing with Outlook. Could you please provide me with a brief description of the problem, including any error messages you've encountered and when the issue started? This will help me create a detailed ticket for you.",
+      "card": null,
+      "intent": null,
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026"
+      ]
+    }
+  ]
+}

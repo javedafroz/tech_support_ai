@@ -1,0 +1,66 @@
+{
+  "scenario_id": "security_phishing",
+  "session_id": "bb11ec36-db73-4c73-953b-9d61e80f5b86",
+  "ticket_number": "48205",
+  "ticket_id": 206,
+  "turns_used": 4,
+  "run_reference": "LIVE-security_phishing-9f16ad8e",
+  "success": true,
+  "failure_reason": null,
+  "completed_at": "2026-05-29T14:33:27.808704+00:00",
+  "transcript": [
+    {
+      "turn": 1,
+      "user": "Hi, I received a suspicious email that looks like it's from IT, asking me to reset my credentials. I'm concerned it might be a phishing attempt. Can you help me with this?",
+      "assistant": "It's good that you're being cautious about suspicious emails. To help you better, could you provide more details about the email? For example, what does the email say, and do you have any specific concerns about it? Also, if you have any links or attachments in the email, please do not click on them or share them here. Just describe what you see.",
+      "card": null,
+      "intent": null,
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026"
+      ]
+    },
+    {
+      "turn": 2,
+      "user": "The email was from IT-Support@payroll-verify.net, which seems suspicious. It contained a link to a fake login page asking for my credentials. I didn't click the link, but I'm worried because several colleagues received the same email. I think this might be a phishing incident and it feels urgent.",
+      "assistant": "It's good that you didn't click the link. Given the nature of the email and the fact that multiple colleagues received it, this does sound like a phishing attempt. I recommend reporting this incident to your IT security team as soon as possible. \n\nWould you like me to create a ticket for this phishing incident? If so, could you please confirm your email address and any additional details you think might be relevant?",
+      "card": null,
+      "intent": null,
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026"
+      ]
+    },
+    {
+      "turn": 3,
+      "user": "Yes, please create a ticket for this phishing incident. My email address is paul.rivera@msbc.test. The reference ID for this issue is LIVE-security_phishing-9f16ad8e.",
+      "assistant": "I can help you create a ticket for the phishing incident. However, I need a bit more information. Could you please describe what happened during the incident, its impact, and when it occurred? This will help ensure the ticket is detailed and effective.",
+      "card": null,
+      "intent": null,
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026"
+      ]
+    },
+    {
+      "turn": 4,
+      "user": "The incident occurred today when I received the email. It appeared to be from IT, asking me to reset my credentials through a link. I didn't click the link, but I'm worried about its impact since several colleagues received the same email. I believe this could compromise our security if others do click it. Please create the ticket for this urgent phishing incident.",
+      "assistant": "Your support ticket **#48205** has been created successfully and assigned to **Security**.",
+      "card": {
+        "group": "Security",
+        "state": "open",
+        "priority": "3 high",
+        "card_type": "ticket_created",
+        "ticket_id": 206,
+        "ticket_number": "48205"
+      },
+      "intent": "CreateTicket",
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026",
+        "Applying support rules\u2026",
+        "Creating ticket\u2026"
+      ]
+    }
+  ]
+}

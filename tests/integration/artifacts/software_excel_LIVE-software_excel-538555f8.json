@@ -1,0 +1,55 @@
+{
+  "scenario_id": "software_excel",
+  "session_id": "cec7a6ba-b2af-4044-97c6-244127fe3f4c",
+  "ticket_number": "48189",
+  "ticket_id": 190,
+  "turns_used": 3,
+  "run_reference": "LIVE-software_excel-538555f8",
+  "success": true,
+  "failure_reason": null,
+  "completed_at": "2026-05-24T07:21:10.966057+00:00",
+  "transcript": [
+    {
+      "turn": 1,
+      "user": "Hi, I'm having an issue with Excel crashing whenever I try to open finance spreadsheets that contain macros from our shared drive. It started today, and I really need to get this resolved quickly as month-end reporting is due tomorrow. Can you help?",
+      "assistant": "I can definitely help you with that! It sounds like a critical issue, especially with your month-end reporting due tomorrow. I'll create a support ticket for you to address the Excel crashing problem with the finance spreadsheets containing macros. Just to confirm, can you provide me with your email address again?",
+      "card": null,
+      "intent": null,
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026"
+      ]
+    },
+    {
+      "turn": 2,
+      "user": "My email is paul.rivera@msbc.test. Please let me know once the ticket is created!",
+      "assistant": "I'll create a ticket for you now. Please provide me with the details of the issue you're experiencing, including what is wrong, the impact, and any error messages if applicable.",
+      "card": null,
+      "intent": null,
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026"
+      ]
+    },
+    {
+      "turn": 3,
+      "user": "The issue is that Excel 365 crashes immediately when I try to open the finance spreadsheets with macros. An error message mentions an add-in problem. This started today, and since month-end reporting is due tomorrow, it's quite urgent. Safe mode works, but I need the macros to complete my work. Thank you!",
+      "assistant": "Your support ticket **#48189** has been created successfully and assigned to **Software Support**.",
+      "card": {
+        "group": "Software Support",
+        "state": "open",
+        "priority": "2 normal",
+        "card_type": "ticket_created",
+        "ticket_id": 190,
+        "ticket_number": "48189"
+      },
+      "intent": "CreateTicket",
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026",
+        "Applying support rules\u2026",
+        "Creating ticket\u2026"
+      ]
+    }
+  ]
+}

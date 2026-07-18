@@ -1,0 +1,2885 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Customer and partner documentation for the enterprise IT support chat assistant.">
+      
+      
+      
+      
+        <link rel="prev" href="../02-functional-specification-summary/">
+      
+      
+        <link rel="next" href="../04-security-and-data-handling/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Solution Architecture - Tech Support AI</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#solution-architecture" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Tech Support AI" class="md-header__button md-logo" aria-label="Tech Support AI" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Tech Support AI
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Solution Architecture
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../01-executive-solution-overview/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Solution
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../05-integration-guide-zammad/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Integration & Operations
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../08-ui-ux-overview/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Experience & Quality
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../appendices/A-glossary/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Appendices
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../postman/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Resources
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Tech Support AI" class="md-nav__button md-logo" aria-label="Tech Support AI" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Tech Support AI
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../00-quick-start/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quick Start
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Solution
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Solution
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-executive-solution-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Executive Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-functional-specification-summary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Functional Specification
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Solution Architecture
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Solution Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#runtime-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Runtime modes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#logical-architecture-as-implemented" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Logical architecture (as implemented)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#design-principles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Design principles
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#end-to-end-flow-send-message" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        End-to-end flow: send message
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#langgraph-flow-graph_enabledtrue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LangGraph flow (GRAPH_ENABLED=true)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="LangGraph flow (GRAPH_ENABLED=true)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#topology" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Topology
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#node-responsibilities-actual-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Node responsibilities (actual code)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#routing-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Routing rules
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#graph-state-supportgraphstate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Graph state (SupportGraphState)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#request-flow-l1-troubleshoot-then-ticket-kb-on" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Request flow: L1 troubleshoot then ticket (KB on)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#request-flow-create-ticket-happy-path-kb-off-or-no-match" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Request flow: create ticket (happy path, KB off or no match)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#request-flow-add-attachment-to-active-ticket" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Request flow: add attachment to active ticket
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#llm-provider-abstraction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LLM provider abstraction
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ticketing-provider-abstraction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ticketing provider abstraction
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#component-map" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Component map
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-stores" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data stores
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Data stores">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#postgresql-source-of-truth" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PostgreSQL (source of truth)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#redis-ephemeral-acceleration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Redis (ephemeral acceleration)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#object-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Object storage
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#attachment-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Attachment pipeline
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#admin-kb-handbook-lifecycle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Admin KB handbook lifecycle
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Authentication
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#streaming" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Streaming
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#diagnostic-endpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagnostic endpoint
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-artifacts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration artifacts
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#planned-enhancements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Planned enhancements
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-documents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related documents
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-security-and-data-handling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security & Data Handling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Integration & Operations
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Integration & Operations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-integration-guide-zammad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Zammad Integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-deployment-and-operations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment & Operations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-api-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Experience & Quality
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Experience & Quality
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-ui-ux-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UI/UX Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-test-and-acceptance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Test & Acceptance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Appendices
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Appendices
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../appendices/A-glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../appendices/B-environment-variables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Environment Variables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../appendices/C-capability-matrix/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capability Matrix
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resources
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Resources
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../postman/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Postman Collection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#runtime-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Runtime modes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#logical-architecture-as-implemented" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Logical architecture (as implemented)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#design-principles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Design principles
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#end-to-end-flow-send-message" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        End-to-end flow: send message
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#langgraph-flow-graph_enabledtrue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LangGraph flow (GRAPH_ENABLED=true)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="LangGraph flow (GRAPH_ENABLED=true)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#topology" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Topology
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#node-responsibilities-actual-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Node responsibilities (actual code)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#routing-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Routing rules
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#graph-state-supportgraphstate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Graph state (SupportGraphState)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#request-flow-l1-troubleshoot-then-ticket-kb-on" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Request flow: L1 troubleshoot then ticket (KB on)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#request-flow-create-ticket-happy-path-kb-off-or-no-match" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Request flow: create ticket (happy path, KB off or no match)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#request-flow-add-attachment-to-active-ticket" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Request flow: add attachment to active ticket
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#llm-provider-abstraction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LLM provider abstraction
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ticketing-provider-abstraction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ticketing provider abstraction
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#component-map" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Component map
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-stores" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data stores
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Data stores">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#postgresql-source-of-truth" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PostgreSQL (source of truth)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#redis-ephemeral-acceleration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Redis (ephemeral acceleration)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#object-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Object storage
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#attachment-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Attachment pipeline
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#admin-kb-handbook-lifecycle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Admin KB handbook lifecycle
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Authentication
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#streaming" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Streaming
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#diagnostic-endpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagnostic endpoint
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-artifacts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration artifacts
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#planned-enhancements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Planned enhancements
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-documents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related documents
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="solution-architecture">Solution Architecture<a class="headerlink" href="#solution-architecture" title="Permanent link">&para;</a></h1>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p><strong>Tech Support AI</strong> is a <strong>React</strong> web chat UI, an <strong>Admin SPA</strong> for Agent Handbook maintenance, and a <strong>FastAPI</strong> backend. The API owns session persistence, attachment staging, graph invocation, and KB admin routes. Each user message runs through a <strong>LangGraph</strong> workflow (<code>packages/agents</code>) that calls an <strong>LLMGateway</strong> for conversation, a <strong>troubleshoot</strong> node when <code>KB_RAG_ENABLED=true</code> (Qdrant retrieval via <code>packages/knowledge</code>), and a <strong>TicketGateway</strong> for help desk operations. <strong>PostgreSQL</strong> is the durable store; <strong>Redis</strong> caches session context and recent turns; <strong>MinIO/S3</strong> holds attachment bytes; <strong>Qdrant</strong> holds handbook vectors; handbook source files use <strong>Ceph RGW</strong> (or S3-compatible / in-memory for local dev).</p>
+<h2 id="runtime-modes">Runtime modes<a class="headerlink" href="#runtime-modes" title="Permanent link">&para;</a></h2>
+<p>Two independent flags control behaviour. They are often confused in diagrams — both matter.</p>
+<table>
+<thead>
+<tr>
+<th><code>GRAPH_ENABLED</code></th>
+<th><code>GRAPH_LLM_MODE</code></th>
+<th>What runs on <code>POST .../messages</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>false</code></td>
+<td><em>(any)</em></td>
+<td><strong><code>MockSupportGraph</code></strong> in <code>apps/api</code> — rule-based stub, <strong>no LangGraph</strong>, <strong>no Zammad</strong></td>
+</tr>
+<tr>
+<td><code>true</code></td>
+<td><code>mock</code></td>
+<td><strong>LangGraph</strong> + <strong><code>MockConversationLLM</code></strong> — full orchestration and ticket_tool <strong>can</strong> call Zammad</td>
+</tr>
+<tr>
+<td><code>true</code></td>
+<td>not <code>mock</code></td>
+<td><strong>LangGraph</strong> + live <strong>LLMGateway</strong> (<code>LLM_PROVIDER</code>: OpenAI, Azure OpenAI, or Anthropic)</td>
+</tr>
+</tbody>
+</table>
+<p><code>GRAPH_LLM_MODE=mock</code> only applies when <code>GRAPH_ENABLED=true</code>. It selects the agents-package mock LLM, not the API-layer <code>MockSupportGraph</code>.</p>
+<p>Optional: <code>GRAPH_CHECKPOINT=true</code> persists LangGraph thread state to PostgreSQL via <code>langgraph-checkpoint-postgres</code> (off by default).</p>
+<h2 id="logical-architecture-as-implemented">Logical architecture (as implemented)<a class="headerlink" href="#logical-architecture-as-implemented" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>flowchart TB
+    subgraph Clients["Clients"]
+        Web["React chat&lt;br/&gt;apps/web&lt;br/&gt;REST · SSE · upload"]
+        Admin["Admin SPA&lt;br/&gt;apps/admin&lt;br/&gt;Handbook upload / publish"]
+        KC["Keycloak&lt;br/&gt;Admin OIDC"]
+    end
+
+    subgraph API["FastAPI BFF — apps/api"]
+        ChatSvc["ChatService"]
+        AttSvc["AttachmentService"]
+        KbSvc["KbService"]
+        Runner["SupportGraphRunner"]
+        Routes["/health · /api/v1/chat/* · /api/v1/admin/kb/* · /api/v1/config/public"]
+    end
+
+    subgraph Stores["Data stores"]
+        PG[("PostgreSQL&lt;br/&gt;sessions · messages · KB metadata")]
+        RD[("Redis&lt;br/&gt;context · recent turns")]
+        MinIO[("MinIO/S3&lt;br/&gt;attachments")]
+        QD[("Qdrant&lt;br/&gt;handbook vectors")]
+        HB[("Handbook store&lt;br/&gt;Ceph RGW / S3 / MinIO bucket / memory")]
+    end
+
+    subgraph Graph["LangGraph — packages/agents"]
+        direction LR
+        Conv["conversation"] --&gt; TS["troubleshoot"]
+        TS --&gt; Orch["orchestrate"]
+        Orch --&gt; TT["ticket_tool"]
+        TT --&gt; Resp["respond"]
+    end
+
+    subgraph Externals["External / packages"]
+        LLM["LLMGateway&lt;br/&gt;OpenAI / Azure / Anthropic"]
+        Know["packages/knowledge&lt;br/&gt;retrieve chunks"]
+        OrchEng["OrchestrationEngine&lt;br/&gt;policy + workflow"]
+        TG["TicketGateway&lt;br/&gt;Zammad"]
+    end
+
+    Web --&gt;|"HTTPS"| Routes
+    Admin --&gt;|"Bearer JWT"| Routes
+    Admin --&gt; KC
+    KC -.-&gt;|"JWKS / roles"| Routes
+
+    Routes --&gt; ChatSvc
+    Routes --&gt; AttSvc
+    Routes --&gt; KbSvc
+    ChatSvc --&gt; Runner
+
+    ChatSvc --&gt; PG
+    ChatSvc --&gt; RD
+    AttSvc --&gt; MinIO
+    AttSvc --&gt; PG
+    KbSvc --&gt; PG
+    KbSvc --&gt; HB
+    KbSvc --&gt; QD
+
+    Runner --&gt;|"GRAPH_ENABLED=true"| Graph
+    Conv --&gt; LLM
+    TS --&gt; Know
+    Know --&gt; QD
+    Orch --&gt; OrchEng
+    TT --&gt; TG</code></pre>
+<p><strong>What the diagram shows:</strong></p>
+<ul>
+<li><strong>ChatService</strong> (not LangGraph) reads/writes PostgreSQL and Redis, stages attachments, then invokes the graph.</li>
+<li><strong>KbService</strong> + Admin routes manage handbook ingest/publish; chat retrieval only uses <strong>published</strong> documents in Qdrant.</li>
+<li><strong>Orchestration</strong> is a <strong>LangGraph node</strong> (<code>orchestrate_node</code>), not a separate service the API calls directly.</li>
+<li><strong>LLMGateway</strong> and <strong>TicketGateway</strong> are built inside graph nodes (<code>get_conversation_llm()</code>, <code>build_ticket_gateway()</code>), not singleton microservices.</li>
+<li><strong>Object storage:</strong> attachments via <code>AttachmentService</code> (<code>S3_*</code>); handbooks via <code>CEPH_RGW_*</code> / <code>KB_HANDBOOK_*</code> (Compose may point both at MinIO with <strong>different buckets</strong>).</li>
+<li><strong>Troubleshoot</strong> is deterministic retrieval + one guided step — no LLM.</li>
+</ul>
+<h2 id="design-principles">Design principles<a class="headerlink" href="#design-principles" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>LLM for language only</strong> — Conversation, clarification, structured intent proposals, and screenshot text extraction. Not business policy.</li>
+<li><strong>Orchestration gates every help desk call</strong> — <code>PolicyValidator</code> + <code>WorkflowEngine</code> in the <code>orchestrate</code> node before <code>ticket_tool</code> runs.</li>
+<li><strong>Provider-grounded ticket IDs</strong> — Ticket numbers in the UI come only from Zammad API responses.</li>
+<li><strong>Pluggable LLM</strong> — <code>LLMGateway</code> protocol; OpenAI (default), Azure OpenAI, Anthropic; mock when <code>GRAPH_LLM_MODE=mock</code>.</li>
+<li><strong>Pluggable ticketing</strong> — <code>TicketGateway</code> protocol; Zammad live, ServiceNow stub.</li>
+<li><strong>API owns persistence</strong> — Graph nodes are stateless per turn; messages and sessions are saved by <code>ChatService</code> after the graph completes.</li>
+<li><strong>Attachments staged before the graph</strong> — Upload → object storage → link on user message → <code>pending_attachments</code> in graph state.</li>
+<li><strong>No MCP</strong> — Direct REST/SDK integration.</li>
+<li><strong>Troubleshoot is deterministic</strong> — Handbook retrieval and one-step guidance use Python + Qdrant, not the LLM. Chat never reveals handbook titles; ticket enrichment may name the handbook for agents.</li>
+</ol>
+<h2 id="end-to-end-flow-send-message">End-to-end flow: send message<a class="headerlink" href="#end-to-end-flow-send-message" title="Permanent link">&para;</a></h2>
+<p>This is the actual path implemented in <code>ChatService.send_message</code> / <code>send_message_stream</code>. Attachment upload (<code>POST .../attachments</code>) is a separate step before the message is sent — files are already in MinIO when the message arrives.</p>
+<pre class="mermaid"><code>sequenceDiagram
+    autonumber
+    participant U as User / Web UI
+    participant API as FastAPI / ChatService
+    participant PG as PostgreSQL
+    participant RD as Redis
+    participant G as LangGraph / MockGraph
+
+    U-&gt;&gt;API: POST /chat/sessions/{id}/messages
+    API-&gt;&gt;API: Authenticate (X-User-Id or JWT)
+    API-&gt;&gt;PG: Load session; verify ownership
+    API-&gt;&gt;RD: Load session context (message_count, active_ticket)
+    alt Redis memory hit
+        API-&gt;&gt;RD: Load recent turns (max 20)
+    else Redis miss
+        API-&gt;&gt;PG: Load chat_messages history
+    end
+    API-&gt;&gt;PG: Insert user ChatMessage
+    opt attachment_ids present
+        API-&gt;&gt;PG: Link session_attachments to message
+        API-&gt;&gt;API: Build pending_attachments payload
+    end
+    API-&gt;&gt;G: Invoke graph turn
+    G--&gt;&gt;API: assistant_reply, ui_card, system_statuses, intent
+    API-&gt;&gt;PG: Persist system status messages
+    API-&gt;&gt;PG: Persist assistant message + card JSON
+    API-&gt;&gt;PG: Update session (active_ticket_number, updated_at)
+    API-&gt;&gt;RD: record_turn (context + rolling memory)
+    API--&gt;&gt;U: user_message, assistant_message, system_statuses</code></pre>
+<h2 id="langgraph-flow-graph_enabledtrue">LangGraph flow (GRAPH_ENABLED=true)<a class="headerlink" href="#langgraph-flow-graph_enabledtrue" title="Permanent link">&para;</a></h2>
+<p>Compiled graph: <code>packages/agents/graph.py</code> → <code>SupportGraphRunner</code> in <code>packages/agents/runner.py</code>.</p>
+<h3 id="topology">Topology<a class="headerlink" href="#topology" title="Permanent link">&para;</a></h3>
+<p>Routing overview (control flow):</p>
+<pre class="mermaid"><code>flowchart TD
+    START([START]) --&gt; conversation
+    conversation --&gt;|KB on + support issue / guiding| troubleshoot
+    conversation --&gt;|needs_clarification / no intent| respond
+    conversation --&gt;|structured intent ready| orchestrate
+    troubleshoot --&gt;|guiding or resolved| respond
+    troubleshoot --&gt;|escalated| orchestrate
+    troubleshoot --&gt;|skipped| respond_or_orch{clarifying?}
+    respond_or_orch --&gt;|yes| respond
+    respond_or_orch --&gt;|no| orchestrate
+    orchestrate --&gt;|rejected / no command| respond
+    orchestrate --&gt;|approved CREATE / SEARCH / ADD_ATTACHMENT| ticket_tool
+    ticket_tool --&gt; respond
+    respond --&gt; END([END])</code></pre>
+<p>Typical <strong>single-turn</strong> execution through graph nodes:</p>
+<pre class="mermaid"><code>sequenceDiagram
+    autonumber
+    participant API as ChatService
+    participant G as SupportGraphRunner
+    participant Conv as conversation
+    participant TS as troubleshoot
+    participant Orch as orchestrate
+    participant TT as ticket_tool
+    participant Resp as respond
+
+    API-&gt;&gt;G: ainvoke / astream_turn
+    G-&gt;&gt;Conv: Run node
+    Conv--&gt;&gt;G: structured_intent, routing flags
+    alt KB troubleshoot path
+        G-&gt;&gt;TS: Run node
+        TS--&gt;&gt;G: guiding / resolved / escalated / skipped
+    end
+    alt Needs ticket / search / attachment command
+        G-&gt;&gt;Orch: Run node
+        Orch--&gt;&gt;G: approved_command or rejection
+        opt Approved command
+            G-&gt;&gt;TT: Run node
+            TT--&gt;&gt;G: ui_card, provider_response
+        end
+    end
+    G-&gt;&gt;Resp: Run node
+    Resp--&gt;&gt;G: final assistant_reply
+    G--&gt;&gt;API: SupportGraphState</code></pre>
+<p><code>KB_RAG_ENABLED=false</code> skips the troubleshoot branch entirely (legacy CreateTicket path).</p>
+<h3 id="node-responsibilities-actual-code">Node responsibilities (actual code)<a class="headerlink" href="#node-responsibilities-actual-code" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Node</th>
+<th>Module</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>conversation</code></td>
+<td><code>nodes/conversation.py</code></td>
+<td>Adds user message to state; <strong>short-circuits LLM</strong> when <code>pending_attachments</code> + <code>active_ticket_number</code> → builds <code>AddAttachment</code> intent directly; else calls <code>LLMGateway.propose_intent()</code>; sets <code>structured_intent</code>, <code>is_support_issue</code>, <code>problem_summary</code>, and optional clarify <code>assistant_reply</code></td>
+</tr>
+<tr>
+<td><code>troubleshoot</code></td>
+<td><code>nodes/troubleshoot.py</code></td>
+<td>Retrieves handbook via <code>packages/knowledge</code>; offers <strong>one</strong> guided step (empathetic copy, no handbook name); on fail/escalate synthesizes/enriches <code>CreateTicket</code>; on resolve deflects (no ticket)</td>
+</tr>
+<tr>
+<td><code>orchestrate</code></td>
+<td><code>nodes/orchestrate.py</code></td>
+<td><code>OrchestrationEngine.process()</code> — policy validation + workflow mapping → <code>approved_command</code> or rejection message</td>
+</tr>
+<tr>
+<td><code>ticket_tool</code></td>
+<td><code>nodes/ticket_tool.py</code></td>
+<td><code>build_ticket_gateway().execute(TicketCommand)</code> — create ticket, search, or add attachment; sets <code>ui_card</code>, <code>active_ticket_number</code>, <code>provider_response</code></td>
+</tr>
+<tr>
+<td><code>respond</code></td>
+<td><code>nodes/respond.py</code></td>
+<td>Formats final <code>assistant_reply</code> (prefers ticket-created confirmation over stale clarify text)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="routing-rules">Routing rules<a class="headerlink" href="#routing-rules" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>From</th>
+<th>Condition</th>
+<th>To</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>conversation</code></td>
+<td><code>kb_rag_enabled</code> and (<code>troubleshoot</code> guiding, or support issue / CreateTicket) and <strong>no</strong> <code>active_ticket_number</code> and status not skipped/resolved/escalated</td>
+<td><code>troubleshoot</code></td>
+</tr>
+<tr>
+<td><code>conversation</code></td>
+<td><code>needs_clarification</code> or no <code>structured_intent</code> (and not routing to troubleshoot)</td>
+<td><code>respond</code></td>
+</tr>
+<tr>
+<td><code>conversation</code></td>
+<td><code>structured_intent</code> present</td>
+<td><code>orchestrate</code></td>
+</tr>
+<tr>
+<td><code>troubleshoot</code></td>
+<td>status <code>guiding</code> or <code>resolved</code></td>
+<td><code>respond</code></td>
+</tr>
+<tr>
+<td><code>troubleshoot</code></td>
+<td>status <code>escalated</code></td>
+<td><code>orchestrate</code></td>
+</tr>
+<tr>
+<td><code>troubleshoot</code></td>
+<td>status <code>skipped</code></td>
+<td><code>respond</code> if clarifying; else <code>orchestrate</code></td>
+</tr>
+<tr>
+<td><code>orchestrate</code></td>
+<td>not <code>APPROVED</code> or no command</td>
+<td><code>respond</code></td>
+</tr>
+<tr>
+<td><code>orchestrate</code></td>
+<td>approved <code>CREATE_TICKET</code>, <code>SEARCH_TICKETS</code>, or <code>ADD_ATTACHMENT</code></td>
+<td><code>ticket_tool</code></td>
+</tr>
+<tr>
+<td><code>ticket_tool</code></td>
+<td>always</td>
+<td><code>respond</code></td>
+</tr>
+</tbody>
+</table>
+<p>Sessions with an <strong>active ticket</strong> skip L1 troubleshoot (attachment / status flows continue normally).</p>
+<h3 id="graph-state-supportgraphstate">Graph state (<code>SupportGraphState</code>)<a class="headerlink" href="#graph-state-supportgraphstate" title="Permanent link">&para;</a></h3>
+<p>Key fields: <code>user_input</code>, <code>messages</code>, <code>pending_attachments</code>, <code>structured_intent</code>, <code>orchestration_result</code>, <code>approved_command</code>, <code>system_statuses</code>, <code>ui_card</code>, <code>active_ticket_number</code>, <code>assistant_reply</code>, <code>needs_clarification</code>, <code>kb_rag_enabled</code>, <code>is_support_issue</code>, <code>problem_summary</code>, <code>troubleshoot</code>, <code>troubleshoot_deflection</code>.</p>
+<h2 id="request-flow-l1-troubleshoot-then-ticket-kb-on">Request flow: L1 troubleshoot then ticket (KB on)<a class="headerlink" href="#request-flow-l1-troubleshoot-then-ticket-kb-on" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>sequenceDiagram
+    autonumber
+    participant U as User
+    participant API as ChatService
+    participant G as LangGraph
+    participant Conv as conversation
+    participant TS as troubleshoot
+    participant QD as Qdrant
+    participant Orch as orchestrate
+    participant TT as ticket_tool
+    participant Z as Zammad
+    participant PG as PostgreSQL
+
+    U-&gt;&gt;API: Describes support problem
+    API-&gt;&gt;G: Invoke graph
+    G-&gt;&gt;Conv: NLU + support issue detection
+    Conv--&gt;&gt;G: is_support_issue, problem_summary
+    G-&gt;&gt;TS: Retrieve + guide
+    TS-&gt;&gt;QD: Vector search (published handbooks)
+    QD--&gt;&gt;TS: Chunk matches
+    TS--&gt;&gt;G: status=guiding (one step)
+    G--&gt;&gt;API: Empathetic step (no handbook name)
+    API--&gt;&gt;U: Guided self-help reply
+
+    alt User confirms fix (deflection)
+        U-&gt;&gt;API: "That worked"
+        API-&gt;&gt;G: Invoke graph
+        G-&gt;&gt;TS: Classify resolve
+        TS--&gt;&gt;G: status=resolved
+        G--&gt;&gt;API: Deflection reply
+        API-&gt;&gt;PG: Record kb_deflection_events
+        API--&gt;&gt;U: Acknowledgement (no ticket)
+    else User still blocked (escalate)
+        U-&gt;&gt;API: "Still not working"
+        API-&gt;&gt;G: Invoke graph
+        G-&gt;&gt;TS: Escalate
+        TS--&gt;&gt;G: CreateTicket intent + steps + transcript
+        G-&gt;&gt;Orch: Policy + workflow
+        Orch--&gt;&gt;G: Approved CREATE_TICKET
+        G-&gt;&gt;TT: Execute command
+        TT-&gt;&gt;Z: POST /api/v1/tickets
+        Z--&gt;&gt;TT: Ticket number
+        TT--&gt;&gt;G: ticket_created card
+        G--&gt;&gt;API: Ticket confirmation only
+        API--&gt;&gt;U: Ticket card
+    end</code></pre>
+<h2 id="request-flow-create-ticket-happy-path-kb-off-or-no-match">Request flow: create ticket (happy path, KB off or no match)<a class="headerlink" href="#request-flow-create-ticket-happy-path-kb-off-or-no-match" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>sequenceDiagram
+    autonumber
+    participant U as User / Web UI
+    participant API as ChatService
+    participant S3 as MinIO/S3
+    participant G as LangGraph
+    participant Conv as conversation
+    participant LLM as LLMGateway
+    participant Orch as orchestrate
+    participant TT as ticket_tool
+    participant Z as Zammad
+    participant RD as Redis
+
+    opt Screenshot / file attached
+        U-&gt;&gt;API: POST /attachments (multipart)
+        API-&gt;&gt;S3: put_object
+        API--&gt;&gt;U: attachment_id
+    end
+    U-&gt;&gt;API: POST /messages {content, attachment_ids}
+    API-&gt;&gt;G: Invoke with pending_attachments
+    G-&gt;&gt;Conv: propose_intent
+    Conv-&gt;&gt;LLM: Structured intent extraction (+ vision if images)
+    LLM--&gt;&gt;Conv: CreateTicket StructuredIntent
+    Conv--&gt;&gt;G: Intent + merged attachments
+    G-&gt;&gt;Orch: OrchestrationEngine.process()
+    Orch--&gt;&gt;G: Approved TicketCommand (YAML mapping)
+    G-&gt;&gt;TT: Execute CREATE_TICKET
+    TT-&gt;&gt;S3: get_object (encode for Zammad)
+    TT-&gt;&gt;Z: POST /api/v1/tickets (+ attachments)
+    Z--&gt;&gt;TT: ticket number, state
+    TT--&gt;&gt;G: ui_card ticket_created
+    G--&gt;&gt;API: Assistant reply + card
+    API-&gt;&gt;RD: Update active_ticket_number
+    API--&gt;&gt;U: Ticket card in chat</code></pre>
+<p>If orchestration rejects, <code>ticket_tool</code> is never reached — the graph routes to <code>respond</code> with a clarification or rejection message.</p>
+<h2 id="request-flow-add-attachment-to-active-ticket">Request flow: add attachment to active ticket<a class="headerlink" href="#request-flow-add-attachment-to-active-ticket" title="Permanent link">&para;</a></h2>
+<p>Two paths exist in code:</p>
+<p><strong>A — LLM bypass:</strong> session already has <code>active_ticket_number</code> and user sends new files.</p>
+<pre class="mermaid"><code>sequenceDiagram
+    autonumber
+    participant U as User
+    participant API as ChatService
+    participant G as LangGraph
+    participant Conv as conversation
+    participant Orch as orchestrate
+    participant TT as ticket_tool
+    participant S3 as MinIO/S3
+    participant Z as Zammad
+
+    U-&gt;&gt;API: POST /attachments then /messages
+    API-&gt;&gt;G: Invoke (active_ticket_number set)
+    G-&gt;&gt;Conv: Short-circuit — no LLM call
+    Conv--&gt;&gt;G: AddAttachment StructuredIntent
+    G-&gt;&gt;Orch: Validate + map command
+    Orch--&gt;&gt;G: Approved ADD_ATTACHMENT
+    G-&gt;&gt;TT: Execute
+    TT-&gt;&gt;S3: Load attachment bytes
+    TT-&gt;&gt;Z: POST ticket article + attachment
+    Z--&gt;&gt;TT: OK
+    TT--&gt;&gt;G: Confirmation
+    G--&gt;&gt;API: Assistant reply
+    API--&gt;&gt;U: Attachment added message</code></pre>
+<p><strong>B — New ticket with attachments:</strong> <code>CreateTicket</code> intent includes <code>attachments</code> in the payload; Zammad receives them on the initial article (see create-ticket flow above).</p>
+<h2 id="llm-provider-abstraction">LLM provider abstraction<a class="headerlink" href="#llm-provider-abstraction" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>sequenceDiagram
+    autonumber
+    participant Conv as conversation_node
+    participant Factory as build_llm_gateway()
+    participant GW as LLMGateway
+    participant Prov as Provider adapter
+    participant Ext as OpenAI / Azure / Anthropic
+
+    Conv-&gt;&gt;Factory: get_conversation_llm()
+    Factory-&gt;&gt;GW: Resolved by LLM_PROVIDER
+    Conv-&gt;&gt;GW: propose_intent(history, attachments?)
+    GW-&gt;&gt;Prov: Structured output request
+    alt openai
+        Prov-&gt;&gt;Ext: ChatOpenAI + ConversationAnalysis schema
+    else azure_openai
+        Prov-&gt;&gt;Ext: AzureChatOpenAI + schema
+    else anthropic
+        Prov-&gt;&gt;Ext: ChatAnthropic + schema (+ vision blocks)
+    else mock (GRAPH_LLM_MODE=mock)
+        Prov--&gt;&gt;GW: MockConversationLLM (deterministic)
+    end
+    Ext--&gt;&gt;Prov: StructuredIntent fields
+    Prov--&gt;&gt;GW: ConversationAnalysis
+    GW--&gt;&gt;Conv: Intent + clarify flags</code></pre>
+<table>
+<thead>
+<tr>
+<th>Module</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>llm_gateway.py</code></td>
+<td><code>LLMGateway</code> protocol</td>
+</tr>
+<tr>
+<td><code>llm_settings.py</code></td>
+<td><code>LLMSettings</code>, <code>configure_llm()</code>, <code>resolved_provider()</code></td>
+</tr>
+<tr>
+<td><code>llm_factory.py</code></td>
+<td><code>build_llm_gateway()</code></td>
+</tr>
+<tr>
+<td><code>conversation_analysis.py</code></td>
+<td>Shared prompt, <code>ConversationAnalysis</code> schema, intent mapping</td>
+</tr>
+<tr>
+<td><code>providers/*.py</code></td>
+<td>Provider adapters</td>
+</tr>
+<tr>
+<td><code>attachment_content.py</code></td>
+<td>Vision blocks (OpenAI <code>image_url</code> vs Anthropic base64 <code>image</code>)</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>GRAPH_LLM_MODE=mock</code></td>
+<td><code>MockConversationLLM</code> — no external LLM API</td>
+</tr>
+<tr>
+<td><code>LLM_PROVIDER</code></td>
+<td><code>openai</code> (default), <code>azure_openai</code>, <code>anthropic</code> when LLM mode is not <code>mock</code></td>
+</tr>
+<tr>
+<td><code>LLM_TEMPERATURE</code></td>
+<td>Shared temperature (default <code>0.2</code>)</td>
+</tr>
+</tbody>
+</table>
+<p>Settings applied at API startup in <code>main.py</code> lifespan via <code>configure_llm()</code>.</p>
+<h2 id="ticketing-provider-abstraction">Ticketing provider abstraction<a class="headerlink" href="#ticketing-provider-abstraction" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>sequenceDiagram
+    autonumber
+    participant TT as ticket_tool_node
+    participant GW as TicketGateway
+    participant Adp as ZammadAdapter / ServiceNow stub
+    participant Map as mapping.yaml
+    participant Z as Zammad REST API
+
+    TT-&gt;&gt;GW: build_ticket_gateway()
+    TT-&gt;&gt;GW: execute(TicketCommand)
+    GW-&gt;&gt;Adp: Provider-specific mapping
+    Adp-&gt;&gt;Map: Category → group / priority IDs
+    Map--&gt;&gt;Adp: Resolved IDs
+    alt CREATE_TICKET
+        Adp-&gt;&gt;Z: POST /api/v1/tickets
+        Z--&gt;&gt;Adp: ProviderTicket
+    else SEARCH_TICKETS
+        Adp-&gt;&gt;Z: GET search / tickets
+        Z--&gt;&gt;Adp: Matches
+    else ADD_ATTACHMENT
+        Adp-&gt;&gt;Z: POST /api/v1/ticket_articles (+ mime-type)
+        Z--&gt;&gt;Adp: OK
+    end
+    Adp--&gt;&gt;GW: ProviderTicket / result
+    GW--&gt;&gt;TT: ui_card + active_ticket_number</code></pre>
+<ul>
+<li><code>TICKETING_PROVIDER=zammad|servicenow</code></li>
+<li>Mapping: <code>config/providers/{provider}/mapping.yaml</code></li>
+<li>Attachments on Zammad articles require <code>mime-type</code> (hyphenated); <code>ZammadClient</code> uses <code>model_dump(by_alias=True)</code></li>
+</ul>
+<p>Orchestration (<code>packages/orchestration</code>) is <strong>only</strong> invoked from the <code>orchestrate</code> graph node — not from API routes directly (except <code>scripts/create_ticket.py</code> CLI).</p>
+<h2 id="component-map">Component map<a class="headerlink" href="#component-map" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Location</th>
+<th>Responsibility</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Web UI</td>
+<td><code>apps/web</code></td>
+<td>ChatShell, Composer (📎), MessageStream (Markdown), cards</td>
+</tr>
+<tr>
+<td>Admin UI</td>
+<td><code>apps/admin</code></td>
+<td>Handbook upload/publish/preview (Keycloak)</td>
+</tr>
+<tr>
+<td>API</td>
+<td><code>apps/api</code></td>
+<td>REST/SSE, chat auth, <strong>ChatService</strong>, <strong>AttachmentService</strong>, <strong>KbService</strong>, admin KB routes, graph lifecycle</td>
+</tr>
+<tr>
+<td>API mock (legacy)</td>
+<td><code>apps/api/services/mock_graph.py</code></td>
+<td><code>MockSupportGraph</code> when <code>GRAPH_ENABLED=false</code></td>
+</tr>
+<tr>
+<td>Agents</td>
+<td><code>packages/agents</code></td>
+<td>LangGraph, <strong>LLMGateway</strong>, conversation / troubleshoot / ticket nodes</td>
+</tr>
+<tr>
+<td>Knowledge</td>
+<td><code>packages/knowledge</code></td>
+<td>Ingest, chunking, embeddings, Qdrant/memory store, Docling, handbook storage</td>
+</tr>
+<tr>
+<td>Orchestration</td>
+<td><code>packages/orchestration</code></td>
+<td><code>OrchestrationEngine</code>, policy, workflow, YAML mapping</td>
+</tr>
+<tr>
+<td>Ticketing</td>
+<td><code>packages/ticketing</code></td>
+<td><strong>TicketGateway</strong>, Zammad/ServiceNow adapters, attachment encoding</td>
+</tr>
+<tr>
+<td>Storage</td>
+<td><code>packages/storage</code></td>
+<td>MinIO/S3 for attachments; shared S3 helpers for handbook backend</td>
+</tr>
+<tr>
+<td>Zammad client</td>
+<td><code>packages/zammad-client</code></td>
+<td>HTTP client, DTOs, retries</td>
+</tr>
+<tr>
+<td>Shared</td>
+<td><code>packages/shared</code></td>
+<td>JSON schemas, reason codes</td>
+</tr>
+</tbody>
+</table>
+<h2 id="data-stores">Data stores<a class="headerlink" href="#data-stores" title="Permanent link">&para;</a></h2>
+<h3 id="postgresql-source-of-truth">PostgreSQL (source of truth)<a class="headerlink" href="#postgresql-source-of-truth" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Table</th>
+<th>Written by</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>chat_sessions</code></td>
+<td>ChatService</td>
+<td>Session metadata, <code>active_ticket_number</code></td>
+</tr>
+<tr>
+<td><code>chat_messages</code></td>
+<td>ChatService</td>
+<td>User, assistant, system messages; optional <code>card</code> and <code>attachments</code> JSONB</td>
+</tr>
+<tr>
+<td><code>session_attachments</code></td>
+<td>AttachmentService</td>
+<td>Staged uploads before/after message link</td>
+</tr>
+<tr>
+<td><code>kb_documents</code></td>
+<td>KbService</td>
+<td>Handbook metadata (slug, status, object keys, chunk counts)</td>
+</tr>
+<tr>
+<td><code>kb_ingest_jobs</code></td>
+<td>KbService</td>
+<td>Ingest/publish/reindex job status</td>
+</tr>
+<tr>
+<td><code>kb_deflection_events</code></td>
+<td>ChatService</td>
+<td>Resolved / escalated outcomes after troubleshoot</td>
+</tr>
+<tr>
+<td><code>policy_audit_log</code></td>
+<td><em>(schema only)</em></td>
+<td>Not wired to chat flow yet</td>
+</tr>
+<tr>
+<td><code>zammad_operations</code></td>
+<td><em>(schema only)</em></td>
+<td>Used by CLI <code>create_ticket.py</code> + AuditService</td>
+</tr>
+<tr>
+<td><code>reason_code_messages</code></td>
+<td>Seed/migration</td>
+<td>Rejection copy catalog</td>
+</tr>
+</tbody>
+</table>
+<h3 id="redis-ephemeral-acceleration">Redis (ephemeral acceleration)<a class="headerlink" href="#redis-ephemeral-acceleration" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>session:{id}:context</code></td>
+<td><code>active_ticket_number</code>, <code>message_count</code>, <code>last_message_at</code>, <code>troubleshoot</code> progress</td>
+</tr>
+<tr>
+<td><code>session:{id}:memory</code></td>
+<td>Rolling recent turns (max 20) for graph history hydrate</td>
+</tr>
+</tbody>
+</table>
+<p>TTL defaults to 24h (<code>REDIS_SESSION_TTL_SECONDS</code>). Loss of Redis does not lose messages — PostgreSQL rebuilds history on next turn.</p>
+<h3 id="object-storage">Object storage<a class="headerlink" href="#object-storage" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Key pattern</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>sessions/{session_id}/{attachment_id}/{filename}</code></td>
+<td>Attachment bytes</td>
+</tr>
+</tbody>
+</table>
+<h2 id="attachment-pipeline">Attachment pipeline<a class="headerlink" href="#attachment-pipeline" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>sequenceDiagram
+    autonumber
+    participant U as User / Composer
+    participant API as AttachmentService
+    participant S3 as MinIO/S3
+    participant PG as PostgreSQL
+    participant G as LangGraph
+    participant TT as ticket_tool
+    participant Z as Zammad
+
+    U-&gt;&gt;API: POST /attachments (file)
+    API-&gt;&gt;API: Validate MIME, size, count
+    API-&gt;&gt;S3: put_object sessions/{id}/{attachment_id}/...
+    API-&gt;&gt;PG: session_attachments (pending)
+    API--&gt;&gt;U: attachment_id
+
+    U-&gt;&gt;API: POST /messages {attachment_ids}
+    API-&gt;&gt;PG: link_to_message + chat_messages metadata
+    API-&gt;&gt;G: pending_attachments in graph state
+
+    alt CreateTicket
+        G-&gt;&gt;TT: CREATE with attachments
+        TT-&gt;&gt;S3: get_object + base64 encode
+        TT-&gt;&gt;Z: Initial article with attachments
+    else AddAttachment (active ticket)
+        G-&gt;&gt;TT: ADD_ATTACHMENT
+        TT-&gt;&gt;S3: get_object
+        TT-&gt;&gt;Z: New article on existing ticket
+    end</code></pre>
+<table>
+<thead>
+<tr>
+<th>Limit</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Max file size</td>
+<td>10 MB</td>
+</tr>
+<tr>
+<td>Max per message</td>
+<td>5 files</td>
+</tr>
+<tr>
+<td>Blocked</td>
+<td>Executables</td>
+</tr>
+</tbody>
+</table>
+<h2 id="admin-kb-handbook-lifecycle">Admin KB handbook lifecycle<a class="headerlink" href="#admin-kb-handbook-lifecycle" title="Permanent link">&para;</a></h2>
+<p>Handbook upload, ingest, and publish are separate from the chat message path. Only <strong>published</strong> documents are retrieved by the troubleshoot node.</p>
+<pre class="mermaid"><code>sequenceDiagram
+    autonumber
+    participant A as Admin SPA
+    participant KC as Keycloak
+    participant API as KbService / admin routes
+    participant S3 as Handbook store
+    participant PG as PostgreSQL
+    participant Ing as packages/knowledge
+    participant QD as Qdrant
+
+    A-&gt;&gt;KC: OIDC login (Authorization Code + PKCE)
+    KC--&gt;&gt;A: Access token
+    A-&gt;&gt;API: POST /admin/kb/documents (Bearer JWT, multipart)
+    API-&gt;&gt;API: Require kb_editor / kb_admin role
+    API-&gt;&gt;S3: Store source file (PDF/Markdown)
+    API-&gt;&gt;PG: kb_documents + kb_ingest_jobs
+    API-&gt;&gt;Ing: Docling convert → chunk → embed
+    Ing-&gt;&gt;QD: Upsert vectors
+    Ing--&gt;&gt;API: Job complete
+    A-&gt;&gt;API: POST /admin/kb/documents/{id}/publish (kb_admin)
+    API-&gt;&gt;PG: status=published
+    Note over API,QD: Chat troubleshoot retrieves published handbooks only</code></pre>
+<h2 id="authentication">Authentication<a class="headerlink" href="#authentication" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Behaviour</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dev</code></td>
+<td><code>X-User-Id</code> header</td>
+</tr>
+<tr>
+<td><code>jwt</code></td>
+<td>Bearer JWT, <code>sub</code> claim <em>(stub)</em></td>
+</tr>
+<tr>
+<td>OIDC</td>
+<td>Planned</td>
+</tr>
+</tbody>
+</table>
+<p>Sessions are user-scoped; cross-user access returns 403.</p>
+<h2 id="streaming">Streaming<a class="headerlink" href="#streaming" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Implementation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Thought streaming</td>
+<td><code>POST .../messages/stream</code> — <code>SupportGraphRunner.astream_turn</code> yields <code>system_statuses</code> as SSE events</td>
+</tr>
+<tr>
+<td>Token streaming</td>
+<td>Not implemented</td>
+</tr>
+</tbody>
+</table>
+<p>Gated by <code>THOUGHT_STREAMING_ENABLED</code>; UI reads <code>/api/v1/config/public</code>.</p>
+<pre class="mermaid"><code>sequenceDiagram
+    autonumber
+    participant U as Web UI
+    participant API as ChatService
+    participant G as SupportGraphRunner
+    participant PG as PostgreSQL
+
+    U-&gt;&gt;API: POST /messages/stream (SSE)
+    API-&gt;&gt;API: Same persist/hydrate as REST send
+    API-&gt;&gt;G: astream_turn
+    loop Graph nodes
+        G--&gt;&gt;API: system_status event
+        API--&gt;&gt;U: SSE data: {type: status, label: ...}
+    end
+    G--&gt;&gt;API: Final turn state
+    API-&gt;&gt;PG: Persist messages (same as REST path)
+    API--&gt;&gt;U: SSE data: {type: done, assistant_message, card}</code></pre>
+<h2 id="diagnostic-endpoint">Diagnostic endpoint<a class="headerlink" href="#diagnostic-endpoint" title="Permanent link">&para;</a></h2>
+<p><code>POST /api/v1/chat/sessions/{id}/graph/invoke</code> — runs a graph turn <strong>without persisting</strong> messages (testing). Same <code>GRAPH_ENABLED</code> / mock branching as chat.</p>
+<h2 id="configuration-artifacts">Configuration artifacts<a class="headerlink" href="#configuration-artifacts" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>config/providers/zammad/mapping.yaml</code></td>
+<td>Category → group/priority</td>
+</tr>
+<tr>
+<td><code>packages/shared/schemas/*.json</code></td>
+<td>Intent, command, card contracts</td>
+</tr>
+<tr>
+<td><code>.env</code></td>
+<td>Secrets and flags</td>
+</tr>
+</tbody>
+</table>
+<p>See <a href="../appendices/B-environment-variables/">Environment Variables</a>.</p>
+<h2 id="planned-enhancements">Planned enhancements<a class="headerlink" href="#planned-enhancements" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Confirm-before-submit interrupt flow</li>
+<li>UpdateTicket, Escalate, Cancel intents</li>
+<li>Policy/provider audit wired to chat message flow</li>
+<li>PDF text extraction for <strong>attachment</strong> context (handbook PDFs already convert via Docling)</li>
+<li>End-user OIDC / SSO for chat (admin Keycloak is available)</li>
+<li>LLM token streaming</li>
+<li>OpenTelemetry</li>
+</ul>
+<p>See <a href="../appendices/C-capability-matrix/">Capability Matrix</a>.</p>
+<h2 id="related-documents">Related documents<a class="headerlink" href="#related-documents" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../02-functional-specification-summary/">Functional Specification Summary</a></li>
+<li><a href="../05-integration-guide-zammad/">Zammad Integration Guide</a></li>
+<li><a href="../04-security-and-data-handling/">Security &amp; Data Handling</a></li>
+<li><a href="../07-api-overview/">API Overview</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "navigation.indexes", "search.suggest", "search.highlight", "content.code.copy", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://unpkg.com/mermaid@11/dist/mermaid.min.js"></script>
+      
+        <script src="../../javascripts/mermaid-init.js"></script>
+      
+    
+  </body>
+</html>

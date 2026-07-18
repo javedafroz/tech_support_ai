@@ -1,0 +1,122 @@
+{
+  "scenario_id": "vpn_network",
+  "session_id": "9bc949f0-d303-468f-8e2e-6eb99a202373",
+  "ticket_number": null,
+  "ticket_id": null,
+  "turns_used": 9,
+  "run_reference": "LIVE-vpn_network-3cab7536",
+  "success": false,
+  "failure_reason": "User simulator ended conversation: gave_up. Notes: None",
+  "completed_at": "2026-05-24T06:44:08.940833+00:00",
+  "transcript": [
+    {
+      "turn": 1,
+      "user": "Hi there, I'm having trouble with the VPN while working from home. It keeps disconnecting, and I'm unable to access internal tools like Jira. This started yesterday afternoon, and it's really impacting my work. Can you help?",
+      "assistant": "Could not create the ticket: [Errno 8] nodename nor servname provided, or not known",
+      "card": null,
+      "intent": "CreateTicket",
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026",
+        "Applying support rules\u2026",
+        "Creating ticket\u2026"
+      ]
+    },
+    {
+      "turn": 2,
+      "user": "I really need this resolved as soon as possible. Can you please try again to create a ticket for my VPN issue?",
+      "assistant": "I can help with that! Could you please provide me with more details about the VPN issue you're experiencing? Specifically, what is wrong, when did it start, and are there any error messages you're seeing?",
+      "card": null,
+      "intent": null,
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026"
+      ]
+    },
+    {
+      "turn": 3,
+      "user": "Sure! I'm using a MacBook with macOS 14 and the Cisco AnyConnect software. The VPN keeps disconnecting after about 30 seconds, and I'm seeing a \"DPD timeout\" error. This started yesterday afternoon, and it's preventing me from accessing Jira and other internal tools. It's quite urgent for my work. Can you assist with this?",
+      "assistant": "Could not create the ticket: [Errno 8] nodename nor servname provided, or not known",
+      "card": null,
+      "intent": "CreateTicket",
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026",
+        "Applying support rules\u2026",
+        "Creating ticket\u2026"
+      ]
+    },
+    {
+      "turn": 4,
+      "user": "I appreciate your help, but it seems like there\u2019s a persistent issue with creating the ticket. Is there any other way we can resolve this VPN problem?",
+      "assistant": "I understand that you're having a persistent issue with the VPN. Could you please provide more details about the problem? For example, what specific issues are you experiencing with the VPN, when did it start, and are there any error messages you're seeing? This information will help us find a resolution.",
+      "card": null,
+      "intent": null,
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026"
+      ]
+    },
+    {
+      "turn": 5,
+      "user": "I've already provided the details, but to summarize: I'm using a MacBook with macOS 14 and Cisco AnyConnect. The VPN disconnects after about 30 seconds, showing a \"DPD timeout\" error. This started yesterday afternoon, and I'm unable to access Jira or any internal tools. It's urgent for my work. Can we try to resolve this?",
+      "assistant": "Could not create the ticket: [Errno 8] nodename nor servname provided, or not known",
+      "card": null,
+      "intent": "CreateTicket",
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026",
+        "Applying support rules\u2026",
+        "Creating ticket\u2026"
+      ]
+    },
+    {
+      "turn": 6,
+      "user": "It seems like there's a persistent issue with creating a ticket. I'm really in need of assistance with this VPN problem. Is there anything else we can try to resolve it?",
+      "assistant": "I understand that you're having a persistent issue with creating a ticket for your VPN problem. Could you please provide more details about the specific issue you're facing with the VPN? For example, are you receiving any error messages, or is it not connecting at all? Also, when did this issue start? This information will help me assist you better.",
+      "card": null,
+      "intent": null,
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026"
+      ]
+    },
+    {
+      "turn": 7,
+      "user": "I\u2019ve already provided all the details multiple times. Just to reiterate, I'm using a MacBook with macOS 14 and Cisco AnyConnect. The VPN disconnects after about 30 seconds with a \"DPD timeout\" error. This started yesterday afternoon, blocking my access to Jira and other internal tools. I really need this resolved. Can we please move forward with a solution?",
+      "assistant": "Could not create the ticket: [Errno 8] nodename nor servname provided, or not known",
+      "card": null,
+      "intent": "CreateTicket",
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026",
+        "Applying support rules\u2026",
+        "Creating ticket\u2026"
+      ]
+    },
+    {
+      "turn": 8,
+      "user": "It seems like we are stuck here. I really need help with this VPN issue, but it looks like the ticket can't be created. Can you escalate this matter or provide any alternative support?",
+      "assistant": "I understand that you're facing a VPN issue and need urgent assistance. To escalate this matter, I need to create a ticket for you. Could you please provide more details about the VPN issue? Specifically, what exactly is happening, when it started, and if there are any error messages? This information will help us address the problem more effectively.",
+      "card": null,
+      "intent": null,
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026"
+      ]
+    },
+    {
+      "turn": 9,
+      "user": "I've already provided all the details multiple times. Just to summarize: I'm using a MacBook with macOS 14 and Cisco AnyConnect. The VPN disconnects after about 30 seconds, showing a \"DPD timeout\" error. This started yesterday afternoon, and I'm unable to access Jira or any internal tools. It's urgent for my work. Can we please move forward with a solution?",
+      "assistant": "Could not create the ticket: [Errno 8] nodename nor servname provided, or not known",
+      "card": null,
+      "intent": "CreateTicket",
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026",
+        "Applying support rules\u2026",
+        "Creating ticket\u2026"
+      ]
+    }
+  ]
+}

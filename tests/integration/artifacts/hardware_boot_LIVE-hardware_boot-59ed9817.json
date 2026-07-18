@@ -1,0 +1,44 @@
+{
+  "scenario_id": "hardware_boot",
+  "session_id": "43ade953-a746-4cd0-8911-9b0a75007f5e",
+  "ticket_number": "48195",
+  "ticket_id": 196,
+  "turns_used": 2,
+  "run_reference": "LIVE-hardware_boot-59ed9817",
+  "success": true,
+  "failure_reason": null,
+  "completed_at": "2026-05-24T07:40:40.064387+00:00",
+  "transcript": [
+    {
+      "turn": 1,
+      "user": "Hi there, I'm having an issue with my laptop. It's stuck on the spinning Windows logo after a restart, and I can't seem to get it to boot up. Can you help me with this?",
+      "assistant": "It sounds like your laptop is having trouble booting up. This issue can be caused by various factors, such as corrupted files or hardware problems. Can you tell me when this issue started and if you see any error messages? Also, have you tried any troubleshooting steps, like booting in safe mode or using recovery options?",
+      "card": null,
+      "intent": null,
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026"
+      ]
+    },
+    {
+      "turn": 2,
+      "user": "This issue started after an overnight Windows update. My laptop is a Dell Latitude 5540 running Windows 11, and it's been stuck on the Windows logo for over 20 minutes now. I haven't been able to access any files or try other troubleshooting steps yet. Can you help me resolve this?",
+      "assistant": "Your support ticket **#48195** has been created successfully and assigned to **Software Support**.",
+      "card": {
+        "group": "Software Support",
+        "state": "open",
+        "priority": "3 high",
+        "card_type": "ticket_created",
+        "ticket_id": 196,
+        "ticket_number": "48195"
+      },
+      "intent": "CreateTicket",
+      "system_statuses": [
+        "Thinking\u2026",
+        "Checking your request\u2026",
+        "Applying support rules\u2026",
+        "Creating ticket\u2026"
+      ]
+    }
+  ]
+}

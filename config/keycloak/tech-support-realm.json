@@ -1,0 +1,114 @@
+{
+  "realm": "tech-support",
+  "enabled": true,
+  "displayName": "Tech Support AI",
+  "registrationAllowed": false,
+  "loginWithEmailAllowed": true,
+  "duplicateEmailsAllowed": false,
+  "resetPasswordAllowed": true,
+  "editUsernameAllowed": false,
+  "roles": {
+    "realm": [
+      {
+        "name": "kb_editor",
+        "description": "Create and edit Agent Handbooks; reindex; retrieval preview",
+        "composite": false
+      },
+      {
+        "name": "kb_admin",
+        "description": "Publish, delete, and configure Agent Handbooks",
+        "composite": false
+      }
+    ]
+  },
+  "clients": [
+    {
+      "clientId": "tech-support-admin",
+      "name": "Tech Support Admin SPA",
+      "enabled": true,
+      "publicClient": true,
+      "directAccessGrantsEnabled": true,
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "serviceAccountsEnabled": false,
+      "protocol": "openid-connect",
+      "rootUrl": "http://localhost:5174",
+      "baseUrl": "http://localhost:5174",
+      "redirectUris": [
+        "http://localhost:5174/*",
+        "http://127.0.0.1:5174/*"
+      ],
+      "webOrigins": [
+        "http://localhost:5174",
+        "http://127.0.0.1:5174",
+        "+"
+      ],
+      "attributes": {
+        "pkce.code.challenge.method": "S256",
+        "post.logout.redirect.uris": "http://localhost:5174/*##http://127.0.0.1:5174/*"
+      },
+      "fullScopeAllowed": true,
+      "defaultClientScopes": [
+        "basic",
+        "web-origins",
+        "acr",
+        "profile",
+        "roles",
+        "email"
+      ],
+      "optionalClientScopes": [
+        "address",
+        "phone",
+        "offline_access",
+        "microprofile-jwt"
+      ],
+      "protocolMappers": [
+        {
+          "name": "audience-tech-support-admin",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-audience-mapper",
+          "consentRequired": false,
+          "config": {
+            "included.client.audience": "tech-support-admin",
+            "id.token.claim": "false",
+            "access.token.claim": "true"
+          }
+        }
+      ]
+    }
+  ],
+  "users": [
+    {
+      "username": "kb-editor",
+      "enabled": true,
+      "email": "kb-editor@local",
+      "emailVerified": true,
+      "firstName": "KB",
+      "lastName": "Editor",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "editor",
+          "temporary": false
+        }
+      ],
+      "realmRoles": ["kb_editor"]
+    },
+    {
+      "username": "kb-admin",
+      "enabled": true,
+      "email": "kb-admin@local",
+      "emailVerified": true,
+      "firstName": "KB",
+      "lastName": "Admin",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "admin",
+          "temporary": false
+        }
+      ],
+      "realmRoles": ["kb_editor", "kb_admin"]
+    }
+  ]
+}

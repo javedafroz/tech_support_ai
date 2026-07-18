@@ -1,0 +1,100 @@
+.panel {
+  align-self: flex-start;
+  max-width: 92%;
+  border-radius: var(--radius);
+  border: 1px dashed var(--color-border);
+  background: color-mix(in srgb, var(--color-assistant-bubble) 70%, transparent);
+  overflow: hidden;
+}
+
+.panel[data-live] {
+  border-style: solid;
+  border-color: color-mix(in srgb, var(--color-border) 80%, #4a7fc1);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: none;
+  background: transparent;
+  color: var(--color-muted);
+  font-size: 0.8125rem;
+  text-align: left;
+  cursor: pointer;
+}
+
+.header:hover {
+  background: color-mix(in srgb, var(--color-assistant-bubble) 50%, transparent);
+}
+
+.chevron {
+  flex-shrink: 0;
+  width: 0.75rem;
+  font-size: 0.75rem;
+  line-height: 1;
+}
+
+.title {
+  flex-shrink: 0;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.summary {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.8125rem;
+  color: var(--color-muted);
+}
+
+.liveDot {
+  flex-shrink: 0;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: #4a7fc1;
+  animation: pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.list {
+  margin: 0;
+  padding: 0 0.75rem 0.625rem 2rem;
+  list-style: decimal;
+  color: var(--color-muted);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+
+.item {
+  padding: 0.125rem 0;
+  animation: thoughtFadeIn 0.2s ease-out;
+}
+
+@keyframes thoughtFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

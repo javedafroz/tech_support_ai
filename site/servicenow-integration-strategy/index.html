@@ -1,0 +1,2734 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Customer and partner documentation for the enterprise IT support chat assistant.">
+      
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>ServiceNow Integration Strategy - Tech Support AI</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#servicenow-integration-strategy" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Tech Support AI" class="md-header__button md-logo" aria-label="Tech Support AI" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Tech Support AI
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              ServiceNow Integration Strategy
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../external/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../external/01-executive-solution-overview/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Solution
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../external/05-integration-guide-zammad/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Integration & Operations
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../external/08-ui-ux-overview/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Experience & Quality
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../external/appendices/A-glossary/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Appendices
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../postman/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Resources
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Tech Support AI" class="md-nav__button md-logo" aria-label="Tech Support AI" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Tech Support AI
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../external/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../external/00-quick-start/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quick Start
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Solution
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Solution
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../external/01-executive-solution-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Executive Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../external/02-functional-specification-summary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Functional Specification
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../external/03-solution-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Solution Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../external/04-security-and-data-handling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security & Data Handling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Integration & Operations
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Integration & Operations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../external/05-integration-guide-zammad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Zammad Integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../external/06-deployment-and-operations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment & Operations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../external/07-api-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Experience & Quality
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Experience & Quality
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../external/08-ui-ux-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UI/UX Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../external/09-test-and-acceptance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Test & Acceptance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Appendices
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Appendices
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../external/appendices/A-glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../external/appendices/B-environment-variables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Environment Variables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../external/appendices/C-capability-matrix/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capability Matrix
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resources
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Resources
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../postman/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Postman Collection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-executive-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Executive summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-current-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Current state
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Current state">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-exists-today" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What exists today
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-files-integration-surface" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key files (integration surface)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#design-principle-unchanged" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Design principle (unchanged)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-servicenow-vs-zammad-conceptual-mapping" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. ServiceNow vs Zammad — conceptual mapping
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-target-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Target architecture
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Target architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#new-package-packagesservicenow-client" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        New package: packages/servicenow-client/
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-command-mapping-mvp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Command mapping (MVP)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Command mapping (MVP)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-create_ticket" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 CREATE_TICKET
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-search_tickets-checkstatus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 SEARCH_TICKETS (CheckStatus)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Configuration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-environment-variables-new" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 Environment variables (new)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-mapping-yaml-extensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 Mapping YAML extensions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-authentication-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Authentication strategy
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-implementation-phases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Implementation phases
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Implementation phases">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-0-discovery-sandbox-12-days" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 0 — Discovery &amp; sandbox (1–2 days)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-1-servicenow-client-package-35-days" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 1 — servicenow-client package (3–5 days)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-2-servicenowadapter-mvp-34-days" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 2 — ServiceNowAdapter MVP (3–4 days)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-3-orchestration-neutralization-23-days" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 3 — Orchestration neutralization (2–3 days)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-4-agent-api-integration-12-days" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 4 — Agent &amp; API integration (1–2 days)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-5-testing-ci-34-days" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 5 — Testing &amp; CI (3–4 days)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-6-documentation-operations-12-days" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 6 — Documentation &amp; operations (1–2 days)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-7-audit-observability-optional-parallel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 7 — Audit &amp; observability (optional, parallel)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-post-mvp-roadmap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Post-MVP roadmap
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-risks-and-mitigations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Risks and mitigations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-key-decisions-require-sign-off" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Key decisions (require sign-off)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-acceptance-criteria-mvp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Acceptance criteria (MVP)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-effort-estimate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. Effort estimate
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-related-documents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. Related documents
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#document-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Document control
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="servicenow-integration-strategy">ServiceNow Integration Strategy<a class="headerlink" href="#servicenow-integration-strategy" title="Permanent link">&para;</a></h1>
+<p>This document defines the strategy to add <strong>live ServiceNow</strong> support to Tech Support AI, building on the existing ticketing provider abstraction (<code>packages/ticketing</code>). It is intended for engineering leads, architects, and integrators planning the work.</p>
+<p><strong>Status:</strong> Strategy (not yet implemented)<br />
+<strong>Prerequisite:</strong> Provider abstraction layer (Zammad live, ServiceNow stub registered)<br />
+<strong>Target scope (MVP):</strong> <code>CreateTicket</code> and <code>CheckStatus</code> — matching current product capabilities</p>
+<hr />
+<h2 id="1-executive-summary">1. Executive summary<a class="headerlink" href="#1-executive-summary" title="Permanent link">&para;</a></h2>
+<p>Tech Support AI already routes ticket operations through a <strong>provider-neutral</strong> path:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>LangGraph ticket_tool → TicketGateway → Adapter → HTTP client → Help desk API
+</code></pre></div>
+<p>ServiceNow is <strong>registered</strong> (<code>TICKETING_PROVIDER=servicenow</code>) but the <code>ServiceNowAdapter</code> returns <code>NOT_IMPLEMENTED</code>. Orchestration loads <code>config/providers/servicenow/mapping.yaml</code>, yet workflow payloads and search queries remain <strong>Zammad-shaped</strong>.</p>
+<p><strong>Recommendation:</strong> Implement ServiceNow as a <strong>parallel adapter + client package</strong>, mirroring the Zammad pattern. Do <strong>not</strong> fork orchestration or the agent graph. Invest in:</p>
+<ol>
+<li>New <code>packages/servicenow-client/</code> (HTTP + models + errors)</li>
+<li>Real <code>ServiceNowAdapter</code> (command → Table API mapping)</li>
+<li>Enriched ServiceNow mapping YAML (impact/urgency, assignment groups, caller lookup)</li>
+<li><strong>Neutral search criteria</strong> in orchestration (remove Zammad query syntax from workflow)</li>
+<li>Tests at client, adapter, pipeline, and optional live-integration layers</li>
+</ol>
+<p><strong>Default record type:</strong> <code>incident</code> (ITSM). Catalog requests (<code>sc_request</code>) are out of MVP scope unless a customer mandates them.</p>
+<hr />
+<h2 id="2-current-state">2. Current state<a class="headerlink" href="#2-current-state" title="Permanent link">&para;</a></h2>
+<h3 id="what-exists-today">What exists today<a class="headerlink" href="#what-exists-today" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Zammad</th>
+<th>ServiceNow</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Factory registration</td>
+<td>Live</td>
+<td>Stub only</td>
+</tr>
+<tr>
+<td><code>TicketingSettings</code> / env</td>
+<td><code>ZAMMAD_*</code> vars</td>
+<td>No SN vars; <code>is_configured()</code> always <code>True</code></td>
+</tr>
+<tr>
+<td>HTTP client package</td>
+<td><code>packages/zammad-client</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td>Adapter <code>CREATE_TICKET</code></td>
+<td>Implemented</td>
+<td><code>NOT_IMPLEMENTED</code></td>
+</tr>
+<tr>
+<td>Adapter <code>SEARCH_TICKETS</code></td>
+<td>Implemented</td>
+<td><code>NOT_IMPLEMENTED</code></td>
+</tr>
+<tr>
+<td>Mapping YAML</td>
+<td>Production-ready</td>
+<td>Stub values</td>
+</tr>
+<tr>
+<td>Orchestration mapping load</td>
+<td>Provider-aware</td>
+<td>Works (loads SN YAML)</td>
+</tr>
+<tr>
+<td>Workflow command shape</td>
+<td>Zammad payload</td>
+<td>Same Zammad payload</td>
+</tr>
+<tr>
+<td>CheckStatus search query</td>
+<td><code>customer.email:… AND number:…</code></td>
+<td>Same Zammad syntax (wrong for SN)</td>
+</tr>
+<tr>
+<td>Customer ID</td>
+<td><code>guess:{email}</code></td>
+<td>Plain <code>{email}</code> in YAML (unused)</td>
+</tr>
+<tr>
+<td><code>ticket_tool</code> normalization</td>
+<td>Zammad <code>guess:</code> prefix</td>
+<td>Applied to all providers</td>
+</tr>
+<tr>
+<td>Audit</td>
+<td><code>ZammadOperation</code> table</td>
+<td>None</td>
+</tr>
+<tr>
+<td>Tests</td>
+<td>Full adapter + pipeline</td>
+<td>Stub test only</td>
+</tr>
+<tr>
+<td>External docs</td>
+<td>Zammad integration guide</td>
+<td>Mentioned as stub</td>
+</tr>
+</tbody>
+</table>
+<h3 id="key-files-integration-surface">Key files (integration surface)<a class="headerlink" href="#key-files-integration-surface" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Path</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>packages/ticketing/providers/servicenow_adapter.py</code></td>
+<td>Replace stub</td>
+</tr>
+<tr>
+<td><code>packages/ticketing/factory.py</code></td>
+<td>Wire <code>ServiceNowClient</code></td>
+</tr>
+<tr>
+<td><code>packages/ticketing/settings.py</code></td>
+<td>Add SN credentials</td>
+</tr>
+<tr>
+<td><code>config/providers/servicenow/mapping.yaml</code></td>
+<td>Instance-specific mapping</td>
+</tr>
+<tr>
+<td><code>packages/orchestration/workflow.py</code></td>
+<td>Neutralize search + optional create payload</td>
+</tr>
+<tr>
+<td><code>packages/agents/nodes/ticket_tool.py</code></td>
+<td>Provider-aware customer normalization</td>
+</tr>
+<tr>
+<td><code>packages/zammad-client/</code></td>
+<td>Reference implementation pattern</td>
+</tr>
+</tbody>
+</table>
+<h3 id="design-principle-unchanged">Design principle (unchanged)<a class="headerlink" href="#design-principle-unchanged" title="Permanent link">&para;</a></h3>
+<p>The LLM and orchestration <strong>propose and validate</strong> intents. Only the adapter translates neutral commands into ServiceNow Table API calls. Ticket numbers in the UI must come from ServiceNow responses (<code>number</code> field), never from the model.</p>
+<hr />
+<h2 id="3-servicenow-vs-zammad-conceptual-mapping">3. ServiceNow vs Zammad — conceptual mapping<a class="headerlink" href="#3-servicenow-vs-zammad-conceptual-mapping" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Zammad</th>
+<th>ServiceNow (MVP: Incident)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ticket identity</td>
+<td><code>id</code> + <code>number</code></td>
+<td><code>sys_id</code> + <code>number</code> (e.g. <code>INC0012345</code>)</td>
+</tr>
+<tr>
+<td>Title</td>
+<td><code>title</code></td>
+<td><code>short_description</code></td>
+</tr>
+<tr>
+<td>Description</td>
+<td>First <code>article</code> body</td>
+<td><code>description</code></td>
+</tr>
+<tr>
+<td>Customer</td>
+<td><code>customer_id</code> (<code>guess:{email}</code>)</td>
+<td><code>caller_id</code> → <code>sys_user.sys_id</code></td>
+</tr>
+<tr>
+<td>Assignment</td>
+<td><code>group</code> (name)</td>
+<td><code>assignment_group</code> (name or sys_id)</td>
+</tr>
+<tr>
+<td>Priority</td>
+<td>Single <code>priority</code> label</td>
+<td><code>impact</code> + <code>urgency</code> → computed <code>priority</code></td>
+</tr>
+<tr>
+<td>State</td>
+<td><code>state</code></td>
+<td><code>state</code> / <code>incident_state</code> (display values)</td>
+</tr>
+<tr>
+<td>Search</td>
+<td>Zammad query language</td>
+<td>Encoded query (<code>sysparm_query</code>)</td>
+</tr>
+<tr>
+<td>Auth</td>
+<td>API token (Bearer)</td>
+<td>Basic (dev) or OAuth 2.0 (prod)</td>
+</tr>
+<tr>
+<td>API style</td>
+<td>REST <code>/api/v1/tickets</code></td>
+<td>Table API <code>/api/now/table/incident</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="4-target-architecture">4. Target architecture<a class="headerlink" href="#4-target-architecture" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>┌─────────────────────────────────────────────────────────────────┐
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>│  Orchestration (provider-agnostic)                               │
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>│  PolicyValidator → WorkflowEngine → TicketCommand                │
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>│  Payload: canonical fields + search_criteria (neutral)           │
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>└────────────────────────────┬────────────────────────────────────┘
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>                             │
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>┌────────────────────────────▼────────────────────────────────────┐
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>│  ticket_tool / TicketPipeline                                    │
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>│  Converts orchestration.TicketCommand → ticketing.TicketCommand  │
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>└────────────────────────────┬────────────────────────────────────┘
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>                             │
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>              ┌──────────────┴──────────────┐
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>              ▼                             ▼
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>┌─────────────────────────┐   ┌─────────────────────────────┐
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>│  ZammadAdapter          │   │  ServiceNowAdapter (NEW)     │
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>│  → ZammadClient         │   │  → ServiceNowClient (NEW)    │
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>└────────────┬────────────┘   └──────────────┬──────────────┘
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>             ▼                               ▼
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>        Zammad REST                    ServiceNow Table API
+</code></pre></div>
+<h3 id="new-package-packagesservicenow-client">New package: <code>packages/servicenow-client/</code><a class="headerlink" href="#new-package-packagesservicenow-client" title="Permanent link">&para;</a></h3>
+<p>Mirror <code>packages/zammad-client/</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Module</th>
+<th>Responsibility</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>client.py</code></td>
+<td><code>ServiceNowClient</code> — httpx, retries, auth</td>
+</tr>
+<tr>
+<td><code>models.py</code></td>
+<td><code>CreateIncidentRequest</code>, <code>Incident</code>, <code>IncidentSearchResult</code>, <code>SysUser</code></td>
+</tr>
+<tr>
+<td><code>errors.py</code></td>
+<td><code>ServiceNowError</code>, <code>ServiceNowErrorCode</code> enum</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Minimum client methods (MVP):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Table API</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>create_incident(request)</code></td>
+<td><code>POST /api/now/table/incident</code></td>
+<td>CreateTicket</td>
+</tr>
+<tr>
+<td><code>get_incident(sys_id)</code></td>
+<td><code>GET /api/now/table/incident/{sys_id}</code></td>
+<td>GetTicket (future)</td>
+</tr>
+<tr>
+<td><code>search_incidents(query, limit)</code></td>
+<td><code>GET /api/now/table/incident?sysparm_query=…</code></td>
+<td>CheckStatus</td>
+</tr>
+<tr>
+<td><code>lookup_user_by_email(email)</code></td>
+<td><code>GET /api/now/table/sys_user?sysparm_query=email=…</code></td>
+<td>Caller resolution</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="5-command-mapping-mvp">5. Command mapping (MVP)<a class="headerlink" href="#5-command-mapping-mvp" title="Permanent link">&para;</a></h2>
+<h3 id="51-create_ticket">5.1 <code>CREATE_TICKET</code><a class="headerlink" href="#51-create_ticket" title="Permanent link">&para;</a></h3>
+<p><strong>Inbound payload</strong> (from orchestration today — Zammad-shaped; adapter absorbs translation):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="p">{</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;VPN not connecting&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span><span class="nt">&quot;group&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Network Operations&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">  </span><span class="nt">&quot;customer_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user@company.com&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">  </span><span class="nt">&quot;priority&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;3 - Moderate&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">  </span><span class="nt">&quot;article&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">    </span><span class="nt">&quot;subject&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;VPN not connecting&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">    </span><span class="nt">&quot;body&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Cannot connect since 9am.&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;note&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">    </span><span class="nt">&quot;internal&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">    </span><span class="nt">&quot;content_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;text/plain&quot;</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="p">}</span>
+</code></pre></div>
+<p><strong>ServiceNowAdapter translation:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Payload field</th>
+<th>ServiceNow field</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>title</code></td>
+<td><code>short_description</code></td>
+<td>Required</td>
+</tr>
+<tr>
+<td><code>article.body</code></td>
+<td><code>description</code></td>
+<td>Required</td>
+</tr>
+<tr>
+<td><code>group</code></td>
+<td><code>assignment_group</code></td>
+<td>Resolve name → sys_id if needed</td>
+</tr>
+<tr>
+<td><code>customer_id</code> / email</td>
+<td><code>caller_id</code></td>
+<td><code>lookup_user_by_email</code> → sys_id</td>
+</tr>
+<tr>
+<td><code>priority</code> (label)</td>
+<td><code>impact</code>, <code>urgency</code></td>
+<td>Via mapping <code>priority_to_impact_urgency</code></td>
+</tr>
+<tr>
+<td><code>categories</code> / custom</td>
+<td><code>category</code></td>
+<td>Optional; from mapping</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Outbound <code>ProviderTicket</code>:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">ProviderTicket</span><span class="p">(</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    <span class="n">provider</span><span class="o">=</span><span class="s2">&quot;servicenow&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    <span class="n">external_id</span><span class="o">=</span><span class="n">incident</span><span class="o">.</span><span class="n">sys_id</span><span class="p">,</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    <span class="n">display_number</span><span class="o">=</span><span class="n">incident</span><span class="o">.</span><span class="n">number</span><span class="p">,</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    <span class="n">state</span><span class="o">=</span><span class="n">incident</span><span class="o">.</span><span class="n">state_display</span><span class="p">,</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    <span class="n">group_or_queue</span><span class="o">=</span><span class="n">incident</span><span class="o">.</span><span class="n">assignment_group_display</span><span class="p">,</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>    <span class="n">priority</span><span class="o">=</span><span class="n">incident</span><span class="o">.</span><span class="n">priority_display</span><span class="p">,</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>    <span class="n">raw</span><span class="o">=</span><span class="n">incident</span><span class="o">.</span><span class="n">model_dump</span><span class="p">(),</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="p">)</span>
+</code></pre></div>
+<h3 id="52-search_tickets-checkstatus">5.2 <code>SEARCH_TICKETS</code> (CheckStatus)<a class="headerlink" href="#52-search_tickets-checkstatus" title="Permanent link">&para;</a></h3>
+<p><strong>Problem:</strong> Workflow today builds Zammad-specific queries:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">query_parts</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;customer.email:</span><span class="si">{</span><span class="n">email</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">query_parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;number:</span><span class="si">{</span><span class="n">ticket_number</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>Solution (recommended):</strong> Refactor workflow to emit <strong>neutral search criteria</strong>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="p">{</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span><span class="nt">&quot;search_criteria&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="nt">&quot;ticket_number&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;INC0012345&quot;</span><span class="p">,</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span><span class="nt">&quot;customer_email&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user@company.com&quot;</span><span class="p">,</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">    </span><span class="nt">&quot;search_hint&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">    </span><span class="nt">&quot;open_only&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">  </span><span class="p">},</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">  </span><span class="nt">&quot;limit&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="p">}</span>
+</code></pre></div>
+<p>Each adapter translates:</p>
+<table>
+<thead>
+<tr>
+<th>Adapter</th>
+<th>Translation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Zammad</strong></td>
+<td><code>customer.email:{email} AND number:{n}</code></td>
+</tr>
+<tr>
+<td><strong>ServiceNow</strong></td>
+<td><code>number={n}^caller_id.email={email}</code> (encoded query)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Backward compatibility:</strong> Adapters accept legacy <code>query</code> string during migration; Zammad adapter keeps current behavior if <code>search_criteria</code> absent.</p>
+<hr />
+<h2 id="6-configuration">6. Configuration<a class="headerlink" href="#6-configuration" title="Permanent link">&para;</a></h2>
+<h3 id="61-environment-variables-new">6.1 Environment variables (new)<a class="headerlink" href="#61-environment-variables-new" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nv">TICKETING_PROVIDER</span><span class="o">=</span>servicenow
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="c1"># Instance</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="nv">SERVICENOW_INSTANCE_URL</span><span class="o">=</span>https://yourinstance.service-now.com
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="nv">SERVICENOW_AUTH_MODE</span><span class="o">=</span>basic<span class="w">          </span><span class="c1"># basic | oauth</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="nv">SERVICENOW_USERNAME</span><span class="o">=</span>integration.user
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="nv">SERVICENOW_PASSWORD</span><span class="o">=</span>secret
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="c1"># OAuth (production)</span>
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="c1"># SERVICENOW_CLIENT_ID=</span>
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="c1"># SERVICENOW_CLIENT_SECRET=</span>
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="c1"># SERVICENOW_TOKEN_URL=</span>
+<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>
+<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a><span class="c1"># Optional</span>
+<a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a><span class="nv">SERVICENOW_TABLE</span><span class="o">=</span>incident<span class="w">           </span><span class="c1"># default: incident</span>
+<a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a><span class="nv">SERVICENOW_TIMEOUT_SECONDS</span><span class="o">=</span><span class="m">30</span>
+<a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a><span class="nv">SERVICENOW_VERIFY_SSL</span><span class="o">=</span><span class="nb">true</span>
+</code></pre></div>
+<p>Update: <code>TicketingSettings</code>, <code>.env.example</code>, <code>apps/api/config.py</code>, <code>appendices/B-environment-variables.md</code>.</p>
+<p><code>is_configured()</code> for ServiceNow must require instance URL + valid auth credentials (remove stub “always configured”).</p>
+<h3 id="62-mapping-yaml-extensions">6.2 Mapping YAML extensions<a class="headerlink" href="#62-mapping-yaml-extensions" title="Permanent link">&para;</a></h3>
+<p>Extend <code>config/providers/servicenow/mapping.yaml</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1.0&quot;</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="c1"># Existing: priorities, groups, categories, default_group, default_priority</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="c1"># NEW: map canonical priority labels → ServiceNow impact / urgency</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="nt">priority_to_impact_urgency</span><span class="p">:</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="w">  </span><span class="s">&quot;4</span><span class="nv"> </span><span class="s">-</span><span class="nv"> </span><span class="s">Low&quot;</span><span class="p p-Indicator">:</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="w">    </span><span class="nt">impact</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;3&quot;</span><span class="w">      </span><span class="c1"># Low</span>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="w">    </span><span class="nt">urgency</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;3&quot;</span><span class="w">     </span><span class="c1"># Low</span>
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="w">  </span><span class="s">&quot;3</span><span class="nv"> </span><span class="s">-</span><span class="nv"> </span><span class="s">Moderate&quot;</span><span class="p p-Indicator">:</span>
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="w">    </span><span class="nt">impact</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2&quot;</span>
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="w">    </span><span class="nt">urgency</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;3&quot;</span>
+<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="w">  </span><span class="s">&quot;1</span><span class="nv"> </span><span class="s">-</span><span class="nv"> </span><span class="s">Critical&quot;</span><span class="p p-Indicator">:</span>
+<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a><span class="w">    </span><span class="nt">impact</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="w">      </span><span class="c1"># High</span>
+<a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a><span class="w">    </span><span class="nt">urgency</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="w">     </span><span class="c1"># High</span>
+<a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a>
+<a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a><span class="c1"># NEW: assignment group resolution</span>
+<a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a><span class="nt">assignment_groups</span><span class="p">:</span>
+<a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a><span class="w">  </span><span class="c1"># Prefer sys_id in production; names work with lookup API</span>
+<a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a><span class="w">  </span><span class="s">&quot;Network</span><span class="nv"> </span><span class="s">Operations&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;sys_id_or_name&quot;</span>
+<a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a><span class="w">  </span><span class="s">&quot;Application</span><span class="nv"> </span><span class="s">Support&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;sys_id_or_name&quot;</span>
+<a id="__codelineno-7-22" name="__codelineno-7-22" href="#__codelineno-7-22"></a>
+<a id="__codelineno-7-23" name="__codelineno-7-23" href="#__codelineno-7-23"></a><span class="nt">customer_lookup</span><span class="p">:</span>
+<a id="__codelineno-7-24" name="__codelineno-7-24" href="#__codelineno-7-24"></a><span class="w">  </span><span class="nt">strategy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">email_to_sys_user</span><span class="w">    </span><span class="c1"># email_to_sys_user | caller_id_direct</span>
+<a id="__codelineno-7-25" name="__codelineno-7-25" href="#__codelineno-7-25"></a><span class="w">  </span><span class="nt">customer_id_pattern</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{email}&quot;</span>
+<a id="__codelineno-7-26" name="__codelineno-7-26" href="#__codelineno-7-26"></a>
+<a id="__codelineno-7-27" name="__codelineno-7-27" href="#__codelineno-7-27"></a><span class="c1"># NEW: optional category → ServiceNow category label</span>
+<a id="__codelineno-7-28" name="__codelineno-7-28" href="#__codelineno-7-28"></a><span class="nt">category_labels</span><span class="p">:</span>
+<a id="__codelineno-7-29" name="__codelineno-7-29" href="#__codelineno-7-29"></a><span class="w">  </span><span class="nt">network</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Network&quot;</span>
+<a id="__codelineno-7-30" name="__codelineno-7-30" href="#__codelineno-7-30"></a><span class="w">  </span><span class="nt">software</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Software&quot;</span>
+<a id="__codelineno-7-31" name="__codelineno-7-31" href="#__codelineno-7-31"></a>
+<a id="__codelineno-7-32" name="__codelineno-7-32" href="#__codelineno-7-32"></a><span class="nt">search</span><span class="p">:</span>
+<a id="__codelineno-7-33" name="__codelineno-7-33" href="#__codelineno-7-33"></a><span class="w">  </span><span class="nt">default_open_query</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;active=true^ORDERBYDESCopened_at&quot;</span>
+<a id="__codelineno-7-34" name="__codelineno-7-34" href="#__codelineno-7-34"></a><span class="w">  </span><span class="nt">max_results</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+</code></pre></div>
+<p>Orchestration <code>FieldMappingConfig</code> may need optional SN-specific sections (loaded but ignored by Zammad).</p>
+<hr />
+<h2 id="7-authentication-strategy">7. Authentication strategy<a class="headerlink" href="#7-authentication-strategy" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Environment</th>
+<th>Auth mode</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Personal Developer Instance (PDI)</td>
+<td>Basic</td>
+<td>Username/password integration user</td>
+</tr>
+<tr>
+<td>Enterprise sandbox</td>
+<td>OAuth 2.0 client credentials</td>
+<td>Preferred for production</td>
+</tr>
+<tr>
+<td>Enterprise production</td>
+<td>OAuth 2.0 + MID server (optional)</td>
+<td>If instance blocks direct API</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Security requirements:</strong></p>
+<ul>
+<li>Credentials server-side only (never in mapping YAML or browser)</li>
+<li>Integration user with minimum roles: <code>incident_manager</code> or scoped custom role</li>
+<li><code>sn_incident_write</code>, <code>sn_incident_read</code> as needed</li>
+<li>No admin roles on integration account</li>
+</ul>
+<hr />
+<h2 id="8-implementation-phases">8. Implementation phases<a class="headerlink" href="#8-implementation-phases" title="Permanent link">&para;</a></h2>
+<h3 id="phase-0-discovery-sandbox-12-days">Phase 0 — Discovery &amp; sandbox (1–2 days)<a class="headerlink" href="#phase-0-discovery-sandbox-12-days" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>Output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Provision ServiceNow PDI or customer sandbox</td>
+<td>Instance URL</td>
+</tr>
+<tr>
+<td>Create integration user + ACL verification</td>
+<td>Test credentials</td>
+</tr>
+<tr>
+<td>Confirm record type (<code>incident</code> vs <code>sc_req_item</code>)</td>
+<td>Written decision</td>
+</tr>
+<tr>
+<td>Document assignment groups, impact/urgency values</td>
+<td>Updated <code>mapping.yaml</code></td>
+</tr>
+<tr>
+<td>Smoke-test Table API with curl/Postman</td>
+<td>Baseline requests</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Exit criteria:</strong> Manual incident create + search by number works via REST.</p>
+<hr />
+<h3 id="phase-1-servicenow-client-package-35-days">Phase 1 — <code>servicenow-client</code> package (3–5 days)<a class="headerlink" href="#phase-1-servicenow-client-package-35-days" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>Details</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Scaffold <code>packages/servicenow-client/</code></td>
+<td>pyproject.toml, workspace member</td>
+</tr>
+<tr>
+<td>Implement <code>ServiceNowClient</code></td>
+<td>httpx async, timeout, retries on 502/503/504</td>
+</tr>
+<tr>
+<td>Implement auth</td>
+<td>Basic first; OAuth interface stub</td>
+</tr>
+<tr>
+<td>Models</td>
+<td>Pydantic v2 for incident create/response</td>
+</tr>
+<tr>
+<td>Errors</td>
+<td>Map 401/403/404/429 to <code>ServiceNowErrorCode</code></td>
+</tr>
+<tr>
+<td>Unit tests</td>
+<td>respx mocks for create, search, user lookup</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Exit criteria:</strong> <code>pytest packages/servicenow-client</code> green; no dependency on ticketing package.</p>
+<hr />
+<h3 id="phase-2-servicenowadapter-mvp-34-days">Phase 2 — <code>ServiceNowAdapter</code> MVP (3–4 days)<a class="headerlink" href="#phase-2-servicenowadapter-mvp-34-days" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>Details</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Inject <code>ServiceNowClient</code> + mapping config</td>
+<td>Constructor or settings-backed</td>
+</tr>
+<tr>
+<td>Implement <code>CREATE_TICKET</code></td>
+<td>Payload translation + caller lookup</td>
+</tr>
+<tr>
+<td>Implement <code>SEARCH_TICKETS</code></td>
+<td>Encoded query from <code>search_criteria</code> or legacy fields</td>
+</tr>
+<tr>
+<td>Set <code>capabilities().supports_status_search = True</code></td>
+<td>UI parity with Zammad</td>
+</tr>
+<tr>
+<td>Factory wiring</td>
+<td><code>build_ticket_gateway()</code> builds client + adapter</td>
+</tr>
+<tr>
+<td>Settings</td>
+<td>SN env vars + <code>configuration_error()</code></td>
+</tr>
+<tr>
+<td>Unit tests</td>
+<td>Adapter with mocked client</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Exit criteria:</strong> Adapter tests pass; factory returns configured adapter when <code>TICKETING_PROVIDER=servicenow</code>.</p>
+<hr />
+<h3 id="phase-3-orchestration-neutralization-23-days">Phase 3 — Orchestration neutralization (2–3 days)<a class="headerlink" href="#phase-3-orchestration-neutralization-23-days" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>Details</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Refactor <code>_check_status_command()</code></td>
+<td>Emit <code>search_criteria</code> object</td>
+</tr>
+<tr>
+<td>Update <code>ZammadAdapter._search_tickets</code></td>
+<td>Build Zammad query from <code>search_criteria</code></td>
+</tr>
+<tr>
+<td>Update <code>ServiceNowAdapter._search_tickets</code></td>
+<td>Build <code>sysparm_query</code> from <code>search_criteria</code></td>
+</tr>
+<tr>
+<td>Optional: <code>customer_id_for_email</code> provider branch</td>
+<td>SN returns plain email; Zammad returns <code>guess:{email}</code></td>
+</tr>
+<tr>
+<td>Extend <code>FieldMappingConfig</code></td>
+<td>Optional SN sections (impact/urgency map)</td>
+</tr>
+<tr>
+<td>Update orchestration tests</td>
+<td>Both providers</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Exit criteria:</strong> Same <code>CheckStatus</code> intent works against Zammad and ServiceNow without workflow forks.</p>
+<hr />
+<h3 id="phase-4-agent-api-integration-12-days">Phase 4 — Agent &amp; API integration (1–2 days)<a class="headerlink" href="#phase-4-agent-api-integration-12-days" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>Details</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ticket_tool.py</code></td>
+<td>Apply <code>normalize_customer_id</code> only when <code>provider == zammad</code></td>
+</tr>
+<tr>
+<td>Populate <code>ProviderTicket.state</code> / <code>group_or_queue</code> in SN adapter</td>
+<td>Richer status cards</td>
+</tr>
+<tr>
+<td><code>TicketPipeline</code></td>
+<td>Verify create + search with SN (CLI path)</td>
+</tr>
+<tr>
+<td><code>apps/api</code> startup</td>
+<td><code>_configure_ticketing_from_settings()</code> passes SN settings</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Exit criteria:</strong> E2E chat flow creates incident and checks status with <code>TICKETING_PROVIDER=servicenow</code>.</p>
+<hr />
+<h3 id="phase-5-testing-ci-34-days">Phase 5 — Testing &amp; CI (3–4 days)<a class="headerlink" href="#phase-5-testing-ci-34-days" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Approach</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Client unit tests</td>
+<td>respx against Table API paths</td>
+</tr>
+<tr>
+<td>Adapter unit tests</td>
+<td>Mock client; assert field mapping</td>
+</tr>
+<tr>
+<td>Orchestration tests</td>
+<td>Neutral search criteria for both providers</td>
+</tr>
+<tr>
+<td>API pipeline tests</td>
+<td><code>test_ticket_pipeline.py</code> parametrized by provider</td>
+</tr>
+<tr>
+<td>E2E (optional)</td>
+<td>Wiremock SN mappings in <code>e2e/wiremock/</code></td>
+</tr>
+<tr>
+<td>Live integration</td>
+<td><code>tests/integration/</code> marker <code>@pytest.mark.live_sn</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Wiremock example endpoints:</strong></p>
+<ul>
+<li><code>POST /api/now/table/incident</code></li>
+<li><code>GET /api/now/table/incident</code></li>
+<li><code>GET /api/now/table/sys_user</code></li>
+</ul>
+<p><strong>Exit criteria:</strong> CI runs SN unit tests without credentials; live tests documented in <code>.env.example</code>.</p>
+<hr />
+<h3 id="phase-6-documentation-operations-12-days">Phase 6 — Documentation &amp; operations (1–2 days)<a class="headerlink" href="#phase-6-documentation-operations-12-days" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Deliverable</th>
+<th>Location</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ServiceNow integration guide</td>
+<td><code>docs/external/06-integration-guide-servicenow.md</code> (new)</td>
+</tr>
+<tr>
+<td>Update capability matrix</td>
+<td><code>docs/external/appendices/C-capability-matrix.md</code></td>
+</tr>
+<tr>
+<td>Update solution architecture</td>
+<td><code>docs/external/03-solution-architecture.md</code></td>
+</tr>
+<tr>
+<td>Env vars appendix</td>
+<td><code>appendices/B-environment-variables.md</code></td>
+</tr>
+<tr>
+<td>MkDocs nav entry</td>
+<td><code>mkdocs.yml</code></td>
+</tr>
+<tr>
+<td>Postman / collection SN folder</td>
+<td><code>docs/postman/</code> or SN requests in existing collection</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="phase-7-audit-observability-optional-parallel">Phase 7 — Audit &amp; observability (optional, parallel)<a class="headerlink" href="#phase-7-audit-observability-optional-parallel" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>Details</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Generalize <code>ZammadOperation</code> → <code>ProviderOperation</code></td>
+<td>Add <code>provider</code> column; migration</td>
+</tr>
+<tr>
+<td><code>AuditService.record_provider_operation()</code></td>
+<td>Replace <code>record_zammad()</code></td>
+</tr>
+<tr>
+<td>Wire audit into <code>ChatService.send_message</code></td>
+<td>Today audit is CLI-only</td>
+</tr>
+<tr>
+<td>Structured logs</td>
+<td><code>provider=servicenow</code>, <code>operation</code>, <code>duration_ms</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="9-post-mvp-roadmap">9. Post-MVP roadmap<a class="headerlink" href="#9-post-mvp-roadmap" title="Permanent link">&para;</a></h2>
+<p>Aligned with existing product backlog:</p>
+<table>
+<thead>
+<tr>
+<th>Intent / feature</th>
+<th>ServiceNow API approach</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>UpdateTicket</code></td>
+<td><code>PATCH /api/now/table/incident/{sys_id}</code></td>
+</tr>
+<tr>
+<td><code>AddArticle</code></td>
+<td><code>POST /api/now/table/sys_journal_field</code> (work notes)</td>
+</tr>
+<tr>
+<td><code>AddAttachment</code></td>
+<td>Attachment API + <code>table_name</code>/<code>table_sys_id</code></td>
+</tr>
+<tr>
+<td><code>EscalateTicket</code></td>
+<td>Update <code>priority</code>, <code>urgency</code>, or assignment group</td>
+</tr>
+<tr>
+<td><code>CloseTicket</code></td>
+<td>Set <code>state</code> to resolved/closed + close notes</td>
+</tr>
+<tr>
+<td>Catalog requests</td>
+<td><code>sc_request</code> + <code>requested_for</code> flow (separate adapter methods)</td>
+</tr>
+<tr>
+<td>CMDB linkage</td>
+<td>Optional <code>cmdb_ci</code> on incident from asset hints</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="10-risks-and-mitigations">10. Risks and mitigations<a class="headerlink" href="#10-risks-and-mitigations" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Risk</th>
+<th>Impact</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Zammad-shaped workflow payloads</td>
+<td>SN adapter complexity</td>
+<td>Adapter translation layer; later neutral <code>create_payload</code> schema</td>
+</tr>
+<tr>
+<td>Caller email not in <code>sys_user</code></td>
+<td>Create fails</td>
+<td>Pre-flight lookup; user-facing “contact your admin” message; optional auto-provision (off by default)</td>
+</tr>
+<tr>
+<td>Assignment group name mismatch</td>
+<td>Wrong queue</td>
+<td>Prefer <code>sys_id</code> in mapping; validation script</td>
+</tr>
+<tr>
+<td>Impact/urgency vs priority label</td>
+<td>Wrong priority</td>
+<td>Explicit mapping table in YAML; unit tests per label</td>
+</tr>
+<tr>
+<td>Instance OAuth variance</td>
+<td>Auth failures</td>
+<td>Support basic for dev; document OAuth setup per customer</td>
+</tr>
+<tr>
+<td>Rate limiting / transaction quotas</td>
+<td>Flaky E2E</td>
+<td>Retries + backoff; respect <code>Retry-After</code></td>
+</tr>
+<tr>
+<td>Multi-tenant instances</td>
+<td>Wrong domain data</td>
+<td><code>SERVICENOW_INSTANCE_URL</code> per deployment; no cross-instance logic</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="11-key-decisions-require-sign-off">11. Key decisions (require sign-off)<a class="headerlink" href="#11-key-decisions-require-sign-off" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Decision</th>
+<th>Recommendation</th>
+<th>Alternative</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>D1</td>
+<td>Record type</td>
+<td><strong>Incident</strong></td>
+<td><code>sc_request</code> for service catalog</td>
+</tr>
+<tr>
+<td>D2</td>
+<td>Search refactor</td>
+<td><strong>Neutral <code>search_criteria</code></strong></td>
+<td>Duplicate workflow per provider</td>
+</tr>
+<tr>
+<td>D3</td>
+<td>Auth for MVP</td>
+<td><strong>Basic</strong> on PDI/sandbox</td>
+<td>OAuth only (slower setup)</td>
+</tr>
+<tr>
+<td>D4</td>
+<td>Caller resolution</td>
+<td><strong>Lookup <code>sys_user</code> by email</strong></td>
+<td>Pass email in custom field (non-standard)</td>
+</tr>
+<tr>
+<td>D5</td>
+<td>Assignment group</td>
+<td><strong>Name with API lookup</strong></td>
+<td>sys_id only in mapping</td>
+</tr>
+<tr>
+<td>D6</td>
+<td>Client package</td>
+<td><strong>Separate <code>servicenow-client</code></strong></td>
+<td>Inline httpx in adapter</td>
+</tr>
+<tr>
+<td>D7</td>
+<td>Audit table</td>
+<td><strong>Generalize to <code>provider_operations</code></strong></td>
+<td>Separate <code>servicenow_operations</code> table</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="12-acceptance-criteria-mvp">12. Acceptance criteria (MVP)<a class="headerlink" href="#12-acceptance-criteria-mvp" title="Permanent link">&para;</a></h2>
+<ul>
+<li>[ ] <code>TICKETING_PROVIDER=servicenow</code> with valid credentials passes <code>configuration_error() == None</code></li>
+<li>[ ] Chat <code>CreateTicket</code> creates an incident; UI card shows ServiceNow <code>number</code> (e.g. <code>INC…</code>)</li>
+<li>[ ] Chat <code>CheckStatus</code> finds incident by number; status card shows state and assignment group</li>
+<li>[ ] Multi-match and no-match flows behave like Zammad (disambiguation / ask for number)</li>
+<li>[ ] Orchestration rejection still prevents any ServiceNow API call</li>
+<li>[ ] Unit tests cover client + adapter without live instance</li>
+<li>[ ] Zammad regression tests remain green</li>
+<li>[ ] External integration guide published</li>
+<li>[ ] No ServiceNow credentials in repo, mapping, or client-side code</li>
+</ul>
+<hr />
+<h2 id="13-effort-estimate">13. Effort estimate<a class="headerlink" href="#13-effort-estimate" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Duration (engineering days)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Phase 0 — Discovery</td>
+<td>1–2</td>
+</tr>
+<tr>
+<td>Phase 1 — Client package</td>
+<td>3–5</td>
+</tr>
+<tr>
+<td>Phase 2 — Adapter MVP</td>
+<td>3–4</td>
+</tr>
+<tr>
+<td>Phase 3 — Orchestration</td>
+<td>2–3</td>
+</tr>
+<tr>
+<td>Phase 4 — Agent/API</td>
+<td>1–2</td>
+</tr>
+<tr>
+<td>Phase 5 — Testing</td>
+<td>3–4</td>
+</tr>
+<tr>
+<td>Phase 6 — Docs</td>
+<td>1–2</td>
+</tr>
+<tr>
+<td><strong>Total MVP</strong></td>
+<td><strong>~14–22 days</strong> (one engineer; parallelizable)</td>
+</tr>
+</tbody>
+</table>
+<p>Phase 7 (audit) adds ~2–3 days.</p>
+<hr />
+<h2 id="14-related-documents">14. Related documents<a class="headerlink" href="#14-related-documents" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Document</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="../external/03-solution-architecture/">Solution Architecture</a></td>
+<td>As-built provider abstraction</td>
+</tr>
+<tr>
+<td><a href="../external/05-integration-guide-zammad/">Zammad Integration Guide</a></td>
+<td>Reference integration pattern</td>
+</tr>
+<tr>
+<td><a href="../external/appendices/C-capability-matrix/">Capability Matrix</a></td>
+<td>Feature status</td>
+</tr>
+<tr>
+<td><code>packages/ticketing/</code></td>
+<td>Gateway and adapters</td>
+</tr>
+<tr>
+<td><code>packages/zammad-client/</code></td>
+<td>Client package reference</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="document-control">Document control<a class="headerlink" href="#document-control" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Detail</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Version</strong></td>
+<td>1.0</td>
+</tr>
+<tr>
+<td><strong>Last updated</strong></td>
+<td>2026-06-09</td>
+</tr>
+<tr>
+<td><strong>Classification</strong></td>
+<td>Internal engineering strategy</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "navigation.indexes", "search.suggest", "search.highlight", "content.code.copy", "toc.follow"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://unpkg.com/mermaid@11/dist/mermaid.min.js"></script>
+      
+        <script src="../javascripts/mermaid-init.js"></script>
+      
+    
+  </body>
+</html>
