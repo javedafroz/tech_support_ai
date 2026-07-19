@@ -1,371 +1,272 @@
 # Tech Support AI
 
-Enterprise AI chat assistant for IT support. A **LangGraph** agent extracts intent from natural-language issues, offers classic-RAG self-help grounded in an Agent Handbook (**Qdrant** + citation-validated LLM), and creates validated tickets through a **deterministic policy/orchestration layer** on **Zammad** (or other providers via a pluggable adapter). Includes a React chat UI, admin SPA, and FastAPI backend.
+> Resolve IT issues before they become tickets.
 
-See [`docs/`](docs/) for internal engineering documents and [`docs/external/`](docs/external/) for customer- and partner-facing documentation.
+[![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
+[![Python 3.12+](https://img.shields.io/badge/python-3.12+-3776ab.svg)](https://www.python.org/)
+[![Node 20+](https://img.shields.io/badge/node-20+-339933.svg)](https://nodejs.org/)
+[![Docker Compose](https://img.shields.io/badge/run-docker%20compose-2496ed.svg)](https://docs.docker.com/compose/)
+
+**Tech Support AI** is an enterprise web chat assistant for IT support. Employees
+describe a problem in plain language; a [LangGraph](https://langchain-ai.github.io/langgraph/)
+agent understands the intent, offers grounded self-help from your own handbooks
+(classic RAG over [Qdrant](https://qdrant.tech/) with citation-validated LLM
+guidance), and — only if that doesn't resolve it — opens a well-formed ticket in
+[Zammad](https://zammad.com/) (or another help desk via a pluggable adapter).
+
+The guiding principle: **the LLM handles language; deterministic Python handles
+consequences.** Retrieval, policy, category→group routing, and ticket execution
+are auditable code — so a hallucination or prompt injection can never create,
+route, or escalate a ticket on its own.
+
+## Table of contents
+
+- [Features](#features)
+- [Quick start](#quick-start)
+- [How it works](#how-it-works)
+- [Configuration](#configuration)
+- [Architecture](#architecture)
+- [Documentation](#documentation)
+- [Testing](#testing)
+- [Roadmap](#roadmap)
+- [Contributing](#contributing)
+- [Security](#security)
+- [License](#license)
+- [Acknowledgements](#acknowledgements)
 
 ## Features
 
-| Capability | Status |
-| ---------- | ------ |
-| Web chat UI with session resume | Implemented |
-| Multi-turn conversational intake (OpenAI or mock LLM) | Implemented |
-| CreateTicket end-to-end (LLM → orchestration → Zammad) | Implemented |
-| CheckStatus (search tickets by number / customer) | Implemented |
-| **L1 handbook troubleshoot (KB/RAG)** | **Implemented** — feature-flagged (`KB_RAG_ENABLED`) |
-| **Admin KB** (upload / publish handbooks, Keycloak) | **Implemented** — `apps/admin` + `/api/v1/admin/kb/*` |
-| Thought streaming (live processing steps over SSE) | Implemented — toggle via `.env` |
-| Collapsible processing panel in UI | Implemented |
-| Provider abstraction (`zammad` live, `servicenow` stub) | Partial |
-| UpdateTicket, confirm-before-submit | Planned |
-| **Attachments** (upload, create ticket, add to active ticket) | **Implemented (v1)** |
+- **Conversational intake** — multi-turn natural-language triage that synthesizes
+  a ticket across the whole thread instead of forcing a form.
+- **L1 self-help (classic RAG)** — retrieves your published handbooks, presents a
+  grounded, empathetic troubleshooting step, and deflects the issue when the user
+  resolves it — no ticket created.
+- **Deterministic ticketing** — every ticket action passes a Python policy and
+  workflow layer before it reaches the help desk. Create and check-status flows
+  run end-to-end against Zammad today.
+- **Enriched escalations** — when self-help fails, the ticket arrives pre-triaged
+  with the steps attempted and the full transcript, so agents start ahead.
+- **Attachments & vision** — upload screenshots and logs; the model reads error
+  codes and on-screen text from images during the conversation.
+- **Admin knowledge base** — a dedicated SPA (Keycloak-secured) to upload, convert
+  (PDF→Markdown via [Docling](https://github.com/docling-project/docling)),
+  publish, and search handbooks.
+- **Live processing view** — optional SSE "thought streaming" surfaces the agent's
+  steps in a collapsible panel in the chat UI.
+- **Pluggable providers** — swap the LLM (OpenAI / Azure OpenAI / Anthropic) and
+  the ticketing backend (Zammad live; ServiceNow adapter stubbed) via config.
+- **Runs offline** — a mock LLM and in-memory backends let the full stack and test
+  suite run with no external API keys.
 
-### How it works
+## Quick start
 
-```text
-User (web chat)
-    → FastAPI
-    → LangGraph support_graph
-         conversation (LLM — intent + slot filling)
-         troubleshoot (optional — classic RAG: retrieve handbook chunks + grounded LLM guidance)
-         orchestrate (Python — policy + workflow, no LLM)
-         ticket_tool (Zammad REST API)
-         respond
-    → Assistant reply + ticket card (or deflection if self-help resolved)
-```
+The whole stack runs with Docker Compose. Full walkthrough and smoke tests:
+[docs/external/00-quick-start.md](docs/external/00-quick-start.md).
 
-**Design principle:** the LLM handles language and grounded troubleshooting presentation. Handbook retrieval, citation validation, policy, category→group mapping, and ticket execution are deterministic and auditable.
+### Prerequisites
 
-## Prerequisites
-
-| Requirement | Detail |
-| ----------- | ------ |
-| **Zammad (required)** | Instance up and reachable with REST API + token. See [Zammad Integration Guide](docs/external/05-integration-guide-zammad.md). |
-| Docker Desktop (or Docker Engine) with Compose | Latest stable |
-| OpenAI API key | When not using `GRAPH_LLM_MODE=mock` |
+| Requirement | Notes |
+| ----------- | ----- |
+| **Zammad (required)** | A reachable Zammad instance with a REST API token — the product does not complete ticket flows without it. See the [Zammad integration guide](docs/external/05-integration-guide-zammad.md). |
+| Docker Desktop / Engine with Compose | Latest stable |
+| OpenAI API key | Needed unless you run with `GRAPH_LLM_MODE=mock` |
 | [uv](https://docs.astral.sh/uv/) or Python 3.12+ | Host tooling for `make install` / `make seed-kb` |
 | Node.js 20+ | Host tooling for `make install` |
 
-## Quick start (< 15 minutes)
-
-**One path:** full stack via Docker Compose. Details and smoke tests: [docs/external/00-quick-start.md](docs/external/00-quick-start.md).
+### Run it
 
 ```bash
 cp .env.example .env
-# Required: Zammad must already be running — set ZAMMAD_BASE_URL + ZAMMAD_API_TOKEN
-# Required: KB_RAG_ENABLED=true
-# Required for live LLM: OPENAI_API_KEY (or GRAPH_LLM_MODE=mock)
+# Set these in .env before starting:
+#   ZAMMAD_BASE_URL, ZAMMAD_API_TOKEN   (required)
+#   KB_RAG_ENABLED=true                 (enables L1 self-help; ships as false)
+#   OPENAI_API_KEY                      (or GRAPH_LLM_MODE=mock for offline)
 
 docker compose up -d --build
 make install
-make seed-kb
+make seed-kb          # ingest + publish the sample handbooks
 ```
 
-| App | URL |
-| --- | --- |
-| Web chat | http://localhost:5173 |
-| Admin KB | http://localhost:5174 (`kb-admin` / `admin`) |
-| API docs | http://localhost:8000/docs |
-| Docs site | http://localhost:8088 |
+| App | URL | Notes |
+| --- | --- | ----- |
+| Web chat | http://localhost:5173 | Uses `X-User-Id` (e.g. `you@example.com`) |
+| Admin KB | http://localhost:5174 | Keycloak login `kb-admin` / `admin` |
+| API docs | http://localhost:8000/docs | OpenAPI / Swagger UI |
+| Docs site | http://localhost:8088 | MkDocs |
+
+Verify the API is healthy:
 
 ```bash
 curl http://localhost:8000/health/live
 curl http://localhost:8000/health/ready
 ```
 
-Chat uses `X-User-Id: dev-user@company.com`. Admin KB uses Keycloak (not `X-User-Id`).
+Then open the chat and try: *"My VPN keeps disconnecting after about 30 seconds."*
+With a matching handbook published, the agent guides a fix first and only opens a
+ticket if you say it didn't work.
+
+## How it works
+
+```text
+User (web chat)
+    → FastAPI
+    → LangGraph support graph
+         conversation   LLM — intent detection + slot filling
+         troubleshoot   classic RAG — retrieve handbook chunks + grounded guidance
+         orchestrate    Python — policy + workflow (no LLM)
+         ticket_tool    Zammad REST API
+         respond        assistant reply + ticket card
+    → Reply, or a deflection when self-help resolved the issue
+```
+
+The LLM produces language and grounded troubleshooting; handbook retrieval,
+citation validation, policy checks, category→group mapping, and ticket execution
+are deterministic and auditable.
+
+| Node | Role |
+| ---- | ---- |
+| `conversation` | Structured-output NLU — clarifying questions and a typed intent |
+| `troubleshoot` | Retrieve the published handbook, guide one grounded step, then deflect or escalate (enabled by `KB_RAG_ENABLED`) |
+| `orchestrate` | Policy validation + workflow command building (pure Python) |
+| `ticket_tool` | Execute approved commands against the ticketing provider |
+| `respond` | Format the assistant reply and UI cards |
 
 ## Configuration
 
-Key variables in `.env` (see [`.env.example`](.env.example) for the full list):
+Copy [`.env.example`](.env.example) to `.env` — it documents every setting. The
+most common ones:
 
 ```env
-# LangGraph agent
-GRAPH_ENABLED=true
-GRAPH_LLM_MODE=openai          # mock = offline; any other value enables LLM
-LLM_PROVIDER=openai            # openai | azure_openai | anthropic (default: openai)
+GRAPH_LLM_MODE=openai          # "mock" runs offline with no API key
+LLM_PROVIDER=openai            # openai | azure_openai | anthropic
 OPENAI_API_KEY=sk-...
 OPENAI_MODEL=gpt-4o-mini
 
-# Azure OpenAI (when LLM_PROVIDER=azure_openai)
-# AZURE_OPENAI_API_KEY=...
-# AZURE_OPENAI_ENDPOINT=https://your-resource.openai.azure.com
-# AZURE_OPENAI_DEPLOYMENT=gpt-4o-mini
+KB_RAG_ENABLED=true            # enable L1 handbook self-help (ships as false)
+VECTOR_BACKEND=qdrant          # "memory" for offline/tests
+EMBEDDING_PROVIDER=openai      # "hash" for offline/tests
 
-# Anthropic (when LLM_PROVIDER=anthropic)
-# ANTHROPIC_API_KEY=...
-# ANTHROPIC_MODEL=claude-3-5-haiku-latest
-
-# Thought streaming — live "Processing" steps in the chat UI (SSE)
-THOUGHT_STREAMING_ENABLED=true
-
-# L1 KB / RAG (optional guided self-help before CreateTicket)
-KB_RAG_ENABLED=false
-VECTOR_BACKEND=qdrant
-QDRANT_URL=http://localhost:6333
-EMBEDDING_PROVIDER=openai      # hash = offline/tests
-KB_HANDBOOK_STORAGE_BACKEND=memory
-
-# Admin Keycloak (handbook SPA + /api/v1/admin/kb/*)
-KEYCLOAK_URL=http://localhost:8081
-KEYCLOAK_REALM=tech-support
-
-# Ticketing provider
 TICKETING_PROVIDER=zammad      # zammad | servicenow (stub)
 ZAMMAD_BASE_URL=https://your-zammad.example.com
 ZAMMAD_API_TOKEN=...
 ```
 
-| Variable | Purpose |
-| -------- | ------- |
-| `GRAPH_LLM_MODE=mock` | Offline dev/tests — no LLM API key required |
-| `LLM_PROVIDER` | `openai` (default), `azure_openai`, or `anthropic` |
-| `THOUGHT_STREAMING_ENABLED` | Enables `POST .../messages/stream` (SSE); UI reads this from `/api/v1/config/public` |
-| `VITE_THOUGHT_STREAMING_ENABLED=false` | Optional UI-only override to force-disable streaming |
-| `GRAPH_CHECKPOINT=true` | Optional Postgres checkpointer for LangGraph state |
-| `KB_RAG_ENABLED` | Enable troubleshoot node (classic RAG guidance before ticket) |
-| `KB_RAG_MAX_CONTEXT_CHARS` | Cap on retrieved handbook text passed into the RAG prompt |
-| `KB_MIN_SCORE` | Retrieval similarity threshold (default `0.35`) |
-| `QDRANT_URL` / `EMBEDDING_*` | Vector store and embeddings for handbook retrieval |
-| `KB_INCLUDE_CHAT_TRANSCRIPT_IN_TICKET` | Append chat transcript when escalating to CreateTicket |
-| `KB_MAX_TROUBLESHOOT_STEPS` | Config ceiling; runtime still guides **one** step then escalate |
+Notable flags: `GRAPH_LLM_MODE=mock` (no API key needed),
+`THOUGHT_STREAMING_ENABLED` (live processing view), and the `KB_*` retrieval
+tuning knobs. Category and group routing lives in
+[`config/providers/zammad/mapping.yaml`](config/providers/zammad/mapping.yaml).
 
-**Local Zammad on host:** use `http://localhost:8080` when running `make api` on the host. Docker Compose rewrites `localhost` → `host.docker.internal` automatically.
+> **Running the API on the host** (via `make api`): point `ZAMMAD_BASE_URL` at
+> `http://localhost:8080`. Docker Compose rewrites `localhost` →
+> `host.docker.internal` automatically.
 
-Category and group mapping: [`config/providers/zammad/mapping.yaml`](config/providers/zammad/mapping.yaml)
-
-## Repository layout
+## Architecture
 
 ```text
 apps/
-  api/              FastAPI BFF, Alembic migrations, chat + graph + admin KB endpoints
+  api/              FastAPI backend — Alembic migrations, chat + graph + admin KB endpoints
   web/              React + Vite chat UI
   admin/            React + Vite handbook admin SPA (Keycloak)
 packages/
-  agents/           LangGraph support_graph + LLMGateway + troubleshoot node
+  agents/           LangGraph support graph, LLM gateway, troubleshoot node
   knowledge/        Ingest, chunking, embeddings, Qdrant/memory store, Docling
-  orchestration/    PolicyValidator, WorkflowEngine, OrchestrationEngine
+  orchestration/    Policy validator, workflow engine, orchestration engine
   ticketing/        Provider gateway (Zammad adapter, ServiceNow stub)
   zammad-client/    Zammad HTTP client
+  storage/          S3-compatible object storage (attachments, handbooks)
   shared/           JSON schemas, reason codes
-config/
-  providers/zammad/mapping.yaml
-  providers/servicenow/mapping.yaml
-  knowledge/        Sample Agent Handbooks (Markdown)
-  keycloak/         Local realm import for admin roles
-docs/               Architecture, FSD, external pack, KB strategy
-tests/integration/  Live OpenAI + Zammad + AI User Simulator
-e2e/                Playwright browser tests (mock LLM + Wiremock)
-scripts/            create_ticket CLI, seed_kb, Zammad sandbox E2E
+config/             Provider mappings, sample handbooks, Keycloak realm
+docs/               Architecture, functional spec, guides, KB/RAG strategy
+tests/integration/  Live OpenAI + Zammad tests with an AI user simulator
+e2e/                Playwright browser tests (mock LLM + Wiremock Zammad)
+scripts/            create-ticket CLI, KB seeder, Zammad sandbox runner
 ```
 
-## Development commands
+Common tasks are wrapped in the `Makefile`:
 
 | Command | Description |
 | ------- | ----------- |
-| `make up` | Start Postgres, Redis, MinIO, Qdrant, Keycloak |
-| `make up-kb` | Start Postgres, Redis, Qdrant, Keycloak (no MinIO) |
-| `make up-all` | Full Compose stack (api, web, admin, docs, infra) |
-| `make migrate` | Apply Alembic migrations (includes KB tables) |
-| `make seed-kb` | Ingest + publish sample handbooks from `config/knowledge/` |
-| `make api` | Run FastAPI (reload in dev) |
-| `make web` | Run Vite chat UI |
-| `make admin` | Run Admin SPA (handbooks) at http://localhost:5174 |
-| `make test` | pytest + vitest |
-| `make test-live` | Live OpenAI + Zammad integration (API, with logging) |
-| `make test-live-ui` | Same tests in **visible browser** |
-| `make e2e` | Playwright E2E (mock LLM + Wiremock Zammad) |
-| `make e2e-ui` | Playwright interactive UI mode |
+| `make up` | Start infra (Postgres, Redis, MinIO, Qdrant, Keycloak) |
+| `make install` | Install Python (uv) + web/admin npm dependencies |
+| `make migrate` | Apply database migrations |
+| `make seed-kb` | Ingest and publish the sample handbooks |
+| `make api` / `make web` / `make admin` | Run each service in dev mode |
+| `make test` | Run the unit/integration suite (pytest + vitest) |
+| `make e2e` | Playwright browser tests (mock LLM + Wiremock) |
 | `make lint` | ruff + eslint |
-| `make docs` | MkDocs dev server at http://127.0.0.1:8088 (or `docker compose up -d docs`) |
-| `make docs-build` | Build static docs to `site/` |
-| `make create-ticket` | CLI create-ticket via orchestration + Zammad |
+| `make docs` | Serve the docs site locally |
 
-## API
+The REST API is documented interactively at `/docs` when the API is running; a
+[Postman collection](docs/postman/Tech-Support-AI.postman_collection.json) and an
+[API reference](docs/external/07-api-overview.md) are also included.
 
-| Method | Path | Description |
-| ------ | ---- | ----------- |
-| GET | `/health/live` | Liveness |
-| GET | `/health/ready` | Readiness (Postgres + Redis) |
-| GET | `/api/v1/config/public` | Public feature flags (e.g. thought streaming) |
-| GET | `/api/v1/chat/sessions` | List recent sessions for user |
-| POST | `/api/v1/chat/sessions` | Create session (`X-User-Id` or `Bearer` JWT) |
-| GET | `/api/v1/chat/sessions/{id}` | Get session |
-| GET | `/api/v1/chat/sessions/{id}/context` | Redis session context |
-| GET | `/api/v1/chat/sessions/{id}/messages` | Paginated message history |
-| POST | `/api/v1/chat/sessions/{id}/messages` | Send message (REST response) |
-| POST | `/api/v1/chat/sessions/{id}/messages/stream` | Send message with SSE thought streaming |
-| POST | `/api/v1/chat/sessions/{id}/graph/invoke` | Stateless graph turn (no persistence) |
-| * | `/api/v1/admin/kb/*` | Handbook admin API (Keycloak Bearer; `kb_editor` / `kb_admin`) |
+## Documentation
 
-Admin KB routes: list/upload/publish/reindex/search preview — see [`docs/external/07-api-overview.md`](docs/external/07-api-overview.md).
+| Document | Description |
+| -------- | ----------- |
+| [Quick start](docs/external/00-quick-start.md) | Get running in under 15 minutes |
+| [Solution overview](docs/external/01-executive-solution-overview.md) | Capabilities and value at a glance |
+| [Solution architecture](docs/solution-architecture.md) | As-built architecture with diagrams |
+| [API reference](docs/external/07-api-overview.md) | REST API (chat + admin KB) |
+| [Zammad integration guide](docs/external/05-integration-guide-zammad.md) | Connecting a Zammad instance |
+| [KB/RAG L1 agent strategy](docs/kb-rag-l1-agent-strategy.md) | Deep dive on the self-help design |
+| [Provider abstraction](docs/provider-abstraction-strategy.md) | Pluggable ticketing design |
+| [Live integration test strategy](docs/test-strategy-live-integration.md) | The AI-user-simulator harness |
 
-Postman collection: [`docs/postman/Tech-Support-AI.postman_collection.json`](docs/postman/Tech-Support-AI.postman_collection.json)
-
-**Session persistence:** the web UI stores `session_id` in `localStorage` and resumes on refresh.
-
-**Thought streaming:** when enabled, the UI calls the `/messages/stream` endpoint. Processing steps (`Thinking…`, `Applying support rules…`, `Creating ticket…`, etc.) appear in a collapsible panel that auto-collapses when the turn completes.
-
-## AI agent (`support_graph`)
-
-LangGraph nodes:
-
-| Node | Role |
-| ---- | ---- |
-| `conversation` | OpenAI structured output — NLU, clarifying questions, `StructuredIntent` |
-| `troubleshoot` | KB/RAG — retrieve published handbook, guide **one** step, deflect or escalate to CreateTicket (`KB_RAG_ENABLED`) |
-| `orchestrate` | Policy validation + workflow command building (pure Python) |
-| `ticket_tool` | Execute approved commands against the ticketing provider |
-| `respond` | Format assistant reply and UI cards |
-
-Supported intents today:
-
-| Intent | LLM detection | End-to-end execution |
-| ------ | ------------- | -------------------- |
-| CreateTicket | Yes | Yes |
-| CheckStatus | Yes | Yes (search tickets) |
-| UpdateTicket, EscalateIssue, CancelTicket | Yes (prompt) | Not yet |
-| **AddAttachment** | Yes (file upload + active ticket) | **Yes** |
-
-Multi-turn intake hydrates conversation history from Redis (with Postgres fallback) on each turn so the LLM can synthesize facts across the full thread.
-
-Use `GRAPH_LLM_MODE=mock` for offline tests, E2E, and local dev without an API key.
-
-## Create ticket (CLI)
+Browse the full set with MkDocs:
 
 ```bash
-make migrate
-export ZAMMAD_BASE_URL=https://your-zammad.example.com
-export ZAMMAD_API_TOKEN=your-api-token
-make create-ticket ARGS='--email john@company.com --title "VPN issue" --description "Cannot connect" --category network --priority high'
-```
-
-Dry-run (orchestration only):
-
-```bash
-.venv/bin/python scripts/create_ticket.py --dry-run --email john@company.com --title "VPN" --description "Test"
+make docs          # serve at http://127.0.0.1:8088
 ```
 
 ## Testing
 
-### Unit / integration (default)
-
 ```bash
-make test
+make test          # pytest (API, agents, orchestration, ticketing) + vitest (web)
+make e2e           # Playwright browser tests — mock LLM + Wiremock, no keys needed
 ```
 
-Runs pytest (API, agents, orchestration, ticketing) and vitest (web).
-
-### E2E (Playwright)
-
-Fully automated browser tests. Uses **mock LLM** and **Wiremock** for Zammad — no OpenAI or sandbox credentials required.
-
-```bash
-make e2e
-# Interactive debugger: make e2e-ui
-```
-
-Docker Compose starts Postgres, Redis, and Wiremock; Playwright starts the API (`:8010`) and chat Vite (`:5175` by default, via `E2E_WEB_PORT`) so it does not clash with Admin (`:5174`).
-
-### Live integration (OpenAI + Zammad)
-
-Ten multi-turn scenarios using **real OpenAI**, **real Zammad**, and an **AI User Simulator** that role-plays an employee — no scripted follow-ups.
-
-Strategy: [`docs/test-strategy-live-integration.md`](docs/test-strategy-live-integration.md)
+Live integration tests exercise the real graph against real OpenAI and Zammad
+using an AI "user simulator" that role-plays an employee across multi-turn
+scenarios:
 
 ```bash
 docker compose up -d postgres redis
 make migrate
-make test-live          # API-only, headless
-make test-live-ui       # visible Chromium
+make test-live     # headless; make test-live-ui for a visible browser
 ```
 
-Required `.env`: `OPENAI_API_KEY`, `ZAMMAD_BASE_URL`, `ZAMMAD_API_TOKEN`, `ZAMMAD_TEST_EMAIL`, `GRAPH_ENABLED=true`, `GRAPH_LLM_MODE=openai`.
+Live runs require `OPENAI_API_KEY`, `ZAMMAD_BASE_URL`, `ZAMMAD_API_TOKEN`, and
+`ZAMMAD_TEST_EMAIL`, take several minutes, and incur OpenAI API cost. See the
+[live test strategy](docs/test-strategy-live-integration.md).
 
-Transcripts: `tests/integration/artifacts/` (gitignored). Expect several minutes runtime and OpenAI API cost.
+## Roadmap
 
-## Implementation status
+- Confirm-before-submit (human-in-the-loop approval before ticket creation)
+- Remaining ticket intents end-to-end: update, escalate, cancel
+- A production-ready ServiceNow adapter alongside Zammad
 
-Demo completion target is **Sprint 10** — all six FSD intents in sandbox.
+## Contributing
 
-| Sprint / milestone | Status |
-| ------------------ | ------ |
-| Foundation (monorepo, Docker, sessions, chat UI) | Complete |
-| Redis context, auth stub, orchestration, Zammad client | Complete |
-| LangGraph `support_graph`, CreateTicket E2E | Complete |
-| OpenAI structured intent extraction | Complete |
-| Multi-turn history hydration | Complete |
-| Thought streaming (SSE) + collapsible UI panel | Complete |
-| CheckStatus via ticket search | Complete |
-| Ticketing provider abstraction (Zammad + ServiceNow stub) | Partial |
-| Confirm-before-submit, remaining intents | Planned (Sprints 7–10) |
-| Attachments (MinIO/S3 → Zammad) | **v1 shipped** — see below |
-| L1 handbook troubleshoot + Admin KB (Qdrant, Keycloak) | **Shipped** — see below |
+Contributions are welcome. Please read [CONTRIBUTING.md](CONTRIBUTING.md) for the
+development workflow, coding standards, and how to run the checks, and note our
+[Code of Conduct](CODE_OF_CONDUCT.md).
 
-### L1 handbook troubleshoot (KB/RAG)
+## Security
 
-When `KB_RAG_ENABLED=true` and a **published** handbook matches the user’s support issue:
-
-1. Graph runs `troubleshoot` before CreateTicket slot-filling
-2. Assistant retrieves handbook chunks and synthesizes adaptive grounded steps (empathetic copy; no handbook name)
-3. User resolves → deflection (no ticket); fails / escalates → CreateTicket immediately with optional transcript enrichment
-
-Handbooks are ingested via Docling (PDF→Markdown), chunked/embedded into Qdrant, and stored via S3-compatible object storage (`CEPH_RGW_*` — Ceph RGW in production; Compose may use MinIO with a dedicated `agent-handbooks` bucket; `memory` for host-run seed). Manage via Admin SPA (`make admin`) or `make seed-kb`.
-
-On escalate, the **ticket description** may include “Handbook consulted” plus steps and transcript for agents — chat UI copy still never shows handbook names.
-
-Deep dive: [`docs/kb-rag-l1-agent-strategy.md`](docs/kb-rag-l1-agent-strategy.md)
-
-### Attachments (v1)
-
-1. Click **📎** in the composer, select file(s) — uploaded to MinIO/S3 via `POST /api/v1/chat/sessions/{id}/attachments`
-2. Send your message — files are linked to the user message
-3. **New ticket:** attachments are included on the initial Zammad article when the ticket is created
-4. **Active ticket:** files are attached via `AddAttachment` (no LLM required)
-5. **Images (screenshots):** OpenAI vision reads error codes and on-screen text from attached images during the conversation — you do not need to re-type what is visible in the screenshot
-
-Limits: 10 MB per file, 5 files per message. Blocked types: executables/scripts.
-
-Requires MinIO (`make up`) and `S3_*` env vars (see `.env.example`).
-
-Detailed architecture: [`docs/solution-architecture.md`](docs/solution-architecture.md)
-
-## Documentation
-
-### External (customer / partner)
-
-Share [`docs/external/`](docs/external/) with evaluators, architects, and integrators — or browse via **MkDocs**:
-
-```bash
-make docs          # serve at http://127.0.0.1:8088
-make docs-build    # static site in site/
-```
-
-Start with the [Quick Start](docs/external/00-quick-start.md) or [Executive Overview](docs/external/01-executive-solution-overview.md).
-
-| Document | Description |
-| -------- | ----------- |
-| [`docs/external/README.md`](docs/external/README.md) | Index of all external documents (v1.3) |
-| [`docs/external/00-quick-start.md`](docs/external/00-quick-start.md) | Get running in under 15 minutes |
-| [`docs/external/01-executive-solution-overview.md`](docs/external/01-executive-solution-overview.md) | Business value and capability summary |
-| [`docs/external/07-api-overview.md`](docs/external/07-api-overview.md) | REST API reference (chat + admin KB) |
-| [`docs/external/05-integration-guide-zammad.md`](docs/external/05-integration-guide-zammad.md) | Zammad sandbox setup |
-| [`docs/external/appendices/C-capability-matrix.md`](docs/external/appendices/C-capability-matrix.md) | Capability status matrix |
-
-### Internal engineering
-
-| Document | Description |
-| -------- | ----------- |
-| [`docs/functional-document.md`](docs/functional-document.md) | Functional requirements |
-| [`docs/technical-strategy.md`](docs/technical-strategy.md) | Stack and component boundaries |
-| [`docs/solution-architecture.md`](docs/solution-architecture.md) | As-built architecture |
-| [`docs/kb-rag-l1-agent-strategy.md`](docs/kb-rag-l1-agent-strategy.md) | KB/RAG L1 agent design (deep dive) |
-| [`docs/provider-abstraction-strategy.md`](docs/provider-abstraction-strategy.md) | Ticketing provider plug-in design |
-| [`docs/test-strategy-live-integration.md`](docs/test-strategy-live-integration.md) | Live integration test harness |
+Please do not open public issues for security vulnerabilities. See
+[SECURITY.md](SECURITY.md) for how to report them responsibly.
 
 ## License
 
 Copyright 2026 Tech Support AI contributors.
 
 Licensed under the [Apache License 2.0](LICENSE). See [NOTICE](NOTICE) for
-attribution information.
+attribution details.
+
+## Acknowledgements
+
+Built with [LangGraph](https://langchain-ai.github.io/langgraph/),
+[FastAPI](https://fastapi.tiangolo.com/), [React](https://react.dev/),
+[Qdrant](https://qdrant.tech/), [Docling](https://github.com/docling-project/docling),
+[Keycloak](https://www.keycloak.org/), and [Zammad](https://zammad.com/).
