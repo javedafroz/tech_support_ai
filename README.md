@@ -1,6 +1,6 @@
 # Tech Support AI
 
-Enterprise web chat assistant for IT support ticket management. Employees describe issues in natural language; a **LangGraph** agent extracts structured intent, a **deterministic orchestration layer** validates business rules, and approved actions execute against **Zammad** (or other ticketing providers via a pluggable adapter).
+Enterprise AI chat assistant for IT support. A **LangGraph** agent extracts intent from natural-language issues, offers classic-RAG self-help grounded in an Agent Handbook (**Qdrant** + citation-validated LLM), and creates validated tickets through a **deterministic policy/orchestration layer** on **Zammad** (or other providers via a pluggable adapter). Includes a React chat UI, admin SPA, and FastAPI backend.
 
 See [`docs/`](docs/) for internal engineering documents and [`docs/external/`](docs/external/) for customer- and partner-facing documentation.
 
@@ -362,3 +362,10 @@ Start with the [Quick Start](docs/external/00-quick-start.md) or [Executive Over
 | [`docs/kb-rag-l1-agent-strategy.md`](docs/kb-rag-l1-agent-strategy.md) | KB/RAG L1 agent design (deep dive) |
 | [`docs/provider-abstraction-strategy.md`](docs/provider-abstraction-strategy.md) | Ticketing provider plug-in design |
 | [`docs/test-strategy-live-integration.md`](docs/test-strategy-live-integration.md) | Live integration test harness |
+
+## License
+
+Copyright 2026 Tech Support AI contributors.
+
+Licensed under the [Apache License 2.0](LICENSE). See [NOTICE](NOTICE) for
+attribution information.

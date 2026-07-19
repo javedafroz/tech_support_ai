@@ -1,0 +1,58 @@
+# macOS and editors
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Environment files and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+.python-version
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+.coverage.*
+htmlcov/
+build/
+dist/
+*.egg-info/
+
+# Node.js
+node_modules/
+.npm/
+.yarn/
+.pnpm-store/
+*.tsbuildinfo
+.vite/
+coverage/
+
+# Frontend and documentation builds
+apps/web/dist/
+apps/admin/dist/
+site/
+
+# Test artifacts
+playwright-report/
+test-results/
+blob-report/
+tests/integration/artifacts/
+
+# Logs and runtime files
+*.log
+*.pid
+*.sqlite
+*.sqlite3
+tmp/
+temp/

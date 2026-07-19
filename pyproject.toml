@@ -3,6 +3,7 @@ name = "tech-support-ai"
 version = "0.1.0"
 description = "Tech Support AI — Zammad-integrated web chat"
 readme = "README.md"
+license = "Apache-2.0"
 requires-python = ">=3.12"
 
 [tool.uv]

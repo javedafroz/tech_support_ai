@@ -2,6 +2,7 @@
 name = "tech-support-storage"
 version = "0.1.0"
 description = "Object storage for chat attachments (S3/MinIO)"
+license = "Apache-2.0"
 requires-python = ">=3.12"
 dependencies = [
   "boto3>=1.35.0",

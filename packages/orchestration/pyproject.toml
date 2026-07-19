@@ -2,6 +2,7 @@
 name = "tech-support-orchestration"
 version = "0.1.0"
 description = "Policy validator and workflow engine (Sprint 3+)"
+license = "Apache-2.0"
 requires-python = ">=3.12"
 dependencies = [
   "tech-support-shared",
